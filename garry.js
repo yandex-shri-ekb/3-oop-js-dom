@@ -8,12 +8,19 @@
             },
             self = {
                 eat: function (text) {
+                    console.log(dict);
                     buildDictionary(text);
                     return self;
                 },
 
                 poo: function () {
                     return getText();
+                },
+
+                flush: function () {
+                    dict = {};
+                    intros = [];
+                    return self;
                 }
             };
 
@@ -78,11 +85,12 @@
         }
 
         function getNextToken(word1, word2) {
+            console.log(dict);
             return getRandomToken(dict[word1 + '+' + word2]);
         }
 
         function getRandomIntro() {
-            return intros[Math.round(Math.random() * intros.length)];
+            return intros[Math.round(Math.random() * (intros.length - 1))];
         }
 
         function getText() {

@@ -5,7 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="sample">Шалтай-Болтай Сидел на стене. Шалтай-Болтай Свалился во сне. Вся королевская конница, Вся королевская рать Не может Шалтая, Не может Болтая, Шалтая-Болтая, Болтая-Шалтая, Шалтая-Болтая собрать!</div>
+    <textarea class="sample" cols="80" rows="10">Шалтай-Болтай Сидел на стене. Шалтай-Болтай Свалился во сне. Вся королевская конница, Вся королевская рать Не может Шалтая, Не может Болтая, Шалтая-Болтая, Болтая-Шалтая, Шалтая-Болтая собрать!</textarea>
     <button>Обновить</button>
     <div class="result"></div>
 
@@ -16,13 +16,12 @@
             length: 10
         });
 
-        articleGarry.eat($('.sample').text());
-
         $('button').click(function () {
-            $('.result').text(articleGarry.poo());
-        }).trigger('click');
+            var sample = $('.sample').val(),
+                result = articleGarry.flush().eat(sample).poo();
 
-        console.log(mytext);
+            $('.result').text(result);
+        }).trigger('click');
     </script>
 </body>
 </html>
