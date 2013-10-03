@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div class="sample">Шалтай-Болтай Сидел на стене. Шалтай-Болтай Свалился во сне. Вся королевская конница, Вся королевская рать Не может Шалтая, Не может Болтая, Шалтая-Болтая, Болтая-Шалтая, Шалтая-Болтая собрать!</div>
+    <button>Обновить</button>
+    <div class="result"></div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="garry.js"></script>
+    <script>
+        var articleGarry = new Garry({
+            length: 10
+        });
+
+        articleGarry.eat($('.sample').text());
+
+        $('button').click(function () {
+            $('.result').text(articleGarry.poo());
+        }).trigger('click');
+
+        console.log(mytext);
+    </script>
+</body>
+</html>
