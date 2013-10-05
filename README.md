@@ -14,6 +14,4 @@
     );
 ```
 
-В код пока что лучше не заглядывать.
-
 Поиграться можно [здесь](https://rawgithub.com/sameoldmadness/3-oop-js-dom/master/index.html).
