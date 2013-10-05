@@ -13,7 +13,7 @@ header
 
 article
 {
-    margin: 70px 0 0 40px;
+    margin: 70px 40px 40px;
     width: 880px;
 }
 
@@ -28,17 +28,15 @@ h1
 h4
 {
     color: #999;
-    font: 140% Verdana,sans-serif;
+    font: 140% Verdana, sans-serif;
     margin: 20px 0;
     padding: 0;
 }
 
 p
 {
-    font-size: 13px;
     margin: 0 0 10px;
-    line-height: 160%;
-    font-family: Verdana, sans-serif;
+    font: 13px/160% Verdana, sans-serif;
 }
 
 .tags
