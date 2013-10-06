@@ -36,8 +36,8 @@ var Bred = function(data) {
 
     // Словари
     this.dic = {
-        comments : new Dic, // для текста статьи
-        articles : new Dic  // для комментариев
+        comments : new Dic, // для комментариев
+        articles : new Dic  // для текста статьи
     };
 
     // Используемые никнеймы и примеры кода
@@ -169,11 +169,10 @@ Bred.prototype.writeComments = function(count) {
 
 // Возвращает HTML-элемент комментария
 Bred.prototype.writeComment = function(author, time, text) {
-    var $comment = $('#bred-comment').clone().removeAttr('id')
+    return $('#bred-comment').clone().removeAttr('id')
         .find('.username').text(author).end()
         .find('time').text(time).end()
         .find('.message').text(text).end();
-    return $comment;
 }
 
 // Придумывает заголовок к статье
