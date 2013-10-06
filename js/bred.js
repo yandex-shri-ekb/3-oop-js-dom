@@ -215,7 +215,7 @@ Bred.prototype.writeArticleAuthor = function() {
 // Ищет и вставляет первое найденное по заросу изображение
 Bred.prototype.insertImage = function(query) {
 
-    $.ajax('http://ajax.googleapis.com/ajax/services/search/images', {
+    $.ajax('//ajax.googleapis.com/ajax/services/search/images', {
         crossDomain : true,
         data : {
             v : '1.0',
