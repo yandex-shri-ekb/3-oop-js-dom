@@ -10,11 +10,11 @@ var Bred = function(data) {
 
     // HTML-элементы, куда записывать результаты
     this.output = {
-        article  : $(data.output.article),
-        title    : $(data.output.title),
-        comments : $(data.output.comments),
-        author   : $(data.output.author),
-        pubdate  : $(data.output.pubdate),
+        article       : $(data.output.article),
+        title         : $(data.output.title),
+        comments      : $(data.output.comments),
+        author        : $(data.output.author),
+        pubdate       : $(data.output.pubdate),
         commentsCount : $(data.output.commentsCount)
     };
 
@@ -49,10 +49,6 @@ var Bred = function(data) {
     // Дата создания поста
     this.pubDate = randomInt(1100000000000, (new Date()).getTime());
 
-    // Количества слов в комментариях
-    // количество слов : количество комментариев с таким количеством
-    this.wordsInComments = {};
-
     this.init();
 }
 
@@ -75,9 +71,6 @@ Bred.prototype.init = function() {
         // удаляем из статьи комментарии и передаём её текст на обработку
         this.parseArticleText($article.find('section').remove().end());
     }
-
-    // вычисляем среднее количество слов в комментариях
-    // this.wordsInComments = this.analizeResults(this.wordsInComments);
 
     this.writeArticleTitle();                   // придумываем заголовок
     this.writeArticleText();                    // текст статьи
@@ -108,10 +101,6 @@ Bred.prototype.parseComment = function(comment) {
     $message = this.cleanText($message.text());
     // разбиваем по словам
     var words = $message.split(' ');
-
-    // Ведём статистику
-    this.wordsInComments[words.length] =
-        (this.wordsInComments[words.length] === undefined ? 1 : ++this.wordsInComments[words.length]);
 
     // добавляем эти слова в словарь
     this.dic.comments.add(words, this.npref);
@@ -165,9 +154,9 @@ Bred.prototype.writeComments = function(count) {
     var lastActivityTime = this.pubDate;
 
     for (var i = 0; i < count; i++) {
-        var author = this.getRandomNickname();
         lastActivityTime += randomInt(0, 110000000);
         var time = this.formatDate(new Date(lastActivityTime));
+        var author = this.getRandomNickname();
         var text = this.writeText(this.settings.words.min, this.settings.words.max * 8, this.dic.comments);
         text = this.cleanTextAfter(text);
         comments.push(this.writeComment(author, time, text));
@@ -267,35 +256,35 @@ Bred.prototype.cleanText = function(text) {
     text = text.replace(/(?:(?:https?|ftp):\/\/)*(?:www.|ftp.)*[А-я\w.-]+\.[A-z]{2,4}/gi, '');
 
     // Заменяем несколько знаков препинания на один
-    text = text.replace(/([!?.,:-])[!?.,:-]+/gm, '$1');
+    text = text.replace(/([!?.,:-])[!?.,:-]+/g, '$1');
 
     // Удаляем html-сущности
     text = text.replace(/&\w+;|&#\d+;/g, ' ');
 
     // Дефис может быть в составе слова, а может использоваться вместо тире
     // удаляем дефисы, если они используются вместо тире
-    text = text.replace(/\s+-+\s+/gm, ' ');
+    text = text.replace(/\s+-+\s+/g, ' ');
 
     // Так как по заданию . , : ? ! считаются за слова, отделим их пробелами
-    text = text.replace(/(\s*[!?.,:])/gm, ' $1 ');
+    text = text.replace(/(\s*[!?.,:])/g, ' $1 ');
 
     // Удаляем все теги
-    text = text.replace(/<\/?[^>]+>/gi, '');
+    text = text.replace(/<\/?[^>]+>/g, '');
 
     // Если перед переводом строки \n не стоят точка, вопросительный или восклицательный знаки, значит надо поставить
     // Например, часто знаки не стоят в подзаголовках
-    text = text.replace(/([A-zА-яёЁ0-9][^!?.])\n/gm, '$1 .\n')
+    text = text.replace(/([A-zА-яёЁ0-9][^!?.])\n/g, '$1 .\n')
 
     // Удаляем все символы, кроме букв, цифр и некоторых знаков препинания
-    text = text.replace(/[^A-zА-яёЁ0-9 !?.,:-]/gm, ' ');
+    text = text.replace(/[^A-zА-яёЁ0-9 !?.,:-]/g, ' ');
 
     // Все повторяющиеся пробельные символы, преобразуем в один пробел
-    text = text.replace(/\s+/gm, ' ');
+    text = text.replace(/\s+/g, ' ');
 
     // Заглавные буквы, с которых начинаются предложения, переводим в строчные.
     // С точки зрения производительности, наверное, лучше было бы использовать toLowerCase(),
     // но хочется оставить в тексте побольше имён собственных
-    text = text.replace(/(?:^|[!?.]) [A-ZА-ЯЁ]/gm, function(result) {
+    text = text.replace(/(?:^|[!?.]) [A-ZА-ЯЁ]/g, function(result) {
         return result.toLowerCase();
     });
 
@@ -326,7 +315,6 @@ Bred.prototype.cleanTextAfter = function(text) {
 
     // Расставляем заглавные буквы в началах предложений
     text = text.replace(/(?:^ *|[!?.] )[a-zа-яё]/g, function(result) {
-        // return '<mark>' + result.toUpperCase() + '</mark>';
         return result.toUpperCase();
     });
 
@@ -338,6 +326,7 @@ Bred.prototype.cleanTextAfter = function(text) {
 Bred.prototype.removePreTags = function($element) {
     var pres = $element.find('pre').remove();
     $element.find('code').remove();
+
     if (pres.length > 0) {
         for (var i = 0, l = pres.length; i < l; i++) {
             var lang = $(pres[i]).children('code').attr('class');
@@ -359,64 +348,3 @@ Bred.prototype.formatDate = function(date) {
             date.getFullYear() + ' в ' + leadZero(date.getHours()) + ':' + leadZero(date.getMinutes())
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-// Обрабатывает статистику
-Bred.prototype.analizeResults = function(results) {
-    // Производим нормировку
-    var sum = 0;
-    for (var key in results) {
-        sum += results[key];
-    }
-    for (var key in results) {
-        results[key] = results[key] / sum;
-    }
-
-    // Вычисляем математическое ожидание
-    var mx = this.calcExpectedValue(results);
-    // Вычисляем среднеквадратическое отклонение
-    var sigma = this.calcStandardDeviation(results, mx);
-
-    return {
-        min : mx - sigma,
-        max : mx + sigma,
-        val : mx,
-        valueOf : function() {
-            return this.val;
-        }
-    };
-}
-
-// Вычисляет мат. ожидание
-Bred.prototype.calcExpectedValue = function(results) {
-    var mx = 0;
-
-    for (var key in results) {
-        mx += key * results[key];
-    }
-
-    return mx;
-}
-
-// Вычисляет с.к.о.
-Bred.prototype.calcStandardDeviation = function(results, mx) {
-    var dx = 0;
-    var mx = mx || this.calcExpectedValue(results);
-
-    for (var key in results) {
-        dx += key * key * results[key];
-    }
-
-    return Math.sqrt(dx - mx * mx);
-}
-*/

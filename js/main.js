@@ -22,22 +22,22 @@ $(function() {
             context : $(this),
             success : function(data) {
                 var articles = new Bred({
-                    text: data,
+                    text : data,
                     output : {
-                        article: '#bred-article',
-                        title: '#bred-title',
-                        comments: '#bred-comments',
-                        author: '#bred-author',
-                        pubdate : '#bred-pubdate',
+                        article       : '#bred-article',
+                        title         : '#bred-title',
+                        comments      : '#bred-comments',
+                        author        : '#bred-author',
+                        pubdate       : '#bred-pubdate',
                         commentsCount : '#comments_count'
                     },
-                    npref: this.find('[name=npref]').val(),
-                    wordsMin : this.find('[name=words_min]').val(),
-                    wordsMax : this.find('[name=words_max]').val(),
+                    npref        : this.find('[name=npref]').val(),
+                    wordsMin     : this.find('[name=words_min]').val(),
+                    wordsMax     : this.find('[name=words_max]').val(),
                     sentencesMin : this.find('[name=sentences_min]').val(),
                     sentencesMax : this.find('[name=sentences_max]').val(),
-                    parsMin : this.find('[name=pars_min]').val(),
-                    parsMax : this.find('[name=pars_max]').val()
+                    parsMin      : this.find('[name=pars_min]').val(),
+                    parsMax      : this.find('[name=pars_max]').val()
                 });
                 $('.global-wrapper').show();
                 this.closeModal();
