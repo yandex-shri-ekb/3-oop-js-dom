@@ -84,8 +84,7 @@ Bred.prototype.init = function() {
     this.writeArticleAuthor();                  // автора статьи
     this.insertCode();                          // добавляем код
     this.writeComments(randomInt(10, 20));      // и комментарии
-    // this.insertImage(this.output.title.text()); // вставляем КДПВ
-
+    this.insertImage(this.output.title.text()); // вставляем КДПВ
 }
 
 // Возвращает случайный ник
