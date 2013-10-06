@@ -33,3 +33,11 @@ test( "Коллизия Dictionary.Add", function() {
   equal(dic.hash[index][0].Suffixes[0], "C", "C must be suffix");
   equal(dic.hash[index][0].Suffixes[1], "D", "D must be suffix");
 });
+
+test( "Тест TextParser", function() {
+  var parser = new Core.TextParser();
+  parser.Parse("one two three four five");
+  var dic = parser.GetDictionary();
+  ok(typeof(dic) == "object", "Dictionary is object");
+});
+

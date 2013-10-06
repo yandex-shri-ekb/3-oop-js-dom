@@ -5,6 +5,8 @@
 */
 var Core = {};
 
+
+ //====================================================================================
 /*
      Состояние бредогенератора. Для некоторого префикса данная структура данных хранит
      все возможные суффиксы.
@@ -19,6 +21,10 @@ Core.State.prototype.AddSuffix = function(suffix)
 {
     this.Suffixes[this.Suffixes.length] = suffix;
 }
+//=====================================================================================
+
+
+//=====================================================================================
 /*
     Словарь хранящий префиксы слов и их соответствущие суффиксы
 */
@@ -49,22 +55,31 @@ Core.Dictionary.prototype.GetHashCode = function(prefix)
 
 Core.Dictionary.prototype.Add = function(prefix, suffix)
 {
+    var hashCode = this.GetHashCode(prefix) % this.HashSize;
+    return (this.hash[hashCode])
+        ? this.AddToExist(hashCode, prefix, suffix)
+        : this.AddNew(hashCode, prefix, suffix);
+}
+
+Core.Dictionary.prototype.AddNew = function(hashCode, prefix, suffix)
+{
     var state = new Core.State(prefix);
     state.AddSuffix(suffix);
-    var hashCode = this.GetHashCode(prefix) % this.HashSize;
-    //элемента c таким кодом еще не было добавляем его в таблицу
-    if(!this.hash[hashCode])
-    {
-        this.hash[hashCode] = [ state ];
-        return hashCode;
-    }
+    this.hash[hashCode] = [ state ];
+    return hashCode;
+}
+
+Core.Dictionary.prototype.AddToExist = function(hashCode, prefix, suffix)
+{
+
     var states = this.hash[hashCode];
     for(var s = 0; s < states.length; ++s)
     {
+        var state = states[s];
         var equals = true;
-        for(var i = 0; i < states[s].Prefix.length; ++i)
+        for(var i = 0; i < state.Prefix.length; ++i)
         {
-            if(prefix[i] != states[s].Prefix[i])
+            if(prefix[i] != state.Prefix[i])
             {
                 equals = false;
                 break;
@@ -72,19 +87,77 @@ Core.Dictionary.prototype.Add = function(prefix, suffix)
         }
         if(equals)
         {
-            states[s].Suffixes[states[s].Suffixes.length] = suffix;
+            state.Suffixes[state.Suffixes.length] = suffix;
         }
     }
     return hashCode;
 }
-    /*
-        Лексический анализатор разбивающий одну непрерывную строку(текст) на отдельные слова
-        генерирующий при этом словарь Dictionary.
-    */
-    var TextParser
-    {
 
-    };
+//======================================================================================
+
+
+//======================================================================================
+/*
+    Лексический анализатор разбивающий одну непрерывную строку(текст) на отдельные слова
+    генерирующий при этом словарь Dictionary.
+*/
+Core.TextParser = function()
+{
+    this.dictionary = new Core.Dictionary(2, 4096);
+}
+
+Core.TextParser.prototype.GetDictionary = function()
+{
+    return this.dictionary;
+}
+
+Core.TextParser.prototype.Parse = function(text)
+{
+    var strings = text.toLowerCase().split(" ");
+    //удаляем все ненужные символы (символы которые не являеются словами и пунктауцией).
+    this.RemoveMeaninglessSymbols(strings);
+    this.UpdateDictionary(strings);
+}
+
+Core.TextParser.prototype.RemoveMeaninglessSymbols = function(strings)
+{
+    for(var i = 0; i < strings.length; ++i)
+    {
+        var str = strings[i];
+        if(!this.IsWord(str) && !this.IsPunctuation(str))
+        {
+           strings.splice(i, 1);
+        }
+    }
+}
+
+Core.TextParser.prototype.IsWord = function(str)
+{
+    return str.search(/[^A-Za-z\s]/) == -1;
+}
+
+Core.TextParser.prototype.IsPunctuation = function(str)
+{
+    return str == "." || str == "," || str == "!" || str == "?";
+}
+
+Core.TextParser.prototype.UpdateDictionary = function(strings)
+{
+    if(strings.length < 3)
+        return;
+    var prefix1 = strings[0];
+    var prefix2 = strings[1];
+    for(var i = 2; i < strings.length; ++i)
+    {
+       var suffix = strings[i];
+       this.dictionary.Add( [ prefix1, prefix2 ], suffix );
+       prefix1 = prefix2;
+       prefix2 = suffix;
+    }
+}
+
+//===================================================================================
+
 
 
     var CommentParser // ?
