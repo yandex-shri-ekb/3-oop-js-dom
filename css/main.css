@@ -1,0 +1,121 @@
+.modal
+{
+    background: #fff;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 2px 9px;
+       -moz-box-shadow: rgba(0,0,0,.6) 0 2px 9px;
+         -o-box-shadow: rgba(0,0,0,.6) 0 2px 9px;
+            box-shadow: rgba(0, 0, 0, 0.6) 0 2px 9px;
+    display: none;
+    left: 50%;
+    padding: 35px;
+    position: fixed;
+    text-align: left;
+    top: 50%;
+    z-index: 9999;
+}
+
+.modal__close
+{
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    filter: alpha(opacity=40);
+    opacity: .4;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 20px;
+}
+
+.modal__close:hover
+{
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+    opacity: .8;
+}
+
+.modal__header
+{
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    margin: 0 -35px 20px -35px;
+    padding: 0 35px 20px 35px;
+    text-align: center;
+}
+
+.modal__title
+{
+    display: block;
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.modal_type_settings
+{
+    margin: 0 0 0 -200px;
+    width: 400px;
+}
+
+.modal__row
+{
+    margin-bottom: 15px;
+    line-height: 36px;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+.modal__label
+{
+    margin-bottom: 3px;
+}
+
+.modal__group
+{
+    float: right;
+    font-size: 16px;
+}
+
+.modal__input
+{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    font-size: 24px;
+    padding: 2px 6px;
+    width: 50px;
+    vertical-align: middle;
+}
+
+.modal__input_type_select
+{
+    padding: 2px 2px 2px 6px;
+    width: 60px;
+}
+
+.modal__button
+{
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+    margin: 10px auto 0;
+    padding: 10px 0;
+    width: 180px;
+}
+
+.overlay
+{
+    background: #000;
+    display: none;
+    height: 100%;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    filter: alpha(opacity=40);
+    opacity: .3;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9998;
+}

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Домашняя работа №3</title>
+<link href="assets/all.css" rel="stylesheet" media="all">
+<link href="assets/posts.css" rel="stylesheet" media="all">
+<link href="assets/comments.css" rel="stylesheet" media="all">
+<link href="assets/forms.css" rel="stylesheet" media="all">
+<link href="assets/highlight.css" rel="stylesheet" media="all">
+<script src="//yandex.st/jquery/1.10.2/jquery.min.js"></script>
+<!-- <script src="assets/jquery.min.js"></script> -->
+
+<link href="css/main.css" rel="stylesheet">
+<script src="js/modal.js"></script>
+<script src="js/main.js"></script>
+<script src="js/dic.js"></script>
+<script src="js/bred.js"></script>
+<script type="text/template" id="modal-tpl">
+    <div class="overlay" id="overlay"></div>
+    <div class="modal modal_type_settings" id="modal-settings">
+        <div class="modal__header">Домашняя работа №3
+            <span class="modal__title">«Генератор текста»</span>
+        </div>
+        <form>
+            <div class="modal__manual">
+                <div class="modal__row">
+                    <label class="modal__label">Количество слов в префиксе</label>
+                    <div class="modal__group">
+                        <select class="modal__input modal__input_type_select" type="text" name="npref">
+                            <option>1</option>
+                            <option selected>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal__row">
+                    <label class="modal__label">Cлов в предложении</label>
+                    <div class="modal__group">
+                        от <input class="modal__input" type="text" name="words_min" value="5" maxlength="2">
+                        до <input class="modal__input" type="text" name="words_max" value="17" maxlength="2">
+                    </div>
+                </div>
+                <div class="modal__row">
+                    <label class="modal__label">Предложений в абзаце</label>
+                    <div class="modal__group">
+                        от <input class="modal__input" type="text" name="sentences_min" value="5" maxlength="2">
+                        до <input class="modal__input" type="text" name="sentences_max" value="15" maxlength="2">
+                    </div>
+                </div>
+                <div class="modal__row">
+                    <label class="modal__label">Абзацев в статье</label>
+                    <div class="modal__group">
+                        от <input class="modal__input" type="text" name="pars_min" value="8" maxlength="2">
+                        до <input class="modal__input" type="text" name="pars_max" value="15" maxlength="2">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button class="modal__button" type="submit">Поехали</button>
+            </div>
+        </form>
+    </div>
+</script>
+</head>
+<body>
+<div class="global-wrapper" style="display: none;">
+        <div class="wrapper">
+            <div id="layout">
+                <div id="header">
+                    <div class="userpanel silver">
+                        <div class="top">
+                            <a href="#" class="username dark">Вася</a>
+                            <a href="#" class="nav-settings">настройки</a>
+                            <a href="#">выйти</a>
+                        </div>
+                        <div class="bottom">
+                            <a href="#">трекер</a>
+                            <a href="#">диалоги</a>
+                            <a href="#">избранное</a>
+                        </div>
+                    </div>
+                    <a class="logo " href="#"></a>
+                    <div class="search">
+                        <form id="search_form" name="search">
+                            <input type="submit" value="">
+                            <input type="text" name="q" x-webkit-speech="" speech="" tabindex="1" autocomplete="off">
+                        </form>
+                    </div>
+                    <div class="main_menu">
+                        <a href="#">лента</a>
+                        <a href="#" class="active">посты</a>
+                        <a href="#">q&amp;a</a>
+                        <a href="#">события</a>
+                        <a href="#">хабы</a>
+                        <a href="#">компании</a>
+                    </div>
+                </div>
+                <div class="content_left">
+                    <div class="post shortcuts_item">
+                        <div class="published" id="bred-pubdate">вчера в 20:00</div>
+                        <h1 class="title">
+                            <span class="post_title" id="bred-title"><!-- Заголовок --></span>
+                        </h1>
+                        <div class="content html_format" id="bred-article">
+                            <!-- Текст статьи -->
+                        </div>
+                        <div class="infopanel_wrapper">
+                            <div class="infopanel " id="infopanel_post_196156">
+                                <div class="voting   ">
+                                    <a href="#" class="plus"></a>
+                                    <div class="mark">
+                                        <a class="score" href="#">—</a>
+                                    </div>
+                                    <a href="#" class="minus"></a>
+                                </div>
+                                <div class="pageviews">18392</div>
+                                <div class="favorite">
+                                    <a class="add" href="#"></a>
+                                </div>
+                                <div class="favs_count">14</div>
+                                <div class="author">
+                                    <a href="#" id="bred-author"><!-- Автор --></a>
+                                    <span class="rating">937,4</span>
+                                </div>
+                                <div class="share">
+                                    <div class="twitter">
+                                        <a href="#"></a>
+                                    </div>
+                                    <div class="vkontakte">
+                                        <a href="#"></a>
+                                    </div>
+                                    <div class="facebook">
+                                        <a href="#"></a>
+                                    </div>
+                                    <div class="googleplus">
+                                        <a href="#"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="comments_list" id="comments">
+                        <h2 class="title ">комментарии (<span id="comments_count"><!-- Количество комментариев --></span>)</h2>
+                        <div id="bred-comments">
+                            <div class="comment_item" id="bred-comment">
+                                <span class="parent_id"></span>
+                                <div class="comment_body">
+                                    <div class="info">
+                                        <div class="folding-dot-holder">
+                                            <div class="folding-dot"></div>
+                                        </div>
+                                        <div class="voting hidden">
+                                            <a href="#" class="minus" ></a>
+                                            <a href="#" class="plus" ></a>
+                                            <div class="mark positive ">
+                                                <span class="score">+1</span>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="avatar">
+                                            <img src="assets/stub-user-small.gif" alt="">
+                                        </a>
+                                        <a href="#" class="username"><!-- Пользователь --></a>
+                                        <span class="comma">,</span>
+                                        <time><!-- Время --></time>
+                                        <a href="#" class="link_to_comment">#</a>
+                                        <a href="#" class="favorite add" ></a>
+                                        <span class="to_chidren"></span>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="message html_format "><!-- Текст комментария --></div>
+                                    <div class="reply_form_placeholder"></div>
+                                    <div class="reply">
+                                        <a href="#" class="reply_link" >ответить</a>
+                                    </div>
+                                </div>
+                                <div class="reply_comments"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments_form" id="comments_form_placeholder">
+                        <h2 class="title">
+                            <a href="#" >Написать комментарий</a>
+                        </h2>
+                        <form id="comments_form">
+                            <div class="editor">
+                                <div class="panel">
+                                    <div class="wysiwyg_wrapper">
+                                        <div class="can_use_html">
+                                            <a href="#" >html-теги</a>
+                                        </div>
+                                        <a  href="#" tabindex="-1">
+                                            <img width="20" height="20" alt="Ж" src="assets/bold_ru.gif">
+                                        </a>
+                                        <a  href="#" tabindex="-1">
+                                            <img width="20" height="20" alt="К" src="assets/italic_ru.gif">
+                                        </a>
+                                        <a  href="#" tabindex="-1">
+                                            <img width="20" height="20" alt="__" src="assets/underline_ru.gif">
+                                        </a>
+                                        <a  href="#" tabindex="-1">
+                                            <img width="20" height="20" alt="—" src="assets/strikethrough.gif">
+                                        </a>
+                                        <a style="margin-right: 10px;"  href="#" tabindex="-1">
+                                            <img width="20" height="20" alt="Цитата" src="assets/blockquote.png">
+                                        </a>
+                                        <select class="with-title" name="source" tabindex="-1">
+                                            <option class="title">Source:</option>
+                                        </select>
+                                        <a style="margin: auto 10px;"  href="#" tabindex="-1" class="txt">
+                                            <img width="30" height="20" alt="Код" src="assets/code.gif">
+                                        </a>
+                                        <a  href="#" tabindex="-1">
+                                            <img width="20" height="20" alt="A" src="assets/link.gif">
+                                        </a>
+                                        <a  href="#" tabindex="-1">
+                                            <img width="20" height="20" alt="IMG" src="assets/image.gif">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="text-holder">
+                                    <textarea cols="30" rows="10" name="text" id="comment_text"></textarea>
+                                </div>
+                                <span id="error_text" class="error"></span>
+                            </div>
+                            <div class="buttons">
+                                <input type="button" class="preview" value="Предпросмотр" disabled="disabled" >
+                                <input type="button" class="submit" value="Написать" disabled="disabled" >
+                                <span class="time_left"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="sidebar_right">
+                    <div class="block daily_best_posts" style="width: auto; opacity: 1;">
+                        <div class="title">Лучшее
+                            <sup>за 24 часа</sup>
+                        </div>
+                        <div class="posts_list">
+                            <div class="post_item">
+                                <a href="#" class="post_name">Как правильно приготовить HDD</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">В Firefox добавили флэш-плеер Shumway, написанный на HTML5</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">Эдвард руки — С++</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">Пишем свою книгу</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">NASA.gov лежит, но Curiosity работает</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">Создание своего летающего робота</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">Платформа «Атом» от Яндекса — интернет, адаптированный для каждого</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">Бывший директор по приватности Microsoft теперь доверяет только открытому ПО</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">Как ответить запросом на запрос, или Базы данных не для чайников</a>
+                            </div>
+                            <div class="post_item">
+                                <a href="#" class="post_name">Инвесторы просят Билла Гейтса уйти</a>
+                            </div>
+                        </div>
+                        <div class="all">
+                            <a href="#">все лучшие</a>
+                        </div>
+                    </div>
+                    <div class="block similar_posts">
+                        <div class="title">Похожие посты</div>
+                        <div class="posts_list">
+                            <div class="post_item">
+                                <a class="post_name" href="#">Технические характеристики часов Galaxy Gear</a>
+                                <span class="when">30.08.2013</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">Бинарные часы с будильником на Atmega48 (EvILeg-1124)</a>
+                                <span class="when">21.08.2013</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">HOT Watch: «умные» часы с возможностью разговора… по ладони</a>
+                                <span class="when">14.08.2013</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">Самые антимагнитные часы в мире</a>
+                                <span class="when">15.07.2013</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">Атомный аккумулятор</a>
+                                <span class="when">21.02.2013</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">Handmade часы из 90-х</a>
+                                <span class="when">19.02.2013</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">Часы с линейным отображением времени</a>
+                                <span class="when">09.11.2012</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">Часы Casio Protrek PRG-240-1ER</a>
+                                <span class="when">11.08.2012</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">Электронные наручные часы cookoo™ уже собрали 122 000 $ из требуемых 150 000 $ на Kickstarter</a>
+                                <span class="when">31.05.2012</span>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="#">Концептуальные часы для слепых</a>
+                                <span class="when">07.08.2007</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block live_broadcast">
+                        <div class="title">Прямой эфир &nbsp;
+                            <sup>
+                                <span class="dotted tab open" data-type="live_broadcast_activity">посты</span>&nbsp;
+                                <span class="dotted tab " data-type="qa_activity">q&amp;a</span>
+                            </sup>
+                        </div>
+                        <div class="live_broadcast_activity ">
+                            <div class="posts_list">
+                                <div class="post_item">
+                                    <a href="#" class="user_name">RuddyRudeman</a>→
+                                    <a href="#" class="post_name">Задержан владелец Silk Road, изъяты 3,6 миллиона долларов</a>&nbsp;
+                                    <span class="count">113</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">si14</a>→
+                                    <a href="#" class="post_name">Clojure Cup — опыт участия в хакатоне по написанию веб-приложения на Clojure</a>&nbsp;
+                                    <span class="count">2</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">DonecVlad</a>→
+                                    <a href="#" class="post_name">Компания Bathys Hawaii представила первые в мире атомные наручные часы</a>&nbsp;
+                                    <span class="count">40</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">softh12</a>→
+                                    <a href="#" class="post_name">Как правильно приготовить HDD</a>&nbsp;
+                                    <span class="count">138</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">alex_syritza</a>→
+                                    <a href="#" class="post_name">Легенды Apple: Джонни Айв – дизайнер с мировым именем. Идеи «Undesign»</a>&nbsp;
+                                    <span class="count">10</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">VoidVolker</a>→
+                                    <a href="#" class="post_name">Процедурное аудио</a>&nbsp;
+                                    <span class="count">29</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">5HT</a>→
+                                    <a href="#" class="post_name">Эдвард руки — С++</a>&nbsp;
+                                    <span class="count">106</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">Demphest</a>→
+                                    <a href="#" class="post_name">Инвесторы просят Билла Гейтса уйти</a>&nbsp;
+                                    <span class="count">41</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">rtorsten</a>→
+                                    <a href="#" class="post_name">Windows + Tmux + Cygwin</a>&nbsp;
+                                    <span class="count">13</span>
+                                </div>
+                                <div class="post_item">
+                                    <a href="#" class="user_name">andrewsh</a>→
+                                    <a href="#" class="post_name">В Firefox добавили флэш-плеер Shumway, написанный на HTML5</a>&nbsp;
+                                    <span class="count">69</span>
+                                </div>
+                            </div>
+                            <div class="all">
+                                <a href="#">все посты</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="rotated_posts">
+                    <div class="rotated_post ">
+                        <a href="#" class="grey">Как мы строили авиатренажер: бесценный опыт</a>
+                    </div>
+                    <div class="rotated_post ">
+                        <a href="#" class="grey">Роскомнадзор заблокировал крупнейший порносайт</a>
+                    </div>
+                    <div class="rotated_post last">
+                        <a href="#" class="grey">Делаем микросхемы дома — часть 3</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="footer">
+            <dl class="user">
+                <dt><a href="#">Вася</a></dt>
+                <dd><a href="#">Трекер</a></dd>
+                <dd><a href="#">Написать</a></dd>
+                <dd><a href="#">Cообщения</a></dd>
+                <dd><a href="#">Настройки</a></dd>
+                <dd><a href="#">ППА</a></dd>
+            </dl>
+            <dl>
+                <dt>Разделы</dt>
+                <dd><a href="#">Q&amp;A</a></dd>
+                <dd><a href="#">Хабы</a></dd>
+                <dd><a href="#">События</a></dd>
+                <dd><a href="#">Компании</a></dd>
+                <dd><a href="#">Пользователи</a></dd>
+            </dl>
+            <dl>
+                <dt>Посты</dt>
+                <dd><a href="#">Лента</a></dd>
+                <dd><a href="#">Лучшие</a></dd>
+                <dd><a href="#">Тематические</a></dd>
+                <dd><a href="#">Корпоративные</a></dd>
+                <dd><a href="#">Песочница</a></dd>
+            </dl>
+            <dl>
+                <dt>Инфо</dt>
+                <dd><a href="#">О сайте</a></dd>
+                <dd><a href="#">Правила</a></dd>
+                <dd><a href="#">Помощь</a></dd>
+                <dd><a href="#">Соглашение</a></dd>
+                <dd><a href="#">Статистика</a></dd>
+            </dl>
+            <dl>
+                <dt>Услуги</dt>
+                <dd><a href="#">Реклама</a></dd>
+                <dd><a href="#">Корпоративные тарифы</a></dd>
+                <dd><a href="#">Семинары</a></dd>
+                <dd><a href="#">Спецпроекты</a></dd>
+            </dl>
+            <div class="copyright">
+                <div class="about">
+                    <a class="footer_logo" href="#">Тематические Медиа</a>© 2006–2013<br><br>
+                    <a href="#">Служба поддержки</a><br><br>
+                    <a href="#">Мобильная версия</a><br><br>
+                    <div class="social_accounts">
+                        <a href="#" class="tw"></a>
+                        <a href="#" class="fb"></a>
+                        <a href="#" class="vk"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_logos">
+            <div class="project brainstorage">
+                <a href="#" class="icon "></a>
+                <div class="text">Все мозги в одном месте</div>
+            </div>
+            <div class="project freelansim">
+                <a href="#" class="icon "></a>
+                <div class="text">Заказы для фрилансеров</div>
+            </div>
+            <div class="project hantim">
+                <a href="#" class="icon "></a>
+                <div class="text">Вакансии для айтишников</div>
+            </div>
+            <div class="project autokadabra">
+                <a href="#" class="icon "></a>
+                <div class="text ">Уютная и дружелюбная</div>
+            </div>
+        </div>
+
+</div><!-- .global-wrapper -->
+</body>
+</html>
