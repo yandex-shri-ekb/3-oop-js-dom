@@ -81,7 +81,7 @@ Dic.prototype._keys = function(obj) {
         return Object.keys(obj);
     var keys = [];
     for (var key in obj) {
-        array.push(key);
+        keys.push(key);
     }
     return keys;
 }
