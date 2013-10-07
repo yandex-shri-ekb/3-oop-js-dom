@@ -41,87 +41,93 @@ function Genarator(a) {
 
 
 function getRndWord(wordsMassiv) {
-    if(wordsMassiv.length === 0) {
-      var word = ' .';
+    //if(wordsMassiv.length === 0) {
+//      var word = ' .';
 
-      return word;
-    }
-    var rndKey = Math.floor(keysMassiv.length * Math.random() )
-    var word = keysMassiv[rndKey];
+  //    return word;
+  //  }
+    var rndKey = Math.floor(wordsMassiv.length * Math.random() )
+   // var word = wordsMassiv[rndKey];
 
-    return word;
+    return rndKey;
 }
 
-function getFirstPair(Dictionary) {
-    var startWords = [],
-        firstWord;
 
-    for(var key in Dictionary) {
-      startWords.push(key);
+
+function createProposal(Dictionary, a, b) {
+    var tempMas = [],
+        proposal =[],
+        words = [],
+        word,
+        lengthProposal,
+        findingLength,
+        rndKey,
+        firstPair,
+
+        regexp = [.!?#];
+
+    for(var i=a; i<=b; i+=1) {
+      tempMas.push(a);
     }
-    var firstCouple = getRndElement(startWords);
-
-    return firstCouple;
-}
-
-function createProposal(Dictionary) {
-    var proposal =[];
     
-    getFirstPair(Dictionary);
-
-
-    if(words instanceof Array) {
-      proposal.push( words.join(' ') );
-      return proposal;
+    rndKey = getRndWord(tempMas);
+    findingLength = tempMas[rndKey];
+    tempMas = null;
+  
+    for(var key in Dictionary) {
+      tempMas.push(key);
+    }
+    firstPair = getRndWord(tempMas);
+    words = firstPair.split(' ');
+    
+    while( words[0].match( /[.!?#]/ ) && words[1].match( /[.!?#]/ ) ) {
+      firstPair = getRndWord(tempMas);
+      words = firstPair.split(' ');
     }
 
-    //if(words //содержит .?!:) {
-   //   proposal.push(words);
-   //   return proposal;
-   // }
-
-   proposal.push(words);
-   return proposal;
-
-}
-
-
-function checkWidthProposal(proposal) {
-    var lengthProposal = proposal.length;
-
-    if(lengthProposal >= lengthMaxProposal) {
-      endingProposal(proposal);
-      return true;
+    tempMas = null;
+    
+    proposal.push(words[0], words[1]);
+    words = null;
+    findingLength = proposal.length;
+    while ( findingLength !== lengthProposal) {
+      word = getNextWord(proposal);
+      //checkWords(proposal);
+      proposal.push(word);
     }
-
-    return false;
+    return proposal;
 }
-
-function endingProposal(proposal) {
-      proposal.push(' .');
-      text.push(proposal);
-      proposal.length=0;
-      countProposal++;
-      return;
-}
-
 
 function getNextWord(proposal) {
-    var check = checkWidthProposal(proposal);
-    if(check) {
-      
-      return;
-    }
+  //  var check = checkWidthProposal(proposal);
+  //  if(check) {
+  //    
+  //    return;
+  //  }
     var lengthProposal = proposal.length,
         lastWord = proposal[lengthProposal],
-        beforeLastWord =  proposal[lengthProposal-1];
-        currentPair = beforeLastWord+lastWord;
+        beforeLastWord =  proposal[lengthProposal-1],
+        currentPair = beforeLastWord+lastWord,
+        masWords = [],
+        rndKey,
+        count = 0;
+        maxCount = 50;
+        word;
 
-    var masWords = Dictionary[currentPair];
-    getRndWord(masWords);
+    masWords = Dictionary[currentPair];
+    rndKey = getRndWord(masWords);
+    word = masWords[rndKey];
+    while( word.match( /[.!?#]/ ) && count < maxCount) {
+      rndKey = getRndWord(masWords);
+      word = masWords[rndKey];
+      count++;
+    }
+    if(count === maxCount) {
+      return word = '.';
+    }
+    return word;
 
-}
-
+}    
 
 function Dictionary() {
     this.getFirst
