@@ -5,6 +5,28 @@
 */
 var Core = {};
 
+//==========================================================
+/*
+    Вспомогательные функции
+*/
+Core.RandomInRange = function(min, max)
+{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+Core.IsWord = function(str)
+{
+    return str.search(/[^A-Za-z\s]/) == -1;
+}
+
+Core.IsPunctuation = function(str)
+{
+    return str == "." || str == "," || str == "!" || str == "?";
+}
+
+//==========================================================
+
+
 
  //====================================================================================
 /*
@@ -36,8 +58,21 @@ Core.Dictionary = function(prefixSize, hashSize)
     this.HashSize = hashSize;
     //сама хэш-таблица
     this.hash = new Array(this.HashSize + 1);
+    //поскольку мы работаем с хэш-таблицой, она может быть очень разреженной(вставка идет по модулю HashSize)
+     //что может добавлять неудобства при первоначальном доступе к ней
+     //поэтому храним список "живых" индексов для нашей хэш-таблицы
+    this.liveIndexes = [];
 }
 
+Core.Dictionary.prototype.GetHashTable = function()
+{
+    return this.hash;
+}
+
+Core.Dictionary.prototype.GetLiveIndexes = function()
+{
+    return this.liveIndexes;
+}
 
 Core.Dictionary.prototype.GetHashCode = function(prefix)
 {
@@ -56,9 +91,17 @@ Core.Dictionary.prototype.GetHashCode = function(prefix)
 Core.Dictionary.prototype.Add = function(prefix, suffix)
 {
     var hashCode = this.GetHashCode(prefix) % this.HashSize;
-    return (this.hash[hashCode])
-        ? this.AddToExist(hashCode, prefix, suffix)
-        : this.AddNew(hashCode, prefix, suffix);
+    this.liveIndexes[this.liveIndexes] = hashCode;
+    var state = this.FindState(prefix, hashCode);
+    if(state)
+    {
+        this.AddToExist(state, suffix);
+    }
+    else
+    {
+        this.AddNew(hashCode, prefix, suffix);
+    }
+    return hashCode;
 }
 
 Core.Dictionary.prototype.AddNew = function(hashCode, prefix, suffix)
@@ -66,13 +109,20 @@ Core.Dictionary.prototype.AddNew = function(hashCode, prefix, suffix)
     var state = new Core.State(prefix);
     state.AddSuffix(suffix);
     this.hash[hashCode] = [ state ];
-    return hashCode;
 }
 
-Core.Dictionary.prototype.AddToExist = function(hashCode, prefix, suffix)
+Core.Dictionary.prototype.AddToExist = function(state, suffix)
 {
+    state.AddSuffix(suffix);
+}
 
+Core.Dictionary.prototype.FindState = function(prefix, /*optional*/ hashCode)
+{
+     if(!hashCode)
+        hashCode = this.GetHashCode(prefix);
     var states = this.hash[hashCode];
+    if(!states)
+        return null;
     for(var s = 0; s < states.length; ++s)
     {
         var state = states[s];
@@ -87,10 +137,10 @@ Core.Dictionary.prototype.AddToExist = function(hashCode, prefix, suffix)
         }
         if(equals)
         {
-            state.Suffixes[state.Suffixes.length] = suffix;
+            return state;
         }
     }
-    return hashCode;
+    return null;
 }
 
 //======================================================================================
@@ -103,6 +153,7 @@ Core.Dictionary.prototype.AddToExist = function(hashCode, prefix, suffix)
 */
 Core.TextParser = function()
 {
+    //TODO hardcoded values live here.
     this.dictionary = new Core.Dictionary(2, 4096);
 }
 
@@ -124,22 +175,14 @@ Core.TextParser.prototype.RemoveMeaninglessSymbols = function(strings)
     for(var i = 0; i < strings.length; ++i)
     {
         var str = strings[i];
-        if(!this.IsWord(str) && !this.IsPunctuation(str))
+        if(!Core.IsWord(str) && !Core.IsPunctuation(str))
         {
            strings.splice(i, 1);
         }
     }
 }
 
-Core.TextParser.prototype.IsWord = function(str)
-{
-    return str.search(/[^A-Za-z\s]/) == -1;
-}
 
-Core.TextParser.prototype.IsPunctuation = function(str)
-{
-    return str == "." || str == "," || str == "!" || str == "?";
-}
 
 Core.TextParser.prototype.UpdateDictionary = function(strings)
 {
@@ -165,11 +208,60 @@ Core.TextParser.prototype.UpdateDictionary = function(strings)
 
     };
 
+//======================================================================================
 
-    var TextBuilder
+/*
+    Данный класс производит построение предложений из специально сгенерированного словаря.
+*/
+Core.TextBuilder = function(minWordsCount, maxWordsCount, dictionary)
+{
+    this.minWordsCount = minWordsCount;
+    this.maxWordsCount = maxWordsCount;
+    this.dictionary = dictionary;
+}
+
+//Данный метод генерирует случайное предложение из словаря.
+Core.TextBuilder.prototype.Build = function()
+{
+    var proposal = [];
+    var state = this.GetRandomState();
+    var prefix = state.Prefix;
+    var suffix = this.GetRandomSuffix(state);
+    var wordsCount = 2;
+
+    proposal[0] = prefix[0];
+    proposal[1] = prefix[1];
+    while(suffix && (!Core.IsPunctuation(suffix) || wordsCount < this.minWordsCount))
     {
+        proposal[proposal.length] = suffix;
+        //строим новый префикс
+        prefix = [ prefix[1], suffix ];
+        suffix = this.GetRandomSuffix(this.dictionary.FindState(prefix));
+        ++wordsCount;
+    }
+    return proposal.join(" ");
+}
 
-    };
+/*
+Т.к. предложение начинается с любого слова, просто достаем рандомное состояние
+с которого может начинаться предложение.
+*/
+Core.TextBuilder.prototype.GetRandomState = function()
+{
+    var hash = this.dictionary.GetHashTable();
+    var liveIndexes = this.dictionary.GetLiveIndexes();
+    var hashIndex = liveIndexes[Core.RandomInRange(0, liveIndexes.length - 1)];
+    var prefixIndex = Core.RandomInRange(0, hash[hashIndex].length - 1);
+    return hash[hashIndex][prefixIndex];
+}
+
+Core.TextBuilder.prototype.GetRandomSuffix = function(state)
+{
+    var index = Core.RandomInRange(0, state.Suffixes.length - 1);
+    return state.Suffixes[index];
+}
+
+//=============================================================================================
 
     var CommentBuilder
     {

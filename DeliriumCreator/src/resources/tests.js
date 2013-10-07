@@ -41,3 +41,17 @@ test( "Тест TextParser", function() {
   ok(typeof(dic) == "object", "Dictionary is object");
 });
 
+test( "Создание TextBuilder", function() {
+  var builder = new Core.TextBuilder(1, 10, null);
+  ok(typeof builder == "object", "TextBuilder is object")
+});
+
+test( "TextBuilder.Build Тест", function() {
+  var parser = new Core.TextParser();
+  parser.Parse("one two three one two four");
+  var builder = new Core.TextBuilder(1, 10, parser.GetDictionary());
+  var text = builder.Build();
+  alert(text);
+  ok(typeof builder.dictionary == "object", "TextBuilder.Dictionary must be object");
+  ok(typeof builder == "object", "TextBuilder is object")
+});
