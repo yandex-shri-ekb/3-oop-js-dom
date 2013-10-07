@@ -3,25 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="habrastyle.css">
 </head>
 <body>
-    <textarea class="sample" cols="80" rows="10">Шалтай-Болтай Сидел на стене. Шалтай-Болтай Свалился во сне. Вся королевская конница, Вся королевская рать Не может Шалтая, Не может Болтая, Шалтая-Болтая, Болтая-Шалтая, Шалтая-Болтая собрать!</textarea>
-    <button>Обновить</button>
-    <div class="result"></div>
+    <article>
+        <header>
+            <time>сегодня в 16:17</time>
+            <h1>Так ли необходимо высшее образование системному администратору?</h1>
+            <ul class="tags">
+                <li class="profiled"><a href="#" title="Вы не подписаны на этот хаб">Яндекс API</a></li>
+                <li class="profiled"><a href="#" title="Вы не подписаны на этот хаб">Maps API</a></li>
+                <li><a href="#" title="Вы не подписаны на этот хаб">Блог компании Яндекс</a></li>
+            </ul>
+        </header>
+
+        <section class="content"></section>
+
+        <footer>
+            <ul class="tags">
+                <li><a href="#">api</a></li>
+                <li><a href="#">дизайн</a></li>
+                <li><a href="#">ymapsapi</a></li>
+                <li><a href="#">яндекс.карты</a></li>
+            </ul>
+
+            <!-- here be infopanel -->
+        </footer>
+
+        <section class="comments"></section>
+    </article>
+
+    <script type="text/x-template" data-template="comment">
+        <li>
+            <header>
+                <a href="#" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="{author}"></a>
+                <span class="username"><a href="http://habrahabr.ru/users/{author}/">{author}</a></span>
+                <time>{date}</time>
+                <a href="#" class="permalink">#</a>
+            </header>
+            <section class="message">{message}</section>
+        </li>
+    </script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="garry.js"></script>
+    <script src="js/math.js"></script>
+    <script src="js/habraparser.js"></script>
+    <script src="js/habrawriter.js"></script>
+    <script src="js/garry.js"></script>
     <script>
-        var articleGarry = new Garry({
-            length: 10
+        $.get('habr.1500.html', function (data) {
+            window.parser = new HabraParser($(data)),
+            window.gArticles = new Garry().eat(parser.articles()),
+            window.gComments = new Garry().eat(parser.comments()),
+            window.writer = new HabraWriter(parser.usernames(), gComments, gArticles);
+
+
+            /* TODO get rid of ugly brackets */
+            $('.content').html(writer.getArticle());    /* especially here ↓ */
+            $('article').append(buildCommentSection(writer.getCommentTree()));
         });
 
-        $('button').click(function () {
-            var sample = $('.sample').val(),
-                result = articleGarry.flush().eat(sample).poo();
+        function buildCommentSection(comments) {
+            return $('.comments')
+                       .append('<h1>Комментарии (' + comments.getNumber() + ')</h1>')
+                       .append(buildCommentTree(comments));
+        }
 
-            $('.result').text(result);
-        }).trigger('click');
+        function buildCommentTree(comments) {
+            return $('<ul>').append(comments.map(function(comment) {
+                var $comment = $('[data-template="comment"]').render(comment),
+                    $replies = buildCommentTree(comment.replies);
+
+                return $comment.append($replies);
+            }));
+        }
+
+        $.fn.render = function (data) {
+            var tpl = $(this).html(),
+                i;
+
+            for (i in data) if (data.hasOwnProperty(i)) {
+                tpl = tpl.replace(new RegExp('{' + i + '}', 'g'), data[i]);
+            }
+
+            return $(tpl);
+        };
     </script>
 </body>
 </html>
