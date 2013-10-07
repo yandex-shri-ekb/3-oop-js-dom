@@ -12,30 +12,8 @@
     text-align: left;
     top: 50%;
     z-index: 9999;
-}
-
-.modal__close
-{
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-    height: 20px;
-    line-height: 20px;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
-    filter: alpha(opacity=40);
-    opacity: .4;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 0;
-    width: 20px;
-}
-
-.modal__close:hover
-{
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-    filter: alpha(opacity=80);
-    opacity: .8;
+    margin: 0 0 0 -200px;
+    width: 400px;
 }
 
 .modal__header
@@ -54,11 +32,6 @@
     line-height: 40px;
 }
 
-.modal_type_settings
-{
-    margin: 0 0 0 -200px;
-    width: 400px;
-}
 
 .modal__row
 {
