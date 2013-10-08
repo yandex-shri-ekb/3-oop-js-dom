@@ -1,0 +1,8 @@
+{
+    "name": "text-generator",
+    "version": "0.0.1",
+    "devDependencies": {
+        "grunt": "latest",
+        "grunt-contrib-requirejs": "latest"
+    }
+}
