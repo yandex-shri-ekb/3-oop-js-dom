@@ -5,7 +5,6 @@
 <title>Домашняя работа №3</title>
 <link href="assets/all.min.css" rel="stylesheet" media="all">
 <script src="//yandex.st/jquery/1.10.2/jquery.min.js"></script>
-<!-- <script src="assets/jquery.min.js"></script> -->
 
 <link href="css/main.css" rel="stylesheet">
 <script src="js/modal.js"></script>
@@ -15,6 +14,7 @@
 <script type="text/template" id="modal-tpl">
     <div class="overlay" id="overlay"></div>
     <div class="modal" id="modal-settings">
+        <div class="modal__loader">Загрузка...</div>
         <div class="modal__header">Домашняя работа №3
             <span class="modal__title">«Генератор текста»</span>
         </div>
@@ -99,6 +99,7 @@
                         <h1 class="title">
                             <span class="post_title" id="bred-title"><!-- Заголовок --></span>
                         </h1>
+                        <div class="hubs" id="bred-time"><!-- Время выполнения --></div>
                         <div class="content html_format" id="bred-article">
                             <!-- Текст статьи -->
                         </div>

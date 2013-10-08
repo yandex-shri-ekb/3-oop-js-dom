@@ -2,21 +2,27 @@
 
 var Bred = function(data) {
 
+    // необходимые для работы HTML-элементы
+    this.elements = {
+        modal         : data.elements.modal,
+        wrapper       : data.elements.wrapper,
+        loader        : data.elements.loader,
+        article       : data.elements.article,
+        title         : data.elements.title,
+        comments      : data.elements.comments,
+        author        : data.elements.author,
+        pubdate       : data.elements.pubdate,
+        commentsCount : data.elements.commentsCount,
+        dTimes        : data.elements.dTimes
+    };
+
+    this.elements.loader.text('Составление словаря...').show();
+
     // Количество слов в префиксе
     this.npref = +data.npref > 0 ? +data.npref : 2;
 
     // Переданный на вход текст
     this.text = data.text;
-
-    // HTML-элементы, куда записывать результаты
-    this.output = {
-        article       : $(data.output.article),
-        title         : $(data.output.title),
-        comments      : $(data.output.comments),
-        author        : $(data.output.author),
-        pubdate       : $(data.output.pubdate),
-        commentsCount : $(data.output.commentsCount)
-    };
 
     // Настройки
     this.settings = {
@@ -36,89 +42,91 @@ var Bred = function(data) {
 
     // Словари
     this.dic = {
-        comments : new Dic, // для комментариев
-        articles : new Dic  // для текста статьи
+        comments : new Dic,  // для комментариев
+        articles : new Dic , // для текста статьи
+        nicknames : [],      // используемые ники
+        pre : {}             // примеры кода
     };
 
     // Используемые никнеймы и примеры кода
     this.data = {
-        nicknames : [],
-        pre : {}
+
     };
 
     // Дата создания поста
     this.pubDate = randomInt(1100000000000, (new Date()).getTime());
 
-    this.init();
+    var self = this;
+    setTimeout(function() {
+        self.init();
+    }, 100);
 }
 
 Bred.prototype.init = function() {
+    var $articles = $(this.text.match(/<article>([\s\S]*?)<\/article>/g).join(''));
 
-    // массив статей
-    var articles = this.text.match(/<article>[\s\S]*?<\/article>/g);
+    // комментарии
+    var $comments = $articles.find('section .comment');
+    // здесь хранится портянка из текстов комментариев
+    var commentsHtml = '';
 
-    for (var i = 0, l = articles.length; i < l; i++) {
-        var $article = $(articles[i]);
+    var self = this;
 
-        // комментарии к статье
-        var $comments = $article.find('.comment');
+    $comments.each(function(index, element) {
+        var $comment = $(element);
 
-        for (var j = 0, len = $comments.length; j < len; j++) {
-            // передаём комментарий на обработку
-            this.parseComment($comments[j]);
-        }
+        // извлекаем ник
+        var nick = $comment.children('.username').text();
+        self.dic.nicknames.push(nick);
 
-        // удаляем из статьи комментарии и передаём её текст на обработку
-        this.parseArticleText($article.find('section').remove().end());
-    }
+        // добавляем в портянку
+        commentsHtml += $comment.children('.message').html() + '\n';
+    });
 
-    this.writeArticleTitle();                   // придумываем заголовок
-    this.writeArticleText();                    // текст статьи
-    this.writeArticleAuthor();                  // автора статьи
-    this.insertCode();                          // добавляем код
-    this.writeComments(randomInt(10, 20));      // и комментарии
-    this.insertImage(this.output.title.text()); // вставляем КДПВ
+    // статьи без комментариев
+    var $articles = $articles.find('section').remove().end();
+    var articlesHtml = '';
+    $articles.each(function(index, element) {
+        // добавляем программный код в портянку
+        articlesHtml += element.innerHTML + '\n';
+    });
+
+    // заводим работника, который будет составлять из слов словарь
+    var worker = new Worker('js/worker.js');
+
+    worker.postMessage({
+        articles : this.removePreTags(articlesHtml),
+        comments : this.removePreTags(commentsHtml),
+        npref    : this.npref
+    });
+
+    // как закончит составлять словарь
+    worker.onmessage = function(e) {
+        self.elements.loader.text('Генерация статьи...');
+
+        setTimeout(function() {
+            // сохраняем готовые словари
+            self.dic.comments.dic = e.data.comments;
+            self.dic.articles.dic = e.data.articles;
+
+            self.writeArticleTitle();                   // придумываем заголовок
+            self.writeArticleText();                    // текст статьи
+            self.writeArticleAuthor();                  // автора статьи
+            self.insertCode();                          // добавляем код
+            self.writeComments(randomInt(10, 20));      // и комментарии
+            // self.insertImage(self.elements.title.text()); // вставляем КДПВ
+
+            self.elements.wrapper.show();
+            self.elements.modal.closeModal();
+            self.elements.loader.hide();
+            self.elements.dTimes.html('Сгенерирована за <b>' + ((new Date).getTime() - window.startTime) / 1000 + '</b> с');
+        }, 100)
+    };
 }
 
 // Возвращает случайный ник
 Bred.prototype.getRandomNickname = function() {
-    return this.data.nicknames[randomInt(0, this.data.nicknames.length - 1)];
-}
-
-// Обрабатывает комментарий
-Bred.prototype.parseComment = function(comment) {
-    var $comment = $(comment);
-
-    // извлекаем ник
-    var nick = $comment.children('.username').text();
-    this.data.nicknames.push(nick);
-
-    // элемент с текстом сообщения
-    var $message = $comment.children('.message');
-    // удаляем из него программный код
-    this.removePreTags($message);
-    // очищаем
-    $message = this.cleanText($message.text());
-    // разбиваем по словам
-    var words = $message.split(' ');
-
-    // добавляем эти слова в словарь
-    this.dic.comments.add(words, this.npref);
-}
-
-// Обрабатывает текст статьи
-Bred.prototype.parseArticleText = function(text) {
-    var $text = $(text);
-
-    this.removePreTags($text);
-
-    text = this.cleanText($text[0].innerHTML);
-
-    // делим на слова
-    var words = text.split(' ');
-
-    // добавляем эти слова в словарь
-    this.dic.articles.add(words, this.npref);
+    return this.dic.nicknames[randomInt(0, this.dic.nicknames.length - 1)];
 }
 
 // Пишет текст, основываясь на словаре dic
@@ -163,8 +171,8 @@ Bred.prototype.writeComments = function(count) {
     }
 
     // вставляем сами комментарии и их число в страницу
-    this.output.comments.html(comments);
-    this.output.commentsCount.text(comments.length);
+    this.elements.comments.html(comments);
+    this.elements.commentsCount.text(comments.length);
 }
 
 // Возвращает HTML-элемент комментария
@@ -178,26 +186,26 @@ Bred.prototype.writeComment = function(author, time, text) {
 // Придумывает заголовок к статье
 Bred.prototype.writeArticleTitle = function() {
     var text = this.writeText(this.settings.words.min, this.settings.words.max, this.dic.articles);
-    this.output.title.html(this.cleanTextAfter(text));
+    this.elements.title.html(this.cleanTextAfter(text));
 }
 
 // Придумывает текст статьи
 Bred.prototype.writeArticleText = function() {
-    this.output.pubdate.html(this.formatDate(new Date(this.pubDate)));
+    this.elements.pubdate.html(this.formatDate(new Date(this.pubDate)));
     // Выбираем количество абзацев в статье
     var len = randomInt(this.settings.paragraphs.min, this.settings.paragraphs.max);
     for (var i = 0; i < len; i++) {
         // в данном абзаце будет столько-то предложений
         var sentenses = randomInt(this.settings.sentenses.min, this.settings.sentenses.max);
         var text = this.writeText(this.settings.words.min * sentenses, this.settings.words.max * sentenses, this.dic.articles);
-        this.output.article.append(this.cleanTextAfter(text) + (i === len - 1 ? '' : '<br><br>'));
+        this.elements.article.append(this.cleanTextAfter(text) + (i === len - 1 ? '' : '<br><br>'));
     }
 }
 
 // Придумывает автора статьи
 Bred.prototype.writeArticleAuthor = function() {
     var author = this.getRandomNickname();
-    this.output.author.html(author);
+    this.elements.author.html(author);
 }
 
 // Ищет и вставляет первое найденное по заросу изображение
@@ -223,7 +231,7 @@ Bred.prototype.insertImage = function(query) {
                     alt : data.titleNoFormatting
                 });
 
-                this.output.article.prepend(img, '<br><br>');
+                this.elements.article.prepend(img, '<br><br>');
             }
         }
     });
@@ -232,78 +240,17 @@ Bred.prototype.insertImage = function(query) {
 // Вставляет случайный кусок кода
 Bred.prototype.insertCode = function() {
     // увы, но C в пролёте
-    var text = this.output.article.html().replace(/(?: (css|bash|ruby|html|javascript|php|python))\b([\s\S]*?<br><br>)/i, function(all, lang, tail) {
+    var text = this.elements.article.html().replace(/(?: (css|bash|ruby|html|javascript|php|python))\b([\s\S]*?<br><br>)/i, function(all, lang, tail) {
         var langLC = lang.toLowerCase();
         // если для такого языка есть примеры кода
-        if (this.data.pre[langLC] !== undefined) {
-            var l = this.data.pre[langLC].length;
+        if (this.dic.pre[langLC] !== undefined) {
+            var l = this.dic.pre[langLC].length;
             var random = randomInt(0, l - 1);
-            return ' <b>' + lang + '</b>' + tail + '<pre>' + this.data.pre[langLC][random] + '</pre><br><br>';
+            return ' <b>' + lang + '</b>' + tail + this.dic.pre[langLC][random];
         }
         return ' ' + all;
     }.bind(this));
-    this.output.article.html(text);
-}
-
-// Обработка обычного текста,
-// именно обычного, код на языках программирования ей передавать не стоит
-// ПО ЗАДАНИЮ: Точка, запятая, двоеточие, вопросительный и восклицательный знаки считаются словами.
-// Все остальные знаки препинания отбрасываются.
-Bred.prototype.cleanText = function(text) {
-
-    // Удаляем всякие адреса в интернете
-    text = text.replace(/(?:(?:https?|ftp):\/\/)*(?:www.|ftp.)*[А-я\w.-]+\.[A-z]{2,4}/gi, '');
-
-    // Заменяем несколько знаков препинания на один
-    text = text.replace(/([!?.,:-])[!?.,:-]+/g, '$1');
-
-    // Удаляем html-сущности
-    text = text.replace(/&\w+;|&#\d+;/g, ' ');
-
-    // Дефис может быть в составе слова, а может использоваться вместо тире
-    // удаляем дефисы, если они используются вместо тире
-    text = text.replace(/\s+-+\s+/g, ' ');
-
-    // Так как по заданию . , : ? ! считаются за слова, отделим их пробелами
-    text = text.replace(/(\s*[!?.,:])/g, ' $1 ');
-
-    // Удаляем все теги
-    text = text.replace(/<\/?[^>]+>/g, '');
-
-    // Если перед переводом строки \n не стоят точка, вопросительный или восклицательный знаки, значит надо поставить
-    // Например, часто знаки не стоят в подзаголовках
-    text = text.replace(/([A-zА-яёЁ0-9][^!?.])\n/g, '$1 .\n')
-
-    // Удаляем все символы, кроме букв, цифр и некоторых знаков препинания
-    text = text.replace(/[^A-zА-яёЁ0-9 !?.,:-]/g, ' ');
-
-    // Все повторяющиеся пробельные символы, преобразуем в один пробел
-    text = text.replace(/\s+/g, ' ');
-
-    // Заглавные буквы, с которых начинаются предложения, переводим в строчные.
-    // С точки зрения производительности, наверное, лучше было бы использовать toLowerCase(),
-    // но хочется оставить в тексте побольше имён собственных
-    text = text.replace(/(?:^|[!?.]) [A-ZА-ЯЁ]/g, function(result) {
-        return result.toLowerCase();
-    });
-
-    // Раскрываем сокращения
-    text = text.replace(/(т . е .|т . к .|т . п .|т . д .|т . о .)/g, function(result) {
-        switch (result) {
-            case 'т . е .':
-                return 'то есть';
-            case 'т . к .':
-                return 'так как';
-            case 'т . п .':
-                return 'тому подобное';
-            case 'т . д .':
-                return 'так далее';
-            case 'т . о .':
-                return 'таким образом';
-        }
-    });
-
-    return text;
+    this.elements.article.html(text);
 }
 
 // Улучшает вид сгенерированного скриптом текста
@@ -320,24 +267,27 @@ Bred.prototype.cleanTextAfter = function(text) {
     return text;
 }
 
-// Ищет в переданном элементе вставки кода в тегах PRE,
-// и добавляет его в хранилище примеров кода, затем удаляет теги PRE из элемента
-Bred.prototype.removePreTags = function($element) {
-    var pres = $element.find('pre').remove();
-    $element.find('code').remove();
+// Ищет в переданном HTML-тексте примеры кода,
+// добавляет их в хранилище примеров кода, затем удаляет эти примеры из HTML-текста
+Bred.prototype.removePreTags = function(html) {
+    var $html = $('<div>' + html + '</div>');
+    var $codes = $html.find('pre,code').remove();
 
-    if (pres.length > 0) {
-        for (var i = 0, l = pres.length; i < l; i++) {
-            var lang = $(pres[i]).children('code').attr('class');
-            // если указан язык кода, добавляем его в наш список для возможной будущей вставки
-            if (lang) {
-                if (this.data.pre[lang] === undefined)
-                    this.data.pre[lang] = [pres[i].innerHTML];
-                else
-                    this.data.pre[lang].push(pres[i].innerHTML);
-            }
+    if ($codes.length > 0) {
+        $codes = $codes.filter('code[class]');
+
+        for (var i = 0, l = $codes.length; i < l; i++) {
+            var $el = $($codes.get(i));
+            var lang = $el.attr('class');
+            var code = '<pre><code>' + $el.html() + '</code></pre><br>'
+            // добавляем его в наш список для возможной будущей вставки
+            if (this.dic.pre[lang] === undefined)
+                this.dic.pre[lang] = [code];
+            else
+                this.dic.pre[lang].push(code);
         }
     }
+    return $html.html();
 }
 
 // Форматирует дату, принимает на вход Date-объект

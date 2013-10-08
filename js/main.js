@@ -17,19 +17,24 @@ $(function() {
     });
 
     $('#modal-settings').on('submit', function() {
+        window.startTime = new Date();
         $.ajax({
             url : 'habr.html',
             context : $(this),
             success : function(data) {
                 var articles = new Bred({
                     text : data,
-                    output : {
-                        article       : '#bred-article',
-                        title         : '#bred-title',
-                        comments      : '#bred-comments',
-                        author        : '#bred-author',
-                        pubdate       : '#bred-pubdate',
-                        commentsCount : '#comments_count'
+                    elements : {
+                        wrapper       : $('.global-wrapper'),
+                        modal         : $('#modal-settings'),
+                        loader        : $('#modal-settings .modal__loader'),
+                        article       : $('#bred-article'),
+                        title         : $('#bred-title'),
+                        comments      : $('#bred-comments'),
+                        author        : $('#bred-author'),
+                        pubdate       : $('#bred-pubdate'),
+                        commentsCount : $('#comments_count'),
+                        dTimes        : $('#bred-time')
                     },
                     npref        : this.find('[name=npref]').val(),
                     wordsMin     : this.find('[name=words_min]').val(),
@@ -39,8 +44,8 @@ $(function() {
                     parsMin      : this.find('[name=pars_min]').val(),
                     parsMax      : this.find('[name=pars_max]').val()
                 });
-                $('.global-wrapper').show();
-                this.closeModal();
+
+                //this.closeModal();
             }
         });
         return false;
