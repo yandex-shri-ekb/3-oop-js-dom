@@ -109,12 +109,12 @@ Bred.prototype.init = function() {
             self.dic.comments.dic = e.data.comments;
             self.dic.articles.dic = e.data.articles;
 
-            self.writeArticleTitle();                   // придумываем заголовок
-            self.writeArticleText();                    // текст статьи
-            self.writeArticleAuthor();                  // автора статьи
-            self.insertCode();                          // добавляем код
-            self.writeComments(randomInt(10, 20));      // и комментарии
-            // self.insertImage(self.elements.title.text()); // вставляем КДПВ
+            self.writeArticleTitle();                     // придумываем заголовок
+            self.writeArticleText();                      // текст статьи
+            self.writeArticleAuthor();                    // автора статьи
+            self.insertCode();                            // добавляем код
+            self.writeComments(randomInt(10, 20));        // и комментарии
+            self.insertImage(self.elements.title.text()); // вставляем КДПВ
 
             self.elements.wrapper.show();
             self.elements.modal.closeModal();
