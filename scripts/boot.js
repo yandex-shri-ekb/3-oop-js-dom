@@ -12,12 +12,6 @@ require.config({
 
 require(['jquery', 'app/common/dom', 'app/generation/articles', 'app/generation/comments'], 
     function ($, DOM, Articles, Comments) {
-        var $ = require('jquery')
-          , DOM = require('app/common/dom')
-          , Articles = require('app/generation/articles')
-          , Comments = require('app/generation/comments')
-          ;
-
         var comments = new Comments(DOM.$el.comments)
           , articles = new Articles(DOM.$el.articles)
           ;
