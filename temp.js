@@ -1,15 +1,14 @@
-function Genarator(a) {
-    var wordSForDictionary=[],
-        currentPair;
-        
-
+/*jslint plusplus: true, vars: true, browser: true, devel: true */
+var Genarator = function (text) {
+    var wordSForDictionary = [],
+    currentPair;
     //function rndNumber
-    
-    this.extractWords = function(a) {
-      var words = a.split(' ');
-      var lengthMassiv = words.length;
+            "use strict";
+    this.extractWords = function(text) {
+      var words = a.split(' '),
+          lengthMassiv = words.length;
 
-      for(var i=0; lengthMassiv; i+=1){
+      for (var i=0; i<lengthMassiv; i+=1){
         wordSForDictionary.push( words[i].toLowerCase() );
       }
       return wordSForDictionary;
@@ -40,7 +39,7 @@ function Genarator(a) {
 
 
 
-function getRndWord(wordsMassiv) {
+Generate.prototyep.getRndWord = function (wordsMassiv) {
     //if(wordsMassiv.length === 0) {
 //      var word = ' .';
 
@@ -55,18 +54,17 @@ function getRndWord(wordsMassiv) {
 
 
 function createProposal(Dictionary, a, b) {
+    "use strict";
     var tempMas = [],
-        proposal =[],
+        proposal = [],
         words = [],
         word,
         lengthProposal,
         findingLength,
         rndKey,
-        firstPair,
+        firstPair;
 
-        regexp = [.!?#];
-
-    for(var i=a; i<=b; i+=1) {
+    for (var i=a; i<=b; i+=1) {
       tempMas.push(a);
     }
     
@@ -106,8 +104,8 @@ function getNextWord(proposal) {
   //  }
     var lengthProposal = proposal.length,
         lastWord = proposal[lengthProposal],
-        beforeLastWord =  proposal[lengthProposal-1],
-        currentPair = beforeLastWord+lastWord,
+        beforeLastWord =  proposal[lengthProposal - 1],
+        currentPair = beforeLastWord + lastWord,
         masWords = [],
         rndKey,
         count = 0;
@@ -117,16 +115,15 @@ function getNextWord(proposal) {
     masWords = Dictionary[currentPair];
     rndKey = getRndWord(masWords);
     word = masWords[rndKey];
-    while( word.match( /[.!?#]/ ) && count < maxCount) {
+    while (word.match( /[.!?#]/ ) && count < maxCount) {
       rndKey = getRndWord(masWords);
       word = masWords[rndKey];
       count++;
     }
-    if(count === maxCount) {
+    if (count === maxCount) {
       return word = '.';
     }
     return word;
-
 }    
 
 function Dictionary() {
