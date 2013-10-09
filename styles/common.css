@@ -39,6 +39,11 @@ h2
     margin: 30px 0 0;
 }
 
+#image
+{
+    margin: 0 0 30px;
+}
+
 .article_date
 {
     margin: 0 0 2px;

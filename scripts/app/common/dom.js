@@ -35,6 +35,9 @@ define(function(require) {
         renderContent: function(article, comments) {
             $elements.articleContainer.html(templates.article(article));
             $elements.commentsContainer.html(templates.comments(comments));
+        },
+        renderImage: function($image) {
+            $image.appendTo('#image');
         }
     };
 

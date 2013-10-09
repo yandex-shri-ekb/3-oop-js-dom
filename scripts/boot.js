@@ -10,8 +10,8 @@ require.config({
     }
 });
 
-require(['jquery', 'app/common/dom', 'app/generation/articles', 'app/generation/comments'], 
-    function ($, DOM, Articles, Comments) {
+require(['jquery', 'app/common/dom', 'app/generation/articles', 'app/generation/comments', 'app/generation/image'], 
+    function ($, DOM, Articles, Comments, Image) {
         var comments = new Comments(DOM.$el.comments)
           , articles = new Articles(DOM.$el.articles)
           ;
@@ -21,11 +21,14 @@ require(['jquery', 'app/common/dom', 'app/generation/articles', 'app/generation/
               , commentsTree = comments.generateTree(article.date)
               ;
 
+            Image.getImage(article.header).then(function(data){
+                DOM.renderImage(data)
+            });
             DOM.renderContent(article, commentsTree);
 
             return false;
         };
-
+        
         generateData();
 
         DOM.$el.generateButton.show().on('click', generateData);
