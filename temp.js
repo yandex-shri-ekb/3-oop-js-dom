@@ -100,17 +100,17 @@ function getNextWord(proposal) {
 var Iterator = function(items) {
     this.index = 0;
     this.items = items;
-}
+};
 
 Iterator.prototype = {
-    first: function() {
+    first: function () {
       this.reset();
       return this.next();
     },
     randomItem: function() {
-      var rndKey = Math.floor(this.items.length * Math.random() )
+      var rndKey = Math.floor(this.items.length * Math.random());
       return this.items[rndKey];
-    },    
+    },
     next: function() {
       return this.items[this.index++];
     },
@@ -121,11 +121,12 @@ Iterator.prototype = {
       this.index = 0;
     },
     each: function(callback) {
-      for(var item = this.first(); this.hasNext(); item = this.next() ){
+      for (var item = this.first(); this.hasNext(); item = this.next() ){
         callback(item);
       }
     }
 }
+
 
 function Dictionary(wordSForDictionary) {
     this.text = {};
