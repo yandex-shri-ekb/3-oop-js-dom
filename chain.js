@@ -26,11 +26,6 @@ var Chain = (function($, undefined){
         this.index = (this.root !== this)? this.root.index : {};
         this.children = [];
     };
-    /**
-     * Размер префикса
-     * @type {number}
-     */
-    Chain.prototype.quality = 1;
 
     /**
      * Следующий узел цепочки, выбираемый случайно
@@ -147,32 +142,11 @@ var Chain = (function($, undefined){
     };
 
     /**
-     * Генерирует бред в html
+     * Создание предложения из цепочки
+     * @param words_min Минимальное кол-во слов
+     * @param words_max Максимальное кол-во слов
      * @returns {string}
      */
-    Chain.prototype.getHtml = function(max_p, min_w, max_w){
-        if (!max_p) max_p = 10;
-        if (!max_w) max_w = 50;
-        if (!min_w) min_w = 50;
-        var text = '', node, cur_max_w;
-        var tags = [], curr_tag = '';
-        while (max_p-- > 0){
-            var chain = this.iterator(min_w, max_w);
-            curr_tag = '';
-            while (chain.next()){
-                if (chain.current().type !== curr_tag){
-                    if (curr_tag!='' && !(chain.current().type == 'li' && (curr_tag=='ul'||curr_tag=='ol'))) text += '</'+curr_tag+'>';
-                    if (curr_tag!='') text += '<'+chain.current().type+'>';
-                    curr_tag = chain.current().type;
-                }
-                text += (chain.current().isPunctuation()?'':' ') + chain.current().word;
-            }
-            if (!/[.,!?:]$/.test(text)) text += ".";
-            if (curr_tag!='') text += '</'+curr_tag+'>';
-        }
-        return text;
-    };
-
     Chain.prototype.getSentence = function(words_min, words_max){
         var words, text = '', tag;
         words = this.iterator(words_min, words_max);
@@ -190,6 +164,11 @@ var Chain = (function($, undefined){
         return text;
     };
 
+    /**
+     * Создание текста с абзацами
+     * @param config Конфигурация текста (кол-во абзацев, предложений, слов)
+     * @returns {string}
+     */
     Chain.prototype.getText = function(config){
         var pcnt, scnt, text = '';
         pcnt = Math.round(Math.random()*(config.paragraphs.max-config.paragraphs.min))+config.paragraphs.min;
@@ -203,8 +182,6 @@ var Chain = (function($, undefined){
         }
         return text;
     };
-
-
 
     /**
      * Пустая ли цепочка?
