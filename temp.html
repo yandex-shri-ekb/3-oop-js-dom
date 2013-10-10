@@ -29,7 +29,12 @@ function Generator(text) {
     this.wordSForDictionary = [];
     this.articleDict;
     var currentPair;
+    
+    this.getText = function(text){
+      this.text = text.replace(/(\s*[!.?,:])/g, ' $1'); //перед знаками ставим пробелы
+      this.text = text.replace(/[^\w\dА-яёЁ]/g, ' '); // убираем скобочки теги 
 
+    }
     
     this.extractWords = function() {
       var words = this.text.split(' '),
@@ -88,13 +93,17 @@ var iterator = new Iterator(tempMas);
     
     proposal.push(words[0], words[1]);
     words = null;
-   lengthProposal = proposal.length;
+    lengthProposal = proposal.length;
     while ( findingLength !== lengthProposal) {
-      console.log(gen.getNextWord(proposal));
+      //console.log(gen.getNextWord(proposal));
      
       var word = gen.getNextWord(proposal);
+      if(word.match( /[.!?#]/ )){
+        proposal.push(word);
+        return proposal;  
+      }
       proposal.push(word);
-     lengthProposal = proposal.length;
+      lengthProposal = proposal.length;
       console.log(proposal);
     }
     return proposal;
@@ -115,11 +124,11 @@ Generator.prototype.getNextWord = function(proposal, Dictionary) {
     masWords = this.articleDict.text[currentPair];
     var iterator = new Iterator(masWords);
     word = iterator.randomItem();
-    while (word.match( /[.!?#]/ ) && count < maxCount) {
+    while (word.match( /[.!?#]/ ) && (count < maxCount)) {
       word = iterator.randomItem();
       count++;
     }
-    if (count === maxCount) {
+    if (count === maxCount || word === 'undefined') {
       return word = '.';
     }
     return word;
@@ -136,6 +145,9 @@ Iterator.prototype = {
       return this.next();
     },
     randomItem: function() {
+      if(this.items.length ===1) {
+        return this.items[0] 
+      }
       var rndKey = Math.floor(this.items.length * Math.random());
       return this.items[rndKey];
     },
@@ -184,7 +196,7 @@ Dictionary.prototype.fillDictionary = function() {
       }
 };
 var gen = new Generator(text);
-
+gen.getText(text);
 gen.extractWords();
 gen.create();
 console.log(gen.wordSForDictionary[5]);
