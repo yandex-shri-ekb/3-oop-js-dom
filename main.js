@@ -8,31 +8,30 @@
 
     $(document).ready(function(){
         var $content = $('#content'),
-            $form = $('#bred_form'),
-            $wait = $('#bred_wait');
-        // Шаблон статьи и комментария
-        var tpl = {
-            comment: $('#bred_comment').remove(),
-            article: $('#bred_article').remove(),
-            places:{
-                title: '.post_title',
-                date: '.post_date',
-                text: '.post_text',
-                comments: '.post_comments',
-                comments_cnt: '.post_comments_count',
-                comment_places: {
-                    username: '.username',
-                    date: '.date',
-                    text: '.message',
-                    sub: '.reply_comments'
-                }
-            }
-        };
+            $wait = $('#bred_wait'),
+            $form = $('#bred_form');
 
         // Генерируем и показываем бред
         $form.on('submit', function(e){
-            $form.addClass('hide');
-            $wait.show();
+
+            // Шаблон статьи и комментария
+            var tpl = {
+                comment: $('#bred_comment').remove(),
+                article: $('#bred_article').remove(),
+                places:{
+                    title: '.post_title',
+                    date: '.post_date',
+                    text: '.post_text',
+                    comments: '.post_comments',
+                    comments_cnt: '.post_comments_count',
+                    comment_places: {
+                        username: '.username',
+                        date: '.date',
+                        text: '.message',
+                        sub: '.reply_comments'
+                    }
+                }
+            };
             var config = {
                 quality: parseInt($form.find('[name="quality"]').val()),
                 words:{
@@ -52,6 +51,10 @@
                     min: parseInt($form.find('[name="comments[max]"]').val())
                 }
             };
+
+            $form.addClass('hide');
+            $wait.show();
+
             $.get($form.find('[name="src"]').val(), function(src){
                 $content.append((new Bred(src, config)).render(tpl));
                 $wait.hide();

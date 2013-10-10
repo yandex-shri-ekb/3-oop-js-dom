@@ -19,12 +19,14 @@ var Bred = (function($, Chain){
         this.articles = new Chain();
         this.comments = new Chain();
         this.users = [];
+        this.articles.pfx_length = config.quality;
+        this.comments.pfx_length = config.quality;
         // Создание цепочек из src
         var self = this;
         if (/<(\w+)((?:\s+\w+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/.test(src)){
-            var $article = $('<div>').append(src).find('article');
+            var $articles = $('<div>').append(src).find('article');
             // HTML исходник
-            $article.each(function(article_i, article){
+            $articles.each(function(article_i, article){
                 // Вырезаем и обрабатываем комментарии
                 var $com = $(article).find('.comments').remove();
                 $com.find('.username').each(function(user_i, user){
@@ -56,20 +58,25 @@ var Bred = (function($, Chain){
     Bred.prototype.render = function(tpl){
         var $article = tpl.article.clone().show();
         // Статья
-        $article.find(tpl.places.title).html(this.articles.root.getHtml(1, 3, 10));
+        $article.find(tpl.places.title).html(this.articles.root.getSentence(3, 8));
         $article.find(tpl.places.date).text('сегодня в 11:22');
-        $article.find(tpl.places.text).html(this.articles.root.getHtml(Math.round(Math.random()*10)+10, 5, 100));
+        $article.find(tpl.places.text).html(this.articles.root.getText(this.config));
         // Комменты
         var com = this.comments.isEmpty() ? this.articles.root : this.comments.root;
         var comment_list = [$article.find(tpl.places.comments)],
             $comment,
-            i,cnt = Math.round(Math.random()*50)+3;
+            i,cnt = Math.round(Math.random()*(this.config.comments.max-this.config.comments.min))+this.config.comments.min;
         $article.find(tpl.places.comments_cnt).text(cnt);
+        var comment_cfg = {
+            words:{max: 1, min: 15},
+            paragraphs:{max: 1, min: 2},
+            sentences:{max: 1,min: 3}
+        };
         for (i=0; i<cnt; i++){
             $comment = tpl.comment.clone();
             $comment.find(tpl.places.comment_places.username).text((this.users.length > 0)? this.users[Math.round(Math.random() * (this.users.length-1))] : 'Гость');
             $comment.find(tpl.places.comment_places.date).text('сегодня');
-            $comment.find(tpl.places.comment_places.text).html(com.getHtml(Math.round(Math.random()*5)+1, 1, 30));
+            $comment.find(tpl.places.comment_places.text).html(com.getText(comment_cfg));
             comment_list[Math.round(Math.random() * (comment_list.length-1))].append($comment);
             comment_list.push($comment.find(tpl.places.comment_places.sub));
         }
