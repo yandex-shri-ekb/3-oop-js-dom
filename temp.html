@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Generator Blah" charset="utf-8"/>
+<link media="screen, handheld" rel="stylesheet" href="main.css"/>
+<title>3_HW Genrator</title>
+
+</head>
+
+<body>
+  <h1 class="header">Бредогенератор</h1>
+  <div class="source-page"></div>
+  <div class="blah-page">
+    <button class="generate-button" onClick="generateBlah()">Сгенерировать статью</button>
+  </div>
+
+<script type="text/javascript">
+
+    
+/*jslint plusplus: true, vars: true, browser: true, devel: true */
+//"use strict";
+
+var text = 'issue в RM создается с кодом, отличным от номера запроса в SD. Этот код генерируется. Скорее всего, он отправится нам в виде ответа (ссылки на созданную issue) - надо разбираться. Код нужно сохранить в виде числа или строки - для дальнейшего использования при редактировании issue (см. ниже).';
+
+function Generator(text) {
+    this.text = text;
+    this.wordSForDictionary = [];
+    this.articleDict;
+    var currentPair;
+
+    
+    this.extractWords = function() {
+      var words = this.text.split(' '),
+          lengthMassiv = words.length;
+
+      for (var i=0; i<lengthMassiv; i+=1){
+        this.wordSForDictionary.push( words[i].toLowerCase() );
+      }
+      return this.wordSForDictionary;
+    },
+
+    this.create = function() {
+      this.articleDict = new Dictionary(this.wordSForDictionary);
+      this.articleDict.fillDictionary();
+    }
+};
+
+
+
+
+
+
+
+
+Generator.prototype.createProposal = function(Dictionary, a, b) {
+    "use strict";
+    var tempMas = [],
+        proposal = [],
+        words = [],
+        lengthProposal,
+        findingLength,
+        firstPair;
+
+    for (var i=a; i<=b; i+=1) {
+      tempMas.push(i);
+    }
+    
+var iterator = new Iterator(tempMas);
+
+    findingLength = iterator.randomItem();
+    tempMas.length = 0;
+  
+    for(var key in Dictionary.text) {
+      tempMas.push(key);
+    }
+
+    firstPair = iterator.randomItem();
+    words = firstPair.split(' ');
+    
+    while( words[0].match( /[.!?#]/ ) && words[1].match( /[.!?#]/ ) ) {
+      firstPair = iterator.randomItem();
+      words = firstPair.split(' ');
+    }
+
+    tempMas.length = 0;
+    
+    proposal.push(words[0], words[1]);
+    words = null;
+   lengthProposal = proposal.length;
+    while ( findingLength !== lengthProposal) {
+      console.log(gen.getNextWord(proposal));
+     
+      var word = gen.getNextWord(proposal);
+      proposal.push(word);
+     lengthProposal = proposal.length;
+      console.log(proposal);
+    }
+    return proposal;
+}
+
+Generator.prototype.getNextWord = function(proposal, Dictionary) {
+    var lengthProposal = proposal.length,
+        lastWord = proposal[lengthProposal-1],
+        beforeLastWord =  proposal[lengthProposal - 2],
+        currentPair = beforeLastWord + ' '+lastWord,
+        masWords = [],
+        rndKey,
+        count = 0,
+        maxCount = 50,
+        word;
+
+
+    masWords = this.articleDict.text[currentPair];
+    var iterator = new Iterator(masWords);
+    word = iterator.randomItem();
+    while (word.match( /[.!?#]/ ) && count < maxCount) {
+      word = iterator.randomItem();
+      count++;
+    }
+    if (count === maxCount) {
+      return word = '.';
+    }
+    return word;
+}    
+
+var Iterator = function(items) {
+    this.index = 0;
+    this.items = items;
+};
+
+Iterator.prototype = {
+    first: function () {
+      this.reset();
+      return this.next();
+    },
+    randomItem: function() {
+      var rndKey = Math.floor(this.items.length * Math.random());
+      return this.items[rndKey];
+    },
+    next: function() {
+      return this.items[this.index++];
+    },
+    hasNext: function() {
+      return this.index <= this.items.length;
+    },
+    reset: function() {
+      this.index = 0;
+    },
+    each: function(callback) {
+      for (var item = this.first(); this.hasNext(); item = this.next() ){
+        callback(item);
+      }
+    }
+}
+
+
+function Dictionary(wordSForDictionary) {
+    this.wordSForDictionary = wordSForDictionary;
+    this.text = {};
+    this.authorComment = [];
+}
+Dictionary.prototype.fillDictionary = function() {
+      var lengthDictionary = this.wordSForDictionary.length;
+      
+      outer:
+      for(var i=0; i<lengthDictionary; i+=1) {
+        if(this.wordSForDictionary[i+2]==undefined){
+          if(this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1] in this.text) {
+            this.text[this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1]].push('#');
+          break outer;
+          }
+          this.text[this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1]] =[];
+          this.text[this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1]].push('#');
+          break outer;
+        }
+        if(this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1] in this.text) {
+          this.text[this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1]].push(this.wordSForDictionary[i+2])
+          continue;
+        }
+        this.text[this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1]] =[];
+        this.text[this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1]].push(this.wordSForDictionary[i+2]);
+      }
+};
+var gen = new Generator(text);
+
+gen.extractWords();
+gen.create();
+console.log(gen.wordSForDictionary[5]);
+
+gen.createProposal(gen.articleDict,5,8);
+
+</script>
+
+</body>
+</html>
