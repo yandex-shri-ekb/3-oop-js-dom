@@ -16,7 +16,7 @@ $(function() {
         return false;
     });
 
-    $('#modal-settings').on('submit', function() {
+    $('.bred-settings form').on('submit', function() {
         window.startTime = new Date();
         $.ajax({
             url : 'habr.html',
@@ -25,9 +25,9 @@ $(function() {
                 var articles = new Bred({
                     text : data,
                     elements : {
-                        wrapper       : $('.global-wrapper'),
-                        modal         : $('#modal-settings'),
-                        loader        : $('#modal-settings .modal__loader'),
+                        content       : $('.content_left'),
+                        loader        : $('.loader'),
+                        loaderText    : $('.loader .text'),
                         article       : $('#bred-article'),
                         title         : $('#bred-title'),
                         comments      : $('#bred-comments'),
@@ -44,13 +44,9 @@ $(function() {
                     parsMin      : this.find('[name=pars_min]').val(),
                     parsMax      : this.find('[name=pars_max]').val()
                 });
-
-                //this.closeModal();
             }
         });
         return false;
     });
-
-    $('#modal-settings').openModal();
 
 });

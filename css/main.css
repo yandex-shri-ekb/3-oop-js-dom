@@ -1,109 +1,59 @@
-.modal
+.bred-settings .row
 {
-    background: #fff;
-    -webkit-box-shadow: rgba(0,0,0, .6) 0 2px 9px;
-       -moz-box-shadow: rgba(0,0,0, .6) 0 2px 9px;
-         -o-box-shadow: rgba(0,0,0, .6) 0 2px 9px;
-            box-shadow: rgba(0,0,0, .6) 0 2px 9px;
-    display: none;
-    left: 50%;
-    padding: 35px;
-    position: fixed;
-    text-align: left;
-    top: 50%;
-    z-index: 9999;
-    margin: 0 0 0 -200px;
-    width: 400px;
-}
-
-.modal__header
-{
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    margin: 0 -35px 20px -35px;
-    padding: 0 35px 20px 35px;
-    text-align: center;
-}
-
-.modal__title
-{
-    display: block;
-    font-size: 30px;
-    line-height: 40px;
-}
-
-
-.modal__row
-{
-    margin-bottom: 15px;
     line-height: 36px;
-    font-size: 16px;
     overflow: hidden;
 }
 
-.modal__label
-{
-    margin-bottom: 3px;
-}
-
-.modal__group
+.bred-settings .group
 {
     float: right;
-    font-size: 16px;
 }
 
-.modal__input
+.bred-settings input
 {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
-    font-size: 24px;
     padding: 2px 6px;
-    width: 50px;
+    width: 36px;
     vertical-align: middle;
 }
 
-.modal__input_type_select
+.bred-settings select
 {
     padding: 2px 2px 2px 6px;
-    width: 60px;
+    width: 50px;
 }
 
-.modal__button
+.bred-settings button
 {
     cursor: pointer;
     display: block;
-    font-size: 20px;
     margin: 10px auto 0;
-    padding: 10px 0;
-    width: 180px;
+    padding: 5px 10px;
 }
 
-.modal__loader
+.loader
 {
-    color: #333;
     display: none;
-    background: rgba(255,255,255, .9) url(../assets/loader-large.gif) no-repeat center 45%;
+    background: rgba(0,0,0, .85);
     z-index: 1000;
     width: 100%;
-    padding-top: 60%;
-    height: 40%;
-    position: absolute;
+    height: 100%;
+    position: fixed;
     top: 0;
     left: 0;
     text-align: center;
 }
 
-.overlay
+.loader .text
 {
-    background: #000;
-    display: none;
-    height: 100%;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
-    filter: alpha(opacity=40);
-    opacity: .3;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 9998;
+    color: #eee;
+    background: url(../assets/loader-large-inverted.gif) no-repeat center top;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -40px 0 0 -200px;
+    padding-top: 74px;
+    width: 400px;
 }

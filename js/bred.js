@@ -4,19 +4,20 @@ var Bred = function(data) {
 
     // необходимые для работы HTML-элементы
     this.elements = {
-        modal         : data.elements.modal,
-        wrapper       : data.elements.wrapper,
+        content       : data.elements.content.css('visibility', 'hidden'),
         loader        : data.elements.loader,
-        article       : data.elements.article,
-        title         : data.elements.title,
-        comments      : data.elements.comments,
-        author        : data.elements.author,
-        pubdate       : data.elements.pubdate,
-        commentsCount : data.elements.commentsCount,
-        dTimes        : data.elements.dTimes
+        loaderText    : data.elements.loaderText,
+        article       : data.elements.article.html(''),
+        title         : data.elements.title.html(''),
+        comments      : data.elements.comments.html(''),
+        author        : data.elements.author.html(''),
+        pubdate       : data.elements.pubdate.html(''),
+        commentsCount : data.elements.commentsCount.html(''),
+        dTimes        : data.elements.dTimes.html('')
     };
 
-    this.elements.loader.text('Составление словаря...').show();
+    this.elements.loaderText.text('Составление словаря...');
+    this.elements.loader.show();
 
     // Количество слов в префиксе
     this.npref = +data.npref > 0 ? +data.npref : 2;
@@ -46,11 +47,6 @@ var Bred = function(data) {
         articles : new Dic , // для текста статьи
         nicknames : [],      // используемые ники
         pre : {}             // примеры кода
-    };
-
-    // Используемые никнеймы и примеры кода
-    this.data = {
-
     };
 
     // Дата создания поста
@@ -102,7 +98,7 @@ Bred.prototype.init = function() {
 
     // как закончит составлять словарь
     worker.onmessage = function(e) {
-        self.elements.loader.text('Генерация статьи...');
+        self.elements.loaderText.text('Генерация статьи...');
 
         setTimeout(function() {
             // сохраняем готовые словари
@@ -113,13 +109,12 @@ Bred.prototype.init = function() {
             self.writeArticleText();                      // текст статьи
             self.writeArticleAuthor();                    // автора статьи
             self.insertCode();                            // добавляем код
-            self.writeComments(randomInt(10, 20));        // и комментарии
+            self.writeComments(randomInt(20, 40));        // и комментарии
             self.insertImage(self.elements.title.text()); // вставляем КДПВ
 
-            self.elements.wrapper.show();
-            self.elements.modal.closeModal();
-            self.elements.loader.hide();
+            self.elements.content.css('visibility', 'visible');
             self.elements.dTimes.html('Сгенерирована за <b>' + ((new Date).getTime() - window.startTime) / 1000 + '</b> с');
+            self.elements.loader.hide();
         }, 100)
     };
 }
@@ -156,12 +151,14 @@ Bred.prototype.writeText = function(minWords, maxWords, dic) {
 }
 
 // Придумывает комментарии
-Bred.prototype.writeComments = function(count) {
+Bred.prototype.writeComments = function(total) {
     // сюда складываем комментарии при их создании
     var comments = [];
     var lastActivityTime = this.pubDate;
+    // количество комментариев на первом уровне
+    var firstLevelCount = Math.floor(total * 2/3);
 
-    for (var i = 0; i < count; i++) {
+    for (var i = 0; i < total; i++) {
         lastActivityTime += randomInt(0, 110000000);
         var time = this.formatDate(new Date(lastActivityTime));
         var author = this.getRandomNickname();
@@ -170,14 +167,32 @@ Bred.prototype.writeComments = function(count) {
         comments.push(this.writeComment(author, time, text));
     }
 
+    // комментарии уровней больше первого
+    var commentsForInsert = comments.slice(firstLevelCount);
+    // комментарии первого уровня
+    comments = comments.slice(0, firstLevelCount);
+
     // вставляем сами комментарии и их число в страницу
     this.elements.comments.html(comments);
-    this.elements.commentsCount.text(comments.length);
+    this.elements.commentsCount.text(total);
+
+    // Отвечаем на комментарии первого уровня
+    do {
+        // выбираем случайный комментарий, на который будем отвечать
+        var random = randomInt(0, comments.length - 1);
+        var $comment = $(comments[random]);
+        // комментарий-ответ
+        var commentForInsert = commentsForInsert.shift();
+        $comment.find('.reply_comments').append(commentForInsert);
+        // и добавляем комментарий-ответ в массив уже существующих комментариев,
+        // чтоб на него тоже можно было отвечать
+        comments.push(commentForInsert);
+    } while (commentsForInsert.length > 0)
 }
 
 // Возвращает HTML-элемент комментария
 Bred.prototype.writeComment = function(author, time, text) {
-    return $('#bred-comment').clone().removeAttr('id')
+    return $($('#bred-comment').html())
         .find('.username').text(author).end()
         .find('time').text(time).end()
         .find('.message').text(text).end();

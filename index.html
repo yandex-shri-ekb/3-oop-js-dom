@@ -7,61 +7,51 @@
 <script src="//yandex.st/jquery/1.10.2/jquery.min.js"></script>
 
 <link href="css/main.css" rel="stylesheet">
-<script src="js/modal.js"></script>
 <script src="js/main.js"></script>
 <script src="js/dic.js"></script>
 <script src="js/bred.js"></script>
-<script type="text/template" id="modal-tpl">
-    <div class="overlay" id="overlay"></div>
-    <div class="modal" id="modal-settings">
-        <div class="modal__loader">Загрузка...</div>
-        <div class="modal__header">Домашняя работа №3
-            <span class="modal__title">«Генератор текста»</span>
+<script type="template" id="bred-comment">
+<div class="comment_item">
+    <span class="parent_id"></span>
+    <div class="comment_body">
+        <div class="info">
+            <div class="folding-dot-holder">
+                <div class="folding-dot"></div>
+            </div>
+            <div class="voting hidden">
+                <a href="#" class="minus" ></a>
+                <a href="#" class="plus" ></a>
+                <div class="mark positive ">
+                    <span class="score">+1</span>
+                </div>
+            </div>
+            <a href="#" class="avatar">
+                <img src="assets/stub-user-small.gif" alt="">
+            </a>
+            <a href="#" class="username"><!-- Пользователь --></a>
+            <span class="comma">,</span>
+            <time><!-- Время --></time>
+            <a href="#" class="link_to_comment">#</a>
+            <a href="#" class="favorite add" ></a>
+            <span class="to_chidren"></span>
+            <div class="clear"></div>
         </div>
-        <form>
-            <div class="modal__manual">
-                <div class="modal__row">
-                    <label class="modal__label">Количество слов в префиксе</label>
-                    <div class="modal__group">
-                        <select class="modal__input modal__input_type_select" type="text" name="npref">
-                            <option>1</option>
-                            <option selected>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal__row">
-                    <label class="modal__label">Cлов в предложении</label>
-                    <div class="modal__group">
-                        от <input class="modal__input" type="text" name="words_min" value="5" maxlength="2">
-                        до <input class="modal__input" type="text" name="words_max" value="17" maxlength="2">
-                    </div>
-                </div>
-                <div class="modal__row">
-                    <label class="modal__label">Предложений в абзаце</label>
-                    <div class="modal__group">
-                        от <input class="modal__input" type="text" name="sentences_min" value="5" maxlength="2">
-                        до <input class="modal__input" type="text" name="sentences_max" value="15" maxlength="2">
-                    </div>
-                </div>
-                <div class="modal__row">
-                    <label class="modal__label">Абзацев в статье</label>
-                    <div class="modal__group">
-                        от <input class="modal__input" type="text" name="pars_min" value="8" maxlength="2">
-                        до <input class="modal__input" type="text" name="pars_max" value="15" maxlength="2">
-                    </div>
-                </div>
-            </div>
-            <div>
-                <button class="modal__button" type="submit">Поехали</button>
-            </div>
-        </form>
+        <div class="message html_format "><!-- Текст комментария --></div>
+        <div class="reply_form_placeholder"></div>
+        <div class="reply">
+            <a href="#" class="reply_link" >ответить</a>
+        </div>
     </div>
+    <div class="reply_comments"></div>
+</div>
 </script>
 </head>
 <body>
-<div class="global-wrapper" style="display: none;">
+<div class="overlay" id="overlay"></div>
+<div class="loader">
+    <div class="text">Загрузка...</div>
+</div>
+<div class="global-wrapper">
         <div class="wrapper">
             <div id="layout">
                 <div id="header">
@@ -93,7 +83,7 @@
                         <a href="#">компании</a>
                     </div>
                 </div>
-                <div class="content_left">
+                <div class="content_left" style="visibility: hidden;">
                     <div class="post shortcuts_item">
                         <div class="published" id="bred-pubdate">вчера в 20:00</div>
                         <h1 class="title">
@@ -142,39 +132,7 @@
                     <div class="comments_list" id="comments">
                         <h2 class="title ">комментарии (<span id="comments_count"><!-- Количество комментариев --></span>)</h2>
                         <div id="bred-comments">
-                            <div class="comment_item" id="bred-comment">
-                                <span class="parent_id"></span>
-                                <div class="comment_body">
-                                    <div class="info">
-                                        <div class="folding-dot-holder">
-                                            <div class="folding-dot"></div>
-                                        </div>
-                                        <div class="voting hidden">
-                                            <a href="#" class="minus" ></a>
-                                            <a href="#" class="plus" ></a>
-                                            <div class="mark positive ">
-                                                <span class="score">+1</span>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="avatar">
-                                            <img src="assets/stub-user-small.gif" alt="">
-                                        </a>
-                                        <a href="#" class="username"><!-- Пользователь --></a>
-                                        <span class="comma">,</span>
-                                        <time><!-- Время --></time>
-                                        <a href="#" class="link_to_comment">#</a>
-                                        <a href="#" class="favorite add" ></a>
-                                        <span class="to_chidren"></span>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="message html_format "><!-- Текст комментария --></div>
-                                    <div class="reply_form_placeholder"></div>
-                                    <div class="reply">
-                                        <a href="#" class="reply_link" >ответить</a>
-                                    </div>
-                                </div>
-                                <div class="reply_comments"></div>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="comments_form" id="comments_form_placeholder">
@@ -231,6 +189,46 @@
                     </div>
                 </div>
                 <div class="sidebar_right">
+                    <div class="block bred-settings">
+                        <div class="title">Настройки</div>
+                        <form>
+                            <div class="row">
+                                <label>Слов в префиксе</label>
+                                <div class="group">
+                                    <select name="npref">
+                                        <option>1</option>
+                                        <option selected>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label>Cлов в предложении</label>
+                                <div class="group">
+                                    от <input type="text" name="words_min" value="5" maxlength="2">
+                                    до <input type="text" name="words_max" value="17" maxlength="2">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label>Предложений в абзаце</label>
+                                <div class="group">
+                                    от <input type="text" name="sentences_min" value="5" maxlength="2">
+                                    до <input type="text" name="sentences_max" value="15" maxlength="2">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label>Абзацев в статье</label>
+                                <div class="group">
+                                    от <input type="text" name="pars_min" value="8" maxlength="2">
+                                    до <input type="text" name="pars_max" value="15" maxlength="2">
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit">Поехали</button>
+                            </div>
+                        </form>
+                    </div>
                     <div class="block daily_best_posts" style="width: auto; opacity: 1;">
                         <div class="title">Лучшее
                             <sup>за 24 часа</sup>
