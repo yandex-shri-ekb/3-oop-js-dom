@@ -13,7 +13,19 @@
   <h1 class="header">Бредогенератор</h1>
   <div class="source-page"></div>
   <div class="blah-page">
+    <form class="blah-preference">
+     
+    <div class="source-text">
+      <label>Выбор источников текста</label>
+      <select name="" class="changeSource">
+        <option value="habr.html" selected="selected">Список статей Habra</option>
+        <option value="Критика чистого разума.txt">критика чистого разума</option>
+      </select>
+      
+    </div>
+
     <button class="generate-button" onClick="generateBlah()">Сгенерировать статью</button>
+    </form>
   </div>
 
 <script type="text/javascript">
@@ -22,17 +34,19 @@
 /*jslint plusplus: true, vars: true, browser: true, devel: true */
 //"use strict";
 
-var text = 'issue в RM создается с кодом, отличным от номера запроса в SD. Этот код генерируется. Скорее всего, он отправится нам в виде ответа (ссылки на созданную issue) - надо разбираться. Код нужно сохранить в виде числа или строки - для дальнейшего использования при редактировании issue (см. ниже).';
+var text = 'issue в RM создается с кодом, отличным от номера < ))) )>  ))))запроса в SD. Этот код генерируется. Скорее всего, он отправится нам в виде ответа (ссылки на созданную issue) - надо разбираться. Код нужно сохранить в виде числа или строки - для дальнейшего использования при редактировании issue (см. ниже).';
 
-function Generator(text) {
+function Generator(text, config) {
+    this.config = config;
     this.text = text;
     this.wordSForDictionary = [];
     this.articleDict;
     var currentPair;
     
     this.getText = function(text){
-      this.text = text.replace(/(\s*[!.?,:])/g, ' $1'); //перед знаками ставим пробелы
-      this.text = text.replace(/[^\w\dА-яёЁ]/g, ' '); // убираем скобочки теги 
+     
+      this.text = text.replace(/[^\w\d\sА-яёЁ!.?,:]/g, ''); // убираем скобочки теги 
+      this.text = this.text.replace(/(\s*[!.?,:])/g, ' $1'); //перед знаками ставим пробелы
 
     }
     
