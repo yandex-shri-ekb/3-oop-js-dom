@@ -18,6 +18,7 @@ $(function() {
 
     $('.bred-settings form').on('submit', function() {
         window.startTime = new Date();
+        var startButton = $('.bred-settings button').attr('disabled', true);
         $.ajax({
             url : 'habr.html',
             context : $(this),
@@ -25,6 +26,7 @@ $(function() {
                 var articles = new Bred({
                     text : data,
                     elements : {
+                        startButton   : startButton,
                         content       : $('.content_left'),
                         loader        : $('.loader'),
                         loaderText    : $('.loader .text'),

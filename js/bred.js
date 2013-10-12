@@ -7,6 +7,7 @@ var Bred = function(data) {
         content       : data.elements.content.css('visibility', 'hidden'),
         loader        : data.elements.loader,
         loaderText    : data.elements.loaderText,
+        startButton   : data.elements.startButton,
         article       : data.elements.article.html(''),
         title         : data.elements.title.html(''),
         comments      : data.elements.comments.html(''),
@@ -112,9 +113,10 @@ Bred.prototype.init = function() {
             self.writeComments(randomInt(20, 40));        // и комментарии
             self.insertImage(self.elements.title.text()); // вставляем КДПВ
 
-            self.elements.content.css('visibility', 'visible');
             self.elements.dTimes.html('Сгенерирована за <b>' + ((new Date).getTime() - window.startTime) / 1000 + '</b> с');
             self.elements.loader.hide();
+            self.elements.startButton.attr('disabled', false);
+            self.elements.content.css('visibility', 'visible');
         }, 100)
     };
 }
