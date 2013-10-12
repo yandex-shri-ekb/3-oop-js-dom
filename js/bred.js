@@ -4,27 +4,24 @@ var Bred = function(data) {
 
     // необходимые для работы HTML-элементы
     this.elements = {
-        content       : data.elements.content.css('visibility', 'hidden'),
+        content       : data.elements.content,
         loader        : data.elements.loader,
         loaderText    : data.elements.loaderText,
         startButton   : data.elements.startButton,
-        article       : data.elements.article.html(''),
-        title         : data.elements.title.html(''),
-        comments      : data.elements.comments.html(''),
-        author        : data.elements.author.html(''),
-        pubdate       : data.elements.pubdate.html(''),
-        commentsCount : data.elements.commentsCount.html(''),
-        dTimes        : data.elements.dTimes.html('')
+        article       : data.elements.article,
+        title         : data.elements.title,
+        comments      : data.elements.comments,
+        author        : data.elements.author,
+        pubdate       : data.elements.pubdate,
+        commentsCount : data.elements.commentsCount,
+        benchmark     : data.elements.benchmark
     };
-
-    this.elements.loaderText.text('Составление словаря...');
-    this.elements.loader.show();
 
     // Количество слов в префиксе
     this.npref = +data.npref > 0 ? +data.npref : 2;
 
     // Переданный на вход текст
-    this.text = data.text;
+    this.text;
 
     // Настройки
     this.settings = {
@@ -52,14 +49,15 @@ var Bred = function(data) {
 
     // Дата создания поста
     this.pubDate = randomInt(1100000000000, (new Date()).getTime());
-
-    var self = this;
-    setTimeout(function() {
-        self.init();
-    }, 100);
 }
 
-Bred.prototype.init = function() {
+Bred.prototype.init = function(text) {
+
+    this.elements.loaderText.text('Составление словаря...');
+    this.elements.loader.show();
+
+    this.text = text;
+
     var $articles = $(this.text.match(/<article>([\s\S]*?)<\/article>/g).join(''));
 
     // комментарии
@@ -99,26 +97,49 @@ Bred.prototype.init = function() {
 
     // как закончит составлять словарь
     worker.onmessage = function(e) {
-        self.elements.loaderText.text('Генерация статьи...');
+        // сохраняем готовые словари
+        self.dic.comments.dic = e.data.comments;
+        self.dic.articles.dic = e.data.articles;
 
-        setTimeout(function() {
-            // сохраняем готовые словари
-            self.dic.comments.dic = e.data.comments;
-            self.dic.articles.dic = e.data.articles;
-
-            self.writeArticleTitle();                     // придумываем заголовок
-            self.writeArticleText();                      // текст статьи
-            self.writeArticleAuthor();                    // автора статьи
-            self.insertCode();                            // добавляем код
-            self.writeComments(randomInt(20, 40));        // и комментарии
-            self.insertImage(self.elements.title.text()); // вставляем КДПВ
-
-            self.elements.dTimes.html('Сгенерирована за <b>' + ((new Date).getTime() - window.startTime) / 1000 + '</b> с');
-            self.elements.loader.hide();
-            self.elements.startButton.attr('disabled', false);
-            self.elements.content.css('visibility', 'visible');
-        }, 100)
+        self.initialized = true;
+        self.start();
     };
+
+}
+
+Bred.prototype.start = function() {
+
+    if (this.initialized === false)
+        return false;
+
+    this.elements.loaderText.text('Генерация статьи...');
+    this.elements.loader.show();
+
+    // очищаем
+    this.elements.article.html('');
+    this.elements.title.html('');
+    this.elements.comments.html('');
+    this.elements.author.html('');
+    this.elements.pubdate.html('');
+    this.elements.commentsCount.html('');
+    this.elements.benchmark.html('');
+
+    var self = this;
+
+    setTimeout(function() {
+        self.writeArticleTitle();                     // придумываем заголовок
+        self.writeArticleText();                      // текст статьи
+        self.writeArticleAuthor();                    // автора статьи
+        self.insertCode();                            // добавляем код
+        self.writeComments(randomInt(20, 40));        // и комментарии
+        self.insertImage(self.elements.title.text()); // вставляем КДПВ
+
+        self.elements.benchmark.html('Сгенерирована за <b>' + window.benchmark.stop() + '</b> с');
+        self.elements.loader.hide();
+        self.elements.startButton.attr('disabled', false);
+        self.elements.content.css('visibility', 'visible');
+    }, 100);
+
 }
 
 // Возвращает случайный ник
