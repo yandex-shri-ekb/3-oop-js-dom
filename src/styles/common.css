@@ -1,0 +1,113 @@
+body
+{
+    margin: 30px auto;
+    width: 960px;
+}
+
+h1,
+h2
+{
+    margin: 0 0 8px;
+    color: #333;
+    letter-spacing: -1px;
+    font: 100 30px/1.2 Verdana, Geneva, sans-serif;
+}
+
+p
+{
+    margin: 0 0 26px;
+    color: #000;
+    font: 13px/1.6 Verdana, Geneva, sans-serif;
+}
+
+input[type=checkbox],
+input[type=range]
+{
+    margin: 0;
+}
+
+.button
+{
+    display: inline-block;
+    margin: 0;
+    padding: 0 10px;
+    height: 26px;
+    outline: 0;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d9d8d8 #cccbcb #aeaeae;
+    border-radius: 6px;
+    background: #eee;
+    background: -moz-linear-gradient(#fff, #eee);
+    background: -ms-linear-gradient(#fff, #eee);
+    background: -o-linear-gradient(#fff, #eee);
+    background: -webkit-linear-gradient(#fff, #eee);
+    background: linear-gradient(#fff, #eee);
+    -webkit-box-shadow: #fff 0 1px 0 inset;
+    box-shadow: #fff 0 1px 0 inset;
+    color: #282828;
+    text-shadow: rgba(255, 255, 255, .8) 0 1px 0;
+    font: 12px Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.button:active
+{
+    border-color: #a4a4ac #d2d3d4 #fff;
+    -webkit-box-shadow: rgba(0, 0, 0, .2) 0 1px 1px inset;
+    box-shadow: rgba(0, 0, 0, .2) 0 1px 1px inset;
+}
+
+.button:hover
+{
+    background: -moz-linear-gradient(#fcfcfc, #e8e8e8);
+    background: -ms-linear-gradient(#fcfcfc, #e8e8e8);
+    background: -o-linear-gradient(#fcfcfc, #e8e8e8);
+    background: -webkit-linear-gradient(#fcfcfc, #e8e8e8);
+    background: linear-gradient(#fcfcfc, #e8e8e8);
+}
+
+.hide
+{
+    display: none;
+}
+
+.clearfix:after
+{
+    display: table;
+    clear: both;
+    content: '';
+}
+
+.content
+{
+    float: left;
+    margin: 0 20px 0 0;
+    width: 660px;
+}
+
+.content_section
+{
+    margin: 0 0 30px;
+}
+
+.article_date
+{
+    margin: 0 0 2px;
+    color: #7e7e7e;
+    font: 11px Verdana, Geneva, sans-serif;
+}
+
+.hubs
+{
+    margin: 0 0 15px;
+    padding: 2px 0 2px 25px;
+    background: url(../images/hub.icon.png) no-repeat;
+    font: 11px Verdana, Geneva, sans-serif;
+}
+
+.hubs_link,
+.hubs_link:hover
+{
+    color: #999;
+}

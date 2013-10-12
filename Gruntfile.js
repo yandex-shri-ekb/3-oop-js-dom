@@ -5,22 +5,36 @@ module.exports = function(grunt) {
         requirejs: {
             dist: {
                 options: {
-                    baseUrl: 'scripts',
-                    mainConfigFile: 'scripts/boot.js',
+                    baseUrl: 'src/scripts',
+                    mainConfigFile: 'src/scripts/boot.js',
                     name: 'boot',
-                    out: 'scripts/build.js',
-                    preserveLicenseComments: false,
-                    paths: {
-                        requireLib: 'vendor/require'
-                    },
-                    include: 'requireLib'
+                    out: 'dist/scripts/build.js',
+                    preserveLicenseComments: false
                 }
             }
-        }
+        },
 
+        cssmin: {
+            dist: {
+                files: {
+                    'dist/styles/all.css': 'src/styles/all.css'
+                }
+            }
+        },
+
+        copy: {
+            dist: {
+                cwd: 'src/',
+                src: ['scripts/app/data/*', 'scripts/vendor/require.js', 'images/*'],
+                dest: 'dist/',
+                expand: true
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['requirejs']);
+    grunt.registerTask('default', ['requirejs', 'cssmin', 'copy']);
 };

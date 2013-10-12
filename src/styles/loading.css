@@ -1,0 +1,47 @@
+@-webkit-keyframes loading
+{
+    to
+    {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes loading
+{
+    to
+    {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes loading
+{
+    to
+    {
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@keyframes loading
+{
+    to
+    {
+        transform: rotate(360deg);
+    }
+}
+
+#loading
+{
+    margin: 30px auto 0;
+    width: 40px;
+    height: 40px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #000 #777 #777 #000;
+    border-radius: 50%;
+    background: transparent;
+    -moz-animation: loading 1s infinite linear;
+    -ms-animation: loading 1s infinite linear;
+    -webkit-animation: loading 1s infinite linear;
+    animation: loading 1s infinite linear;
+}
