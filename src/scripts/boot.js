@@ -7,7 +7,8 @@ require.config({
         'handlebars': {
             exports: 'Handlebars'
         }
-    }
+    },
+    waitSeconds: 120
 });
 
 require(
