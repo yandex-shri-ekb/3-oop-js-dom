@@ -5,6 +5,7 @@ define(function(require) {
 
     var $elements = {
         useStatistics: $('#settings_use-statistics'),
+        useHeaders: $('#settings_use-headers'),
         paragraphs: $('#settings_paragraphs'),
         sentences: $('#settings_sentences'),
         words: $('#settings_words'),
@@ -40,6 +41,7 @@ define(function(require) {
             var self = this;
 
             self.useStatistics = $elements.useStatistics.prop('checked');
+            self.useHeaders = $elements.useHeaders.prop('checked');
             ranges.forEach(function(v) {
                 self[v] = Common.getRange($elements[v].val(), $elements[v].data('amplitude'));
             });

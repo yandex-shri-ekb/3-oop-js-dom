@@ -13,6 +13,13 @@ h2
     font: 100 30px/1.2 Verdana, Geneva, sans-serif;
 }
 
+h3
+{
+    margin: 0 0 24px;
+    color: #999;
+    font: 100 16px Verdana, Geneva, sans-serif;
+}
+
 p
 {
     margin: 0 0 26px;
