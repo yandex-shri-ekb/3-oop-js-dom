@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files "file:///c:/Git/3-oop-js-dom/test/test.html"
