@@ -61,7 +61,7 @@ var Chain = (function($, undefined){
                 return curr;
             },
             completed: function(){
-                return curr && /[.?!]+/.test(curr.word);
+                return curr && /^[.?!]+$/.test(curr.word);
             }
         };
     };
