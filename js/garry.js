@@ -1,6 +1,5 @@
 window.Garry = function (options) {
-    var dict = {},
-        intros = [],
+    var dict = window.dict = new Dictionary,
         blacklist = {
             '.': ['.', '-'],
             '-': ['-', '.', ','],
@@ -54,9 +53,6 @@ window.Garry = function (options) {
                 return self;
             },
 
-            dict: function () { return dict; },
-            stats: function () { return stats; },
-
             getText: function () {
                 var length = getRandomIntegerInRange(
                     stats.paragraphs.perText.min,
@@ -92,40 +88,32 @@ window.Garry = function (options) {
             },
 
             getSentence: function () {
-                var intro = getRandomIntro(),
-                    length = getRandomIntegerInRange(
+                var length = getRandomIntegerInRange(
                         stats.words.perSentence.min,
                         stats.words.perSentence.max
                     ),
-                    word1 = intro.split('+')[0],
-                    word2 = intro.split('+')[1],
-                    sentence = ucfirst(word1) + ' ' + word2,
-                    temp;
+                    sentence = '',
+                    endChars = '.!?'.split(''),
+                    punctChars = ',:'.split('').concat(endChars);
 
-                var i = 0;
 
-                while (i++ < length) {
-                    temp = word2;
-                    word2 = getNextToken(word1, word2);
-                    word1 = temp;
+                while (length--) {
+                    var word = dict.next();
 
-                    if (word2 === undefined) {
-                        intro = getRandomIntro();
-                        word1 = intro.split('+')[0];
-                        word2 = intro.split('+')[1];
-
-                        sentence = sentence.replace(/[.,]$/, '') + '.';
-                        sentence += '. ' + ucfirst(word1);
+                    if (sentence && punctChars.indexOf(word) === -1) {
+                        sentence += ' ';
                     }
 
-                    sentence += ' ' + word2;
+                    sentence += word;
+
+                    if (endChars.indexOf(word) !== -1) {
+                        return ucfirst(sentence);
+                    }
                 }
 
-                sentence = sentence.replace(/[.,]$/, '') + '.';
+                while (endChars.indexOf(dict.next()) !== -1);
 
-                sentence = sentence.replace(/ ([.,:;!?])/g, '$1');
-
-                return sentence;
+                return ucfirst(sentence) + '.';
             }
         };
 
@@ -175,78 +163,24 @@ window.Garry = function (options) {
 
     function buildDictionary(text) {
         /* todo: relocate to getStats */
-        var tokens = $('<div>').html(text).text().match(/([а-я-]+|[,.!?;:])/ig);
+        var tokens = $('<div>').html(text).text().match(/([а-я]+|[,.!?;:])/ig),
+            stack = [];
 
         if (tokens === null) {
             return;
         }
-        
-        for (var i = 0; i < tokens.length - 2; i += 1) {
-            var firstLetter = tokens[i][0], 
-                key = (tokens[i] + '+' + tokens[i + 1]).toLowerCase(),
-                word = tokens[i + 2].toLowerCase();
 
-            if (tokens[i] in blacklist && blacklist[tokens[i]].indexOf(tokens[i + 1]) !== -1) {
-                continue;
+        tokens.forEach(function (token) {
+            token = token.toLowerCase();
+            dict.add(token, stack);
+
+            stack.push(token);
+            if (stack.length > 2) {
+                stack.shift();
             }
+        });
 
-            if (tokens[i + 1] in blacklist && blacklist[tokens[i + 1]].indexOf(tokens[i + 2]) !== -1) {
-                continue;
-            }
-
-            if (firstLetter.match(/^[A-ZА-Я]$/) && intros.indexOf(key) === -1) {
-                intros.push(key);
-            }
-            
-            if (dict[key] === undefined) dict[key] = {}; 
-            if (dict[key][word] === undefined) dict[key][word] = 0;
-
-            dict[key][word] += 1;
-        }
-
-        for (var i in dict) {
-            if (dict.hasOwnProperty(i)) {
-                var words = dict[i];
-                var total = 0;
-
-                for (var j in words) {
-                    if (words.hasOwnProperty(j)) {
-                        total += words[j];
-                    }
-                }
-
-                if (total === 1) continue;
-
-                for (var j in words) {
-                    if (words.hasOwnProperty(j)) {
-                        words[j] /= total;
-                    }
-                }
-            }
-        }
-    }
-
-    function getRandomToken(words) {
-        var number = Math.random();
-        var total = 0;
-
-        for (var j in words) {
-            if (words.hasOwnProperty(j)) {
-                total += words[j];
-
-                if (total > number) {
-                    return j;
-                }
-            }
-        }
-    }
-
-    function getNextToken(word1, word2) {
-        return getRandomToken(dict[word1 + '+' + word2]);
-    }
-
-    function getRandomIntro() {
-        return intros[Math.round(Math.random() * (intros.length - 1))];
+        window.dict = dict;
     }
 
     return self;

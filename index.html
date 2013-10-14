@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="habrastyle.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="placeholder" style="display: none;">
@@ -33,8 +33,6 @@
                 <li><a href="#">ymapsapi</a></li>
                 <li><a href="#">яндекс.карты</a></li>
             </ul>
-
-            <!-- here be infopanel -->
         </footer>
 
         <section class="comments"></section>
@@ -54,21 +52,22 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/habraparser.js"></script>
-    <script src="js/habrawriter.js"></script>
+    <script src="js/dictionary.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/writer.js"></script>
     <script src="js/garry.js"></script>
     <script>
         $('.placeholder').show();
 
         $.get('habr.1500.html', function (data) {
-            window.parser = new HabraParser($(data)),
+            window.parser = new Parser($(data)),
             window.gArticles = new Garry().eat(parser.articles()),
             window.gComments = new Garry().eat(parser.comments()),
-            window.writer = new HabraWriter(parser.usernames(), gComments, gArticles);
+            window.writer = new Writer(parser.usernames(), gComments, gArticles);
 
             /* TODO get rid of ugly brackets */
             $('.content').html(writer.getArticleText());    /* especially here ↓ */
-            $('article').append(buildCommentSection(writer.getCommentTree()));
+            // $('article').append(buildCommentSection(writer.getCommentTree()));
 
             $('.placeholder').hide();
             $('article').show();
