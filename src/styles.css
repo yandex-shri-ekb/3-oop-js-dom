@@ -1,0 +1,82 @@
+.inputContainer
+{
+    display: none;
+}
+
+#settings
+{
+    border: 1px solid #000;
+    padding: 10px 50px;
+}
+
+#settings > input
+{
+    width: 30px;
+    margin: 5px;
+}
+
+#main
+{
+    margin: 100px 30%;
+    visibility: hidden; /*по умолчанию скрываем основной блок*/
+}
+
+.date
+{
+    color: #7e7e7e;
+    font-size: 11px;
+    margin: 0 0 2px;
+}
+
+#title
+{
+    color: #333;
+    font: 30px/118% normal Verdana, Tahoma, sans-serif;
+}
+
+#title:first-letter
+{
+    text-transform: uppercase;
+}
+
+#articleContent
+{
+    margin: 0 0 10px;
+    font: 13px normal Verdana, sans-serif;
+    line-height: 160%;
+}
+
+#commentsTitle
+{
+    color: #AFA56A;
+    margin: 0 0 20px;
+    padding-left: 23px;
+    background: url(resources/comments.gif) no-repeat left 65%;
+    font: 20px normal Verdana, sans-serif;
+}
+
+.comment
+{
+    margin: 20px;
+}
+
+
+.avatar
+{
+    vertical-align: middle;
+}
+
+.nickname
+{
+    color: #7e7e7e;
+    margin: 0 10px;
+    font: 12px bold  Verdana, Tahoma, sans-serif;
+    text-decoration: underline;
+}
+
+.commentContent
+{
+    margin: 10px 0;
+    font: 12px normal Verdana, sans-serif;
+    line-height: 160%;
+}
