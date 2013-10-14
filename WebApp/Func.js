@@ -16,11 +16,7 @@ String.prototype.UpperCaseOne = function ()
  */
 var select = function (a)
 {
-  try {
-    return a[Math.floor(a.length * Math.random())];
-  } catch (e) {
-    return false;
-  }
+  return a[Math.floor(a.length * Math.random())];
 };
 
 /**

@@ -19,14 +19,8 @@ var make_text = function (text, min_length, Dic, List)
 
   for (var i = 0; i < min_length; i++) {
     temp = select(Dic[temp]);
-    if (!temp) {
-      console.warn("Alarm! 1");
-      Title.push(".");
-      break;
-    }
     Title.push(temp);
     if (/[\.?!]/g.test(temp)) {
-      console.warn("Alarm! 2");
       break;
     }
     i == min_length - 1 && Title.push("."); // мега конструкция работает как условие но короче и быстрее
