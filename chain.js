@@ -49,9 +49,10 @@ var Chain = (function($, undefined){
         var cnt = Math.round(Math.random()*(max-min))+min;
         return {
             next: function(){
-                if (cnt-->0 && curr){
+                if (curr && (max === 0 && !this.completed() || cnt-->0 || curr.isBadEnd())){
                     curr = curr.next();
-                    if (cnt < min && this.completed()) return this.next();
+                    // Если задано минимальное кол-во слов и текущий узел - точка
+                    if (min!==0 && cnt < min && this.completed()) return this.next();
                     return curr;
                 }
                 return undefined;
@@ -82,15 +83,15 @@ var Chain = (function($, undefined){
             case 'i':
             case 'u':
 //            case 'li':
-            case 'blockquote':
-                var words = text.match(/([\wа-яА-ЯёЁ*'-]+|[.,:!?]+)/g);
+//            case 'blockquote':
+                var words = text.match(/([a-zа-яА-ЯёЁ*'-]+|[.,:!?]+)/ig);
                 if (words){
                     var i, cnt = words.length;
                     for (i=0; i<cnt; i+=1){
                         // Ключ нового узла зависит от предыдущих max_keys узлов
                         if (keys.length > this.pfx_length) keys = keys.slice(keys.length - this.pfx_length);
                         keys.push(words[i]+'#'+type);
-                        key = keys.join(' ').toLowerCase();
+                        key = keys.join(' ')/*.toLowerCase()*/;
                         // Создание/получение узла и добавление в родительский
                         if (typeof this.index[key] === 'undefined') this.index[key] = new Chain(words[i], type, this.root, keys);
                         if (!i && !this.index[key].isPunctuation() && type!=='li') self.root.children.push(this.index[key]);
@@ -105,7 +106,7 @@ var Chain = (function($, undefined){
 //            case 'ol':
                 if (keys.length > this.pfx_length) keys = keys.slice(keys.length - this.pfx_length);
                 keys.push(text+'#'+type);
-                key = keys.join(' ').toLowerCase();
+                key = keys.join(' ')/*.toLowerCase()*/;
                 if (typeof this.index[key] === 'undefined') this.index[key] = new Chain(text, type, this.root, keys);
                 self.root.children.push(this.index[key]);
                 self.children.push(this.index[key]);
@@ -141,6 +142,10 @@ var Chain = (function($, undefined){
         return /^[.,:!?]+$/.test(this.word);
     };
 
+    Chain.prototype.isBadEnd = function(){
+        return /^(вот|так|как|же|что|чем|и|или|а|то|ли|бы|в|с|к|за|на|о|об|обо|у|но|по|не|уж|из|под|при|,)$/i.test(this.word);
+    };
+
     /**
      * Создание предложения из цепочки
      * @param words_min Минимальное кол-во слов
@@ -151,13 +156,26 @@ var Chain = (function($, undefined){
         var words, text = '', tag;
         words = this.iterator(words_min, words_max);
         tag = '';
+        var cnt = 0, w;
         while (words.next()){
             if (words.current().type !== tag){
                 if (tag) text += '</'+tag+'>';
                 if (tag = words.current().type) text += '<'+words.current().type+'>';
                 tag = words.current().type;
             }
-            text += (words.current().isPunctuation()?'':' ') + words.current().word;
+            w = words.current().word;
+            if (!cnt){
+                if (words.current().isPunctuation()){
+                    w = '';
+                }else{
+                    w = w[0].toLocaleUpperCase() + w.slice(1);
+                }
+            }
+            if (!words.current().isPunctuation()){
+                text += ' ';
+            }
+            text += w;
+            cnt++;
         }
         if (!/[.,!?:]$/.test(text)) text += ".";
         if (tag) text += '</'+tag+'>';

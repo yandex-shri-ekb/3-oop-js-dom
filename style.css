@@ -60,14 +60,15 @@
 }
 
 /* Коррекция хабра стилей */
-#bred_article .post_text p,
 #bred_article .post_text pre
 {
-    margin: 15px 0;
+    background: #eee;
+    border: 1px solid #ddd;
+    padding: 5px;
 }
 
-#bred_article .post_text:first-letter,
-#bred_article .post_title:first-letter
+#bred_article .post_text :first-letter,
+#bred_article .post_title :first-letter
 {
     text-transform: uppercase;
 }
