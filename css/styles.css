@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    text-align: left;
 }
 
 .navbar
@@ -84,7 +85,7 @@ body {
 
 .modal__footer
 {
-
+    padding: 5px;
 }
 
 .modal__backdrop
@@ -110,10 +111,9 @@ body {
 
 .modal__field
 {
-    -moz-box-sizing: border-box;
     margin-bottom: 15px;
     padding: 5px;
-    width: 100%;
+    width: 40px;
 }
 
 .modal__button

@@ -2,7 +2,8 @@
 
 var articleTextGen = new UltimateTextGenerator(),
     commentTextGen = new UltimateTextGenerator(),
-    isParsed = false;
+    isParsed = false,
+    nicknames = [];
 
 /*
  * Схема работы:
@@ -19,7 +20,16 @@ var articleTextGen = new UltimateTextGenerator(),
         $modalSave = $('#modal-save'),
         $modalCancel = $('#modal-cancel'),
         $habrTitle = $('#habr-title'),
-        $habrContent = $('#habr-content');
+        $habrContent = $('#habr-content'),
+        $habrComments = $('#habr-comments'),
+        $habrCommentsCount = $('#habr-comments-count'),
+        $habrCommentsTemplate = $('#habr-comment-template'),
+        $settingsPn1 = $('#settings-pn1'),
+        $settingsPn2 = $('#settings-pn2'),
+        $settingsSn1 = $('#settings-sn1'),
+        $settingsSn2 = $('#settings-sn2'),
+        $settingsWn1 = $('#settings-wn1'),
+        $settingsWn2 = $('#settings-wn2');
 
     $settings.on('click', function() {
         $('<div class="modal__backdrop"></div>').appendTo($body);
@@ -51,7 +61,7 @@ var articleTextGen = new UltimateTextGenerator(),
                 url : 'habr.html',
                 success : function(response) {
                     processHabrHtml(response);
-                    generate();
+                    //generate();
                 }
             });
         }
@@ -63,6 +73,7 @@ var articleTextGen = new UltimateTextGenerator(),
     });
 
     function progressTo(val, comment) {
+        console.log(val + ' ' + comment);
         $progress.attr('value', val);
         if(comment) {
             $status.text(comment);
@@ -70,15 +81,63 @@ var articleTextGen = new UltimateTextGenerator(),
     }
 
     function generate() {
-        progressTo(90, 'Generating text...');
+        progressTo(75, 'Generating text...');
 
-        var newText = articleTextGen.generateText(20);
-        $habrContent.text(newText);
+        var p = 0,
+            s = 0,
+            newText = '',
+            newComment = '',
+            nParagraph = getRandomInt(+$settingsPn1.val(), +$settingsPn2.val()),
+            nSentence,
+            nWords,
+            nComments = getRandomInt(1, 20),
+            publishDate = randomDate(new Date(2012, 0, 1), new Date()),
+            commentDate;
+
+        while(p++ < nParagraph) {
+            nSentence = getRandomInt(+$settingsSn1.val(), +$settingsSn2.val());
+            for(s = 0; s < nSentence; s++) {
+                nWords = getRandomInt(+$settingsWn1.val(), +$settingsWn2.val());
+                newText += ' ' + articleTextGen.generateSentence(nWords, '.', false, true, 3);
+            }
+
+            if(p !== nParagraph) {
+                newText += '<br><br><br>';
+            }
+        }
+
+        $habrContent.html(newText);
+
+        $habrComments.html('');
+        $habrCommentsCount.text(nComments);
+        progressTo(90, 'Generating comments...');
+        for(var i = 0; i < nComments; i++) {
+            commentDate = new Date(publishDate.getTime() + getRandomInt(0, 60) * 60000);
+            newComment = '';
+            nSentence = getRandomInt(+$settingsSn1.val(), +$settingsSn2.val());
+            for(s = 0; s < nSentence; s++) {
+                nWords = getRandomInt(+$settingsWn1.val(), +$settingsWn2.val());
+                newComment += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
+            }
+
+            $habrComments.append(createNewComment(getRandomNickname(), commentDate.toLocaleString(), newComment));
+        }
 
         var newTitle = articleTextGen.generateSentence(getRandomInt(2, 5), '.', true, true, 0);
-        $habrTitle.text(newTitle);
+        $habrTitle.html(newTitle);
 
         progressTo(100, 'Done!');
+    }
+
+    function createNewComment(author, time, text) {
+        return $($habrCommentsTemplate.html())
+            .find('.username').text(author).end()
+            .find('time').text(time).end()
+            .find('.message').text(text).end();
+    }
+
+    function getRandomNickname() {
+        return nicknames[getRandomInt(0, nicknames.length - 1)];
     }
 
     function processHabrHtml(data) {
@@ -86,14 +145,24 @@ var articleTextGen = new UltimateTextGenerator(),
         progressTo(progress, 'Parse habr.html...');
 
         var $articles = $(data.match(/<article>([\s\S]*?)<\/article>/g).join(''));
-        var $comments = $articles.find('.comments');
+        var $comments = $articles.find('.comments .comment');
+
+        progressTo(progress += 5, 'Parse comments...');
+
+        $comments.each(function(index, element) {
+            var $comment = $(element);
+
+            var nick = $comment.find('.username').text();
+            nicknames.push(nick);
+
+            commentTextGen.add($comment.find('.message').text().trim());
+        });
 
         $articles.each(function(index, article) {
             if(index % 4 === 0 && index > 0) {
-                progress++;
-                progressTo(progress, 'Parse habr.html; ' + index + ' out of 100...');
+                progressTo(++progress, 'Parse articles; ' + index + ' out of 100...');
 
-                var articleData = parseArticle($(article));
+                var articleData = parseArticle($(article), false);
                 articleTextGen.add(articleData);
             }
         });
@@ -101,21 +170,30 @@ var articleTextGen = new UltimateTextGenerator(),
         isParsed = true;
     }
 
+    /**
+     * @param {int} min
+     * @param {int} max
+     * @return int
+     */
     function getRandomInt(min, max)
     {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    function randomDate(start, end) {
+        return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+    }
 
     /**
      * @param {jQuery} $elem
+     * @param {boolean} cloneElem
      * @return string
      */
-    function parseArticle($elem) {
+    function parseArticle($elem, cloneElem) {
 
         // $(':header')
 
-        var $article = $elem.clone();
+        var $article = cloneElem ? $elem.clone() : $elem;
 
         var html = $article
             .find('code,pre,table,a,.comments')

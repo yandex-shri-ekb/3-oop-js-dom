@@ -12,6 +12,7 @@ var UltimateTextGenerator = function() {
     * }
     */
     var _dictionary = {};
+    this.d = _dictionary;
 
     /**
      * Добавить кусок текста в словарь
@@ -48,7 +49,7 @@ var UltimateTextGenerator = function() {
         // Точка, запятая, двоеточие, вопросительный и восклицательный знаки считаются словами.
         // Все остальные знаки препинания отбрасываются.
         text = text
-            .replace(/([^ ])([\.,:!\?][^A-zА-яёЁ0-9])/g, '$1 $2')
+            .replace(/([^ ])([\.,:!\?][^A-zА-яёЁ0-9]?)/g, '$1 $2')
             // пробелы
             .replace(/[ ]{2,}/g, ' ');
 
@@ -60,6 +61,10 @@ var UltimateTextGenerator = function() {
 
         // последнее слово пропускаем
         for(var i = 0; i < l - 1; i++) {
+            /*if(words[i] == 'вашим') {
+               i++;i--;
+            }*/
+
             addPair(words[i], words[i+1]);
         }
     };
@@ -83,21 +88,6 @@ var UltimateTextGenerator = function() {
     }
 
     /**
-     * Генерация текста на основе параметров
-     *
-     * @param {int} nSentence
-     */
-    this.generateText = function(nSentence) {
-        var i = 0, text = '';
-
-        while(i++ < nSentence) {
-            text += ' ' + this.generateSentence(20, '.', false, true, 3);
-        }
-
-        return text;
-    };
-
-    /**
      * Генерация предложения из словаря на основе параметров
      *
      * @param nWords Количество слов
@@ -109,27 +99,28 @@ var UltimateTextGenerator = function() {
     this.generateSentence = function(nWords, endWith, startWithRandom, stopOnDot, dontStopIfLessThen) {
         var i = 0, textArr = [], suffix = '', text = '';
 
-        var prefix = startWithRandom ? pickRandomPrefix() : getSuffix('.');
+        var prefix = startWithRandom ? pickRandomPrefix() : this.getSuffix('.');
 
         textArr.push(capitaliseFirstLetter(prefix));
 
         while(++i < nWords || suffix.length <= dontStopIfLessThen) {
-            suffix = getSuffix(prefix);
+            suffix = this.getSuffix(prefix);
             textArr.push(suffix);
-            if(stopOnDot && $.inArray(suffix, ['.', '!', '?']) !== -1) {
+            if(stopOnDot && ['.', '!', '?'].indexOf(suffix) !== -1) {
                 break;
             }
 
             prefix = suffix;
+
         }
 
-        if($.inArray(textArr[textArr.length - 1], ['.', '!', '?']) === -1) {
+        if(['.', '!', '?'].indexOf(textArr[textArr.length - 1]) === -1) {
             textArr.push(endWith);
         }
 
         // возможно это заменить на пост-обработку текста
         textArr.forEach(function(word) {
-            if($.inArray(word, ['.', ',', '!', '?', ':', ';']) !== -1) {
+            if(['.', ',', '!', '?', ':', ';'].indexOf(word) !== -1) {
                 text += word;
             }
             else {
@@ -148,7 +139,7 @@ var UltimateTextGenerator = function() {
         do {
             pref = keys[ keys.length * Math.random() << 0];
         }
-        while($.inArray(pref, ['.', ',', '!', '?', ':', ';', '-']) !== -1);
+        while(['.', ',', '!', '?', ':', ';', '-'].indexOf(pref) !== -1);
 
         return pref;
     }
@@ -157,9 +148,10 @@ var UltimateTextGenerator = function() {
      * @param {string} prefix
      * @return string
      */
-    function getSuffix(prefix) {
+    this.getSuffix = function(prefix) {
         if(!_dictionary.hasOwnProperty(prefix)) {
-            throw new Error('Префикс ' + prefix + ' не найден.');
+            //throw new Error('Префикс ' + prefix + ' не найден.');
+            return '.';
         }
 
         var suffixs = _dictionary[prefix];
@@ -169,7 +161,7 @@ var UltimateTextGenerator = function() {
             totalN += suffixs[suf];
         }
 
-        var rand = Math.floor(Math.random() * totalN);
+        var rand = Math.random() * totalN;
 
         var currentN = 0, suffix;
         for (suf in suffixs) {
