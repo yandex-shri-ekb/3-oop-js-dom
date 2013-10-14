@@ -3,7 +3,7 @@
  */
  
 .comments_form{padding-top:0px;}
-.comments_form h2.title{color:#AFA56A;margin-bottom:20px;background: url(/assets/images/add_comment.gif) 0 .5em no-repeat;padding-left:23px;font-size:20px;font-family: Verdana, sans-serif;letter-spacing: -1px;}
+.comments_form h2.title{color:#AFA56A;margin-bottom:20px;background: url(../images/add_comment.gif) 0 .5em no-repeat;padding-left:23px;font-size:20px;font-family: Verdana, sans-serif;letter-spacing: -1px;}
 .comments_form h2.title a{text-decoration:none;border-bottom:1px dashed;color:#AFA56A;}
 #comments_form .buttons .time_left{vertical-align: middle;color:#777;font-size: 11px;margin-left:10px;width:290px;display: inline-block;}
 #comments_form .editor{margin-bottom:5px;}
@@ -15,7 +15,7 @@
 .comments_list .searched-item{background: lemonChiffon;}
 
 .comments_list{position:relative;overflow:hidden;padding-left:20px;margin-left:-20px;margin-top:40px;}
-.comments_list h2.title{color:#AFA56A;margin-bottom:20px; background: url(/assets/images/comments.gif) no-repeat left 65%;padding-left:23px;font-size:20px;font-family: Verdana, sans-serif;letter-spacing: -1px;}
+.comments_list h2.title{color:#AFA56A;margin-bottom:20px; background: url(../images/comments.gif) no-repeat left 65%;padding-left:23px;font-size:20px;font-family: Verdana, sans-serif;letter-spacing: -1px;}
 .comments_list h2.title .subscribe_comments{font-size:12px;cursor:pointer;color:#999999;margin-left:2px;}
 
 .comments_list .comment_item{}
@@ -29,26 +29,26 @@
 .comments_list .comment_item .info .voting .plus{width:11px;height:15px;display:block;float:right;margin-top:2px;margin-left:13px;}
 .comments_list .comment_item .info .voting .minus{width:11px;height:15px;display:block;float:right;margin-top:2px;margin-left:5px}
 
-.comments_list .comment_item .info .voting a.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat 0px -16px;}
-.comments_list .comment_item .info .voting a.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat -12px -16px;}
-.comments_list .comment_item .info .voting a:hover.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat 0px 0px ;}
-.comments_list .comment_item .info .voting a:hover.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat -12px 0px ;}
+.comments_list .comment_item .info .voting a.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat 0px -16px;}
+.comments_list .comment_item .info .voting a.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat -12px -16px;}
+.comments_list .comment_item .info .voting a:hover.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat 0px 0px ;}
+.comments_list .comment_item .info .voting a:hover.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat -12px 0px ;}
 
 /** когда голосовать уже нельзя  **/
-.comments_list .comment_item .info .voting span.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px 0px ;}
-.comments_list .comment_item .info .voting span.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px -16px ;}
+.comments_list .comment_item .info .voting span.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px 0px ;}
+.comments_list .comment_item .info .voting span.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px -16px ;}
 
 /* проголосовал в плюс - подсвечиваем стрелку вверх и затемняем стрелку вниз*/
-.comments_list .comment_item .info .voting.voted_plus a.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  0px 0px;}
-.comments_list .comment_item .info .voting.voted_plus span.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  0px 0px;}
-.comments_list .comment_item .info .voting.voted_plus a.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px -16px ;}
-.comments_list .comment_item .info .voting.voted_plus span.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat   -24px -16px;}
+.comments_list .comment_item .info .voting.voted_plus a.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  0px 0px;}
+.comments_list .comment_item .info .voting.voted_plus span.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  0px 0px;}
+.comments_list .comment_item .info .voting.voted_plus a.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px -16px ;}
+.comments_list .comment_item .info .voting.voted_plus span.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat   -24px -16px;}
 
 /* проголосовал в минус - подсвечиваем стрелку вниз и затемняем стрелку вверх */
-.comments_list .comment_item .info .voting.voted_minus a.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px 0px  ;}
-.comments_list .comment_item .info .voting.voted_minus span.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px 0px  ;}
-.comments_list .comment_item .info .voting.voted_minus a.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  -12px 0px ;}
-.comments_list .comment_item .info .voting.voted_minus span.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat  -12px 0px ;}
+.comments_list .comment_item .info .voting.voted_minus a.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px 0px  ;}
+.comments_list .comment_item .info .voting.voted_minus span.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  -24px 0px  ;}
+.comments_list .comment_item .info .voting.voted_minus a.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  -12px 0px ;}
+.comments_list .comment_item .info .voting.voted_minus span.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat  -12px 0px ;}
 
 /* общий балл не известен */
 .comments_list .comment_item .info .voting .mark{float:right;color:#A9A9A9;font-weight:bold;padding-top:2px;font-size:13px;font-family:Arial, Helvetica, sans-serif;}
@@ -59,7 +59,7 @@
 /* общий балл - ниже нуля */
 .comments_list .comment_item .info .voting .mark.negative span{color:#CC0000;}
 .comments_list .comment_item .info a.avatar{float:left;margin-right:10px;width:24px;height:24px;display:block;overflow:hidden;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;}
-.comments_list .comment_item .info a.avatar img{display:block;width:24px;height:24px; background: url("/assets/images/stub-user-small.gif") 100% 100% no-repeat;}
+.comments_list .comment_item .info a.avatar img{display:block;width:24px;height:24px; background: url("../images/stub-user-small.gif") 100% 100% no-repeat;}
 .comments_list .comment_item .info a.username{float:left;margin-top:3px;display:block;color:#666666;font-weight:bold;}
 .comments_list .comment_item .info .comma{float:left;margin-top:3px;margin-right:10px;display:block;color:#666666;font-weight:bold;}
 .comments_list .comment_item .info a:hover.username{color:#333;}
@@ -73,7 +73,7 @@
 
 
 
-.comments_list .comment_item .info a.favorite{display:block;float:left;margin-top:5px;margin-right:5px;width:15px;height:13px;background:url("/assets/images/favorite.gif");}
+.comments_list .comment_item .info a.favorite{display:block;float:left;margin-top:5px;margin-right:5px;width:15px;height:13px;background:url("../images/favorite.gif");}
 .comments_list .comment_item .info a.favorite.add{background-position: left top;}
 .comments_list .comment_item .info a.favorite.remove{background-position: left bottom;}
 .comments_list .comment_item .info a.to_parent{display:block;float:left;margin-top:3px;}
@@ -83,14 +83,14 @@
 .comments_list .comment_item .info i.favorite.add:hover{color:#4d7285;}
 .comments_list .comment_item .info i.favorite.remove{color:orange;}
 
-.comments_list .comment_item .info .show_tree{cursor: pointer;display:block;float:left;margin-left:4px;margin-right:10px;color:#6DA3BD;font-size:11px;display:inline-block;margin-top:7px;text-decoration: underline;background: url(/assets/images/show_tree_icon.png) no-repeat 0px 0px;text-indent: -9999px;width:7px;height:10px;display: block;}
-.comments_list .comment_item .info .show_tree:hover{background: url(/assets/images/show_tree_icon.png) no-repeat -7px 0px;}
-.comments_list .comment_item .info .show_tree.open{background: url(/assets/images/show_tree_icon.png) no-repeat -14px 0px;}
+.comments_list .comment_item .info .show_tree{cursor: pointer;display:block;float:left;margin-left:4px;margin-right:10px;color:#6DA3BD;font-size:11px;display:inline-block;margin-top:7px;text-decoration: underline;background: url(../images/show_tree_icon.png) no-repeat 0px 0px;text-indent: -9999px;width:7px;height:10px;display: block;}
+.comments_list .comment_item .info .show_tree:hover{background: url(../images/show_tree_icon.png) no-repeat -7px 0px;}
+.comments_list .comment_item .info .show_tree.open{background: url(../images/show_tree_icon.png) no-repeat -14px 0px;}
 
 .comments_list .comment_item .info {position:relative;}
 .comments_list .comment_item:hover > .comment_body .info > .folding-dot-holder{display:block;}
 .comments_list .comment_item .info .folding-dot-holder{display:none;position:absolute;top:0;left:0;width:1px;height:1px;}
-.comments_list .comment_item .info .folding-dot{width:500px;height:5px;background:red;right:1px;top:9px;position:absolute;background: url(/assets/images/bg-folding-dot-light.png) repeat-x 100% 0;}
+.comments_list .comment_item .info .folding-dot{width:500px;height:5px;background:red;right:1px;top:9px;position:absolute;background: url(../images/bg-folding-dot-light.png) repeat-x 100% 0;}
 
 .comments_list .comment_item .message{font-size:13px;font-family: Arial, sans-serif;line-height:140%;padding-bottom:5px;padding-top:10px;}
 
@@ -153,6 +153,6 @@
 #xpanel:hover{opacity:1;}
 #xpanel .change{color:#666;font-size:12px;text-decoration:none;padding:0px 10px;position:absolute;left:0;top:-15px}
 #xpanel .divider{border-top: solid 1px #5c5c5c;border-bottom: solid 1px #dddddd;width: 28px;height: 0px;margin:0 auto;}
-#xpanel .refresh{display:block;background:url("/assets/images/comments/bar/refresh.gif") no-repeat left top;width:28px;margin:2px;height:28px;}
-#xpanel .refresh.loading{background:url("/assets/images/comments/bar/refresh-loading.gif") no-repeat left top;}
+#xpanel .refresh{display:block;background:url("../images/comments/bar/refresh.gif") no-repeat left top;width:28px;margin:2px;height:28px;}
+#xpanel .refresh.loading{background:url("../images/comments/bar/refresh-loading.gif") no-repeat left top;}
 #xpanel .new{text-decoration:none;display: block;color:#fff;font-size:12px;padding:0;padding-top:4px;padding-bottom:6px;width:34px;text-align:center;}

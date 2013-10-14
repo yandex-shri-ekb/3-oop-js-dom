@@ -121,7 +121,7 @@ form .item.habracaptcha a span{border-bottom:1px dashed;font-size: 11px;}
 
 .upload_form{background:#fff;width:278px;height:40px;border:0px solid red;text-align:left;padding:10px;}
 .upload_form .progress{height:5px;border:1px solid #eee;margin-top:5px;}
-.upload_form .progress .bar{height:5px;width:0%;background:#aaa;background: url(/assets/images/form/loader_button.gif) repeat-x 0 0;}
+.upload_form .progress .bar{height:5px;width:0%;background:#aaa;background: url(../images/form/loader_button.gif) repeat-x 0 0;}
 .upload_form .state{font-size:9px;color:#666;}
 
 /* предпросмотр */
@@ -360,7 +360,7 @@ form .item.habracaptcha a span{border-bottom:1px dashed;font-size: 11px;}
 .buttons input.loading:active,
 .buttons input.loading:hover,
 input.loading{
-	background: #fAfCfA url(/assets/images/form/loader_button.gif) repeat !important;
+	background: #fAfCfA url(../images/form/loader_button.gif) repeat !important;
   color: #aaa !important;
   border: solid 1px #eee !important;
   text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
@@ -472,7 +472,7 @@ input.loading{
 .buttons input.loading.blue:active,
 .buttons input.loading.blue:hover,
 input.loading{
-	background: #fAfCfA url(/assets/images/form/loader_button.gif) repeat !important;
+	background: #fAfCfA url(../images/form/loader_button.gif) repeat !important;
   color: #aaa !important;
   border: solid 1px #eee !important;
   text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
@@ -582,7 +582,7 @@ input.loading{
 .buttons input.loading.green:active,
 .buttons input.loading.green:hover,
 input.loading{
-	background: #fAfCfA url(/assets/images/form/loader_button.gif) repeat !important;
+	background: #fAfCfA url(../images/form/loader_button.gif) repeat !important;
   color: #aaa !important;
   border: solid 1px #eee !important;
   text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
@@ -692,7 +692,7 @@ input.loading{
 .buttons input.loading.orange:active,
 .buttons input.loading.orange:hover,
 input.loading{
-	background: #fAfCfA url(/assets/images/form/loader_button.gif) repeat !important;
+	background: #fAfCfA url(../images/form/loader_button.gif) repeat !important;
   color: #aaa !important;
   border: solid 1px #eee !important;
   text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);

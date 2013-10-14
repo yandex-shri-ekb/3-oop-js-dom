@@ -36,35 +36,35 @@ border-top-left-radius: 2px;
 border-bottom-left-radius: 2px;
 text-decoration: none;
 }
-.post h1.title .flag_translation{background: url(/assets/images/flags.png?r=55) no-repeat right 0px;color:#5c7f95;}
-.post h1.title .flag_sandbox{background: url(/assets/images/flags.png?r=55) no-repeat right -25px;color:#8c896b;}
-.post h1.title .flag_solution{background: url(/assets/images/flags.png?r=55) no-repeat right -51px;color:#728449;}
-.post h1.title .flag_recovery{background: url(/assets/images/flags.png?r=55) no-repeat right -77px;color:#a28546;}
-.post h1.title .flag_tutorial{background: url(/assets/images/flags.png?r=55) no-repeat right -103px;color: #bb698f;}
-.post h1.title .flag_rss_feed{background: url(/assets/images/flags.png?r=55) no-repeat right -77px;color:#a28546;}
+.post h1.title .flag_translation{background: url(../images/flags.png?r=55) no-repeat right 0px;color:#5c7f95;}
+.post h1.title .flag_sandbox{background: url(../images/flags.png?r=55) no-repeat right -25px;color:#8c896b;}
+.post h1.title .flag_solution{background: url(../images/flags.png?r=55) no-repeat right -51px;color:#728449;}
+.post h1.title .flag_recovery{background: url(../images/flags.png?r=55) no-repeat right -77px;color:#a28546;}
+.post h1.title .flag_tutorial{background: url(../images/flags.png?r=55) no-repeat right -103px;color: #bb698f;}
+.post h1.title .flag_rss_feed{background: url(../images/flags.png?r=55) no-repeat right -77px;color:#a28546;}
 
 
 .post h1.title a.edit{}
 
 
 /* топик перевод */
-.post.translation h1.title .post_title{background:url("/assets/images/translation_icon2.gif") no-repeat left center;padding-left:30px;}
+.post.translation h1.title .post_title{background:url("../images/translation_icon2.gif") no-repeat left center;padding-left:30px;}
 /* топик подкаст */
-.post.podcast h1.title .post_title{background:url("/assets/images/podcast_icon2.gif") no-repeat left center;padding-left:30px;}
+.post.podcast h1.title .post_title{background:url("../images/podcast_icon2.gif") no-repeat left center;padding-left:30px;}
 /* топик ссылка */
 
 
 
 .post h1.title .locked{
-  background: url("/assets/images/lock.gif") no-repeat scroll 5px 60% #FFFFFF;
+  background: url("../images/lock.gif") no-repeat scroll 5px 60% #FFFFFF;
   padding-left: 15px;
 }
 .post h1.title .double_locked{
-  background: url("/assets/images/double-lock.gif") no-repeat scroll 5px 60% #FFFFFF;
+  background: url("../images/double-lock.gif") no-repeat scroll 5px 60% #FFFFFF;
   padding-left: 35px;
 }
 
-.post .hubs{background: url(/assets/images/posts/hub.icon.png) no-repeat 0px 0px;padding-left:25px;font-size:11px;padding-top:2px;padding-bottom:2px;color:#999;margin-bottom:15px;}
+.post .hubs{background: url(../images/posts/hub.icon.png) no-repeat 0px 0px;padding-left:25px;font-size:11px;padding-top:2px;padding-bottom:2px;color:#999;margin-bottom:15px;}
 .post .hubs.special_hubs{background: transparent;padding-left: 0;}
 .post .hubs a{color:#999;}
 .post .hubs a.subscribed{color:#6c9471;}
@@ -99,7 +99,7 @@ text-decoration: none;
 
 .post .content .poll .total{color:#999999;font-size:11px;padding-top:10px;font-style: italic;}
 
-.post ul.tags{margin-bottom:15px;font-family:Verdana, sans-serif;background: url("/assets/images/bg-tags2.gif") no-repeat scroll 0 50%; font-size:10px;padding:2px 0;padding-left:20px;}
+.post ul.tags{margin-bottom:15px;font-family:Verdana, sans-serif;background: url("../images/bg-tags2.gif") no-repeat scroll 0 50%; font-size:10px;padding:2px 0;padding-left:20px;}
 .post ul.tags li{display:inline;color:#999999;}
 .post ul.tags li a{color:#666666;}
 .post ul.tags li a:hover{color:#a3a3a3;}
@@ -113,11 +113,11 @@ text-decoration: none;
 .post ul.tags li.favourites_edit_tags a:hover{color:#666;}
 
 .abuse_wrapper{width:16px;height:16px;display: inline-block;vertical-align: middle;margin-left:5px;position: relative;}
-.post .abuse{background: url('/assets/images/abuse.png') no-repeat left top;width:16px;height:16px;display: inline-block;vertical-align: middle;margin-left:2px; }
-.post .abuse:hover{ background: url('/assets/images/abuse.png') no-repeat left bottom;cursor:pointer;}
+.post .abuse{background: url('../images/abuse.png') no-repeat left top;width:16px;height:16px;display: inline-block;vertical-align: middle;margin-left:2px; }
+.post .abuse:hover{ background: url('../images/abuse.png') no-repeat left bottom;cursor:pointer;}
 .post .abuse.hidden{display: none;}
-.post .abuse.cancel_abuse{background: url('/assets/images/abuse.close.png') no-repeat center center;}
-.post .abuse.cancel_abuse:hover{ background: url('/assets/images/abuse.close.png') no-repeat center center;}
+.post .abuse.cancel_abuse{background: url('../images/abuse.close.png') no-repeat center center;}
+.post .abuse.cancel_abuse:hover{ background: url('../images/abuse.close.png') no-repeat center center;}
 
 
 
@@ -173,30 +173,30 @@ text-decoration: none;
 /* еще не голосовал - не подсвечиваем ни чего. стрелки обычные, не затененные. */
 .post .infopanel .voting .plus{width:11px;height:15px;display:block;position:absolute;left:0;top:0px;}
 .post .infopanel .voting .minus{width:11px;height:15px;display:block;position:absolute;right:0;top:0px;}
-.post .infopanel .voting a.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll left bottom transparent;}
-.post .infopanel .voting a.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll -12px bottom transparent;}
-.post .infopanel .voting.voted a.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right top transparent;}
-.post .infopanel .voting.voted a.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right bottom transparent;}
-.post .infopanel .voting span.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right top transparent;}
-.post .infopanel .voting span.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right bottom transparent;}
+.post .infopanel .voting a.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll left bottom transparent;}
+.post .infopanel .voting a.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll -12px bottom transparent;}
+.post .infopanel .voting.voted a.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right top transparent;}
+.post .infopanel .voting.voted a.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right bottom transparent;}
+.post .infopanel .voting span.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right top transparent;}
+.post .infopanel .voting span.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right bottom transparent;}
 
 
-.post .infopanel .voting a.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat 0px -16px;}
-.post .infopanel .voting a.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat -12px -16px;}
-.post .infopanel .voting a:hover.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat 0px 0px ;}
-.post .infopanel .voting a:hover.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat -12px 0px ;}
+.post .infopanel .voting a.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat 0px -16px;}
+.post .infopanel .voting a.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat -12px -16px;}
+.post .infopanel .voting a:hover.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat 0px 0px ;}
+.post .infopanel .voting a:hover.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat -12px 0px ;}
 
 /* проголосовал в плюс - подсвечиваем стрелку вверх и затемняем стрелку вниз*/
-.post .infopanel .voting.voted_plus a.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll left top transparent;}
-.post .infopanel .voting.voted_plus span.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll left top transparent;}
-.post .infopanel .voting.voted_plus a.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right bottom transparent;}
-.post .infopanel .voting.voted_plus span.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right bottom transparent;}
+.post .infopanel .voting.voted_plus a.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll left top transparent;}
+.post .infopanel .voting.voted_plus span.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll left top transparent;}
+.post .infopanel .voting.voted_plus a.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right bottom transparent;}
+.post .infopanel .voting.voted_plus span.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll right bottom transparent;}
 
 /* проголосовал в минус - подсвечиваем стрелку вниз и затемняем стрелку вверх */
-.post .infopanel .voting.voted_minus a.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll top right transparent;}
-.post .infopanel .voting.voted_minus span.plus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll top right transparent;}
-.post .infopanel .voting.voted_minus a.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll -12px top transparent;}
-.post .infopanel .voting.voted_minus span.minus{background:url("/assets/images/icos/icons_vote_posts.gif?r=2") no-repeat scroll -12px top transparent;}
+.post .infopanel .voting.voted_minus a.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll top right transparent;}
+.post .infopanel .voting.voted_minus span.plus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll top right transparent;}
+.post .infopanel .voting.voted_minus a.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll -12px top transparent;}
+.post .infopanel .voting.voted_minus span.minus{background:url("../images/icos/icons_vote_posts.gif?r=2") no-repeat scroll -12px top transparent;}
 
 /* общий балл не известен */
 .post .infopanel .voting .mark{float:left;color:#A9A9A9;font-weight:bold;font-size:12px;margin-top:1px;}
@@ -208,7 +208,7 @@ text-decoration: none;
 .post .infopanel .voting .mark.negative span{color:#CC0000;}
 
 /* q&a */
-.post .infopanel .informative{float:left;color:#e41c00;font-size:9px;text-align:left;padding:0px;padding-left:13px;margin-left:20px;line-height:28px;background: url(/assets/images/qa.png) no-repeat 0px 6px;}
+.post .infopanel .informative{float:left;color:#e41c00;font-size:9px;text-align:left;padding:0px;padding-left:13px;margin-left:20px;line-height:28px;background: url(../images/qa.png) no-repeat 0px 6px;}
 .post .infopanel .informative a{color:#e41c00;text-decoration:none;font-size:9px;}
 .post .infopanel .informative span{color:#191919;}
 .post .infopanel .informative.positive,
@@ -219,15 +219,15 @@ text-decoration: none;
 
 
 /* просмотры поста */
-.post .infopanel .pageviews{background: url(/assets/images/pageviews.png) no-repeat 0px 6px;padding-left:20px;float:left;font-size:9px;margin-right:20px;line-height:28px;}
+.post .infopanel .pageviews{background: url(../images/pageviews.png) no-repeat 0px 6px;padding-left:20px;float:left;font-size:9px;margin-right:20px;line-height:28px;}
 
 .post .infopanel .published{float:left;font-size:9px;margin-right:22px;line-height:28px;}
 
 .post .infopanel .favorite{float:left;padding:5px 0;padding-top:6px;margin-right:5px;}
 .post .infopanel .favorite a{width:15px;height:13px;display:block;margin-top:1px;}
-.post .infopanel .favorite a.remove{background:url("/assets/images/favorite.gif") no-repeat left bottom;}
-.post .infopanel .favorite a.add{background:url("/assets/images/favorite.gif") no-repeat left top;}
-.post .infopanel .favorite a.guest{cursor:help;background:url("/assets/images/favorite.gif") no-repeat left top;}
+.post .infopanel .favorite a.remove{background:url("../images/favorite.gif") no-repeat left bottom;}
+.post .infopanel .favorite a.add{background:url("../images/favorite.gif") no-repeat left top;}
+.post .infopanel .favorite a.guest{cursor:help;background:url("../images/favorite.gif") no-repeat left top;}
 .post .infopanel .favs_count{float:left;font-size:9px;line-height:28px;cursor:help;display:block;position:relative;overflow:hidden;}
 
 .post .infopanel .addthis{float:left;margin-left:20px;margin-right:5px;padding:6px 0;width:140px;}
@@ -237,27 +237,27 @@ text-decoration: none;
 
 .post .infopanel .twitter{float:left;margin-right:5px;padding:5px 0;}
 .post .infopanel_sandbox .twitter{margin-left: 0;}
-.post .infopanel .twitter a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/assets/images/share.icons.png?r=1") no-repeat scroll -42px 0 transparent;}
-.post .infopanel .twitter a:hover{opacity:1;background:url("/assets/images/share.icons.png?r=1") no-repeat -42px -21px;}
-.post .infopanel .twitter a:active{opacity:1;background:url("/assets/images/share.icons.png?r=1") no-repeat -42px -42px;}
+.post .infopanel .twitter a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../images/share.icons.png?r=1") no-repeat scroll -42px 0 transparent;}
+.post .infopanel .twitter a:hover{opacity:1;background:url("../images/share.icons.png?r=1") no-repeat -42px -21px;}
+.post .infopanel .twitter a:active{opacity:1;background:url("../images/share.icons.png?r=1") no-repeat -42px -42px;}
 
 
 .post .infopanel .facebook{float:left;margin-right:5px;padding:5px 0;}
-.post .infopanel .facebook a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/assets/images/share.icons.png?r=1") no-repeat scroll 0 0 transparent;}
-.post .infopanel .facebook a:hover{opacity:1;background:url("/assets/images/share.icons.png?r=1") no-repeat 0px -21px;}
-.post .infopanel .facebook a:active{opacity:1;background:url("/assets/images/share.icons.png?r=1") no-repeat 0px -42px;}
+.post .infopanel .facebook a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../images/share.icons.png?r=1") no-repeat scroll 0 0 transparent;}
+.post .infopanel .facebook a:hover{opacity:1;background:url("../images/share.icons.png?r=1") no-repeat 0px -21px;}
+.post .infopanel .facebook a:active{opacity:1;background:url("../images/share.icons.png?r=1") no-repeat 0px -42px;}
 
 .post .infopanel .vkontakte{float:left;margin-right:5px;padding:5px 0;}
-.post .infopanel .vkontakte a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/assets/images/share.icons.png?r=1") no-repeat scroll -21px 0 transparent;}
-.post .infopanel .vkontakte a:hover{opacity:1;background:url("/assets/images/share.icons.png?r=1") no-repeat -21px -21px;}
-.post .infopanel .vkontakte a:active{opacity:1;background:url("/assets/images/share.icons.png?r=1") no-repeat -21px -42px;}
+.post .infopanel .vkontakte a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../images/share.icons.png?r=1") no-repeat scroll -21px 0 transparent;}
+.post .infopanel .vkontakte a:hover{opacity:1;background:url("../images/share.icons.png?r=1") no-repeat -21px -21px;}
+.post .infopanel .vkontakte a:active{opacity:1;background:url("../images/share.icons.png?r=1") no-repeat -21px -42px;}
 
 .post .infopanel .googleplus{float:left;padding:5px 0;margin-right:0;}
-.post .infopanel .googleplus a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/assets/images/share.icons.png?r=1") no-repeat scroll -63px 0 transparent;}
-.post .infopanel .googleplus a:hover{opacity:1;background:url("/assets/images/share.icons.png?r=1") no-repeat -63px -21px;}
-.post .infopanel .googleplus a:active{opacity:1;background:url("/assets/images/share.icons.png?r=1") no-repeat -63px -42px;}
+.post .infopanel .googleplus a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../images/share.icons.png?r=1") no-repeat scroll -63px 0 transparent;}
+.post .infopanel .googleplus a:hover{opacity:1;background:url("../images/share.icons.png?r=1") no-repeat -63px -21px;}
+.post .infopanel .googleplus a:active{opacity:1;background:url("../images/share.icons.png?r=1") no-repeat -63px -42px;}
   
-.post .infopanel .author{position:relative;float:left;line-height:27px;margin-left:19px;font-weight: 700;background: url("/assets/images/bg-user2.gif") no-repeat scroll 0 7px transparent;padding-left: 17px;}
+.post .infopanel .author{position:relative;float:left;line-height:27px;margin-left:19px;font-weight: 700;background: url("../images/bg-user2.gif") no-repeat scroll 0 7px transparent;padding-left: 17px;}
 .post .infopanel .author a{font-size:9px;color:#CF0000;text-decoration:none;}
 .post .infopanel .author a:hover{color:#f17d7d;}
 .post .infopanel .author .rating{font-size:9px;color:#C6C;font-weight: bold;cursor: help;position:relative;top:-5px;left:0;white-space: nowrap;}
@@ -265,19 +265,19 @@ text-decoration: none;
 .post .infopanel .author a.googleplus_profile:hover{color:blue;}
 
 
-.post .infopanel .original-author{float:left;line-height:27px;margin-left:20px;font-weight: 700;background: url("/assets/images/bg-author-link.gif") no-repeat scroll 0 50% transparent;padding-left: 10px;}
+.post .infopanel .original-author{float:left;line-height:27px;margin-left:20px;font-weight: 700;background: url("../images/bg-author-link.gif") no-repeat scroll 0 50% transparent;padding-left: 10px;}
 .post .infopanel .original-author a{font-size:9px;color:#CF0000;text-decoration:none;}
 .post .infopanel .original-author a:hover{color:#f17d7d;}
 
-.post .infopanel .downloaded{float:left;line-height:27px;margin-left:19px;font-weight: 700;background: url("/assets/images/bg-author-link.gif") no-repeat scroll 0 9px transparent;padding-left: 8px;}
+.post .infopanel .downloaded{float:left;line-height:27px;margin-left:19px;font-weight: 700;background: url("../images/bg-author-link.gif") no-repeat scroll 0 9px transparent;padding-left: 8px;}
 .post .infopanel .downloaded a{font-size:9px;color:#CF0000;text-decoration:none;}
 .post .infopanel .downloaded a:hover{color:#f17d7d;}
 
-.post .infopanel .link{float:left;line-height:27px;margin-left:19px;font-weight: 700;background: url("/assets/images/bg-author-link.gif") no-repeat scroll 0 50% transparent;padding-left: 10px;}
+.post .infopanel .link{float:left;line-height:27px;margin-left:19px;font-weight: 700;background: url("../images/bg-author-link.gif") no-repeat scroll 0 50% transparent;padding-left: 10px;}
 .post .infopanel .link a{font-size:9px;color:#CF0000;text-decoration:none;}
 .post .infopanel .link a:hover{color:#f17d7d;}
 
-.post .infopanel .comments{float:left;line-height:27px;margin-left:17px;font-weight: 700;background: url("/assets/images/bg-comments2.gif") no-repeat left 8px;}
+.post .infopanel .comments{float:left;line-height:27px;margin-left:17px;font-weight: 700;background: url("../images/bg-comments2.gif") no-repeat left 8px;}
 .post .infopanel .comments a{font-size:9px;color:#CF0000;text-decoration:none;padding-left: 17px;}
 .post .infopanel .comments a:hover{color:#f17d7d;}
 .post .infopanel .comments a .all{}
@@ -287,7 +287,7 @@ text-decoration: none;
 
 
 /* for sandbox post */
-.post div.tags{margin-bottom:15px;font-family:Verdana, sans-serif;background: url("/assets/images/bg-tags2.gif") no-repeat scroll 0 50%; font-size:12px;padding:2px 0;padding-left:20px;color:#000;}
+.post div.tags{margin-bottom:15px;font-family:Verdana, sans-serif;background: url("../images/bg-tags2.gif") no-repeat scroll 0 50%; font-size:12px;padding:2px 0;padding-left:20px;color:#000;}
 
 /* for sandbox infopanel */
 .post .infopanel .sandbox_author{float:left;line-height:30px;font-size:9px;}
@@ -331,17 +331,17 @@ border-bottom-left-radius: 15px;
 height:68px;
 line-height: 68px;
 }
-.post_inner_banner .left .text{display:inline-block;background: url(/assets/images/posts/inner_post_banner/hp/hp.png) no-repeat left center;padding-left:60px;height:45px;color:#333333;font-size: 14px;line-height: 20px;border: 0px solid red;text-align: left;vertical-align: middle;}    
+.post_inner_banner .left .text{display:inline-block;background: url(../images/posts/inner_post_banner/hp/hp.png) no-repeat left center;padding-left:60px;height:45px;color:#333333;font-size: 14px;line-height: 20px;border: 0px solid red;text-align: left;vertical-align: middle;}    
 
 .post_inner_banner .right{position:absolute;right:0px;top:0px;bottom:0px;width:50%;text-align: center;vertical-align: middle;border-right:1px solid #7fcaea;border-top:1px solid #7fcaea;border-bottom:1px solid #7fcaea;-webkit-border-top-right-radius: 15px;
 -webkit-border-bottom-right-radius: 15px;
 -moz-border-radius-topright: 15px;
 -moz-border-radius-bottomright: 15px;
 border-top-right-radius: 15px;
-border-bottom-right-radius: 15px;background: url(/assets/images/posts/inner_post_banner/hp/arrow.png) no-repeat left center;
+border-bottom-right-radius: 15px;background: url(../images/posts/inner_post_banner/hp/arrow.png) no-repeat left center;
 line-height: 68px;
 }
-.post_inner_banner .right .text{display:inline-block;background: url(/assets/images/posts/inner_post_banner/hp/icon.png) no-repeat left center;padding-left:43px;height:45px;color:#0096d6;font-size: 14px;line-height: 20px;border: 0px solid red;text-align: left;
+.post_inner_banner .right .text{display:inline-block;background: url(../images/posts/inner_post_banner/hp/icon.png) no-repeat left center;padding-left:43px;height:45px;color:#0096d6;font-size: 14px;line-height: 20px;border: 0px solid red;text-align: left;
 vertical-align: middle;}
 
 /**
@@ -368,20 +368,20 @@ vertical-align: middle;}
 .habralenta_settings .category-list{margin-bottom: 20px;}
 
 .habralenta_settings .category-list .category_all{font-size:133%;overflow:hidden;margin-bottom:10px;position:relative;}
-.habralenta_settings .category-list .category_all .checkbox{position:absolute;top:0;left:0;cursor:pointer;width:14px;height:14px;margin-top:0.2em;background:url(/assets/images/form/checkbox.png) no-repeat -25px 0px;}
-.habralenta_settings .category-list .category_all.selected .checkbox{background:url(/assets/images/form/checkbox.png) no-repeat 0px 0px;}
+.habralenta_settings .category-list .category_all .checkbox{position:absolute;top:0;left:0;cursor:pointer;width:14px;height:14px;margin-top:0.2em;background:url(../images/form/checkbox.png) no-repeat -25px 0px;}
+.habralenta_settings .category-list .category_all.selected .checkbox{background:url(../images/form/checkbox.png) no-repeat 0px 0px;}
 .habralenta_settings .category-list .category_all .title{margin-left:24px;cursor:pointer;border-bottom:1px dashed;color:green;}
 .habralenta_settings .category-list .category_all .lenta-tip{color:#666;cursor:help;}
 
 .habralenta_settings .category-list .category{font-size:133%;overflow:hidden;margin-bottom:10px;position:relative;}
 .habralenta_settings .category-list .category:last-child{margin-bottom:0em;}
-.habralenta_settings .category-list .category .checkbox{float:left;position:absolute;top:0;left:0;cursor:pointer;width:14px;height:14px;margin-top:0.2em;background:url(/assets/images/form/checkbox.png) no-repeat -25px 0px;}
-.habralenta_settings .category-list .category.full .checkbox{background:url(/assets/images/form/checkbox.png) no-repeat 0px 0px;}
-.habralenta_settings .category-list .category.part .checkbox{background:url(/assets/images/form/checkbox.png) no-repeat -50px 0px;}
+.habralenta_settings .category-list .category .checkbox{float:left;position:absolute;top:0;left:0;cursor:pointer;width:14px;height:14px;margin-top:0.2em;background:url(../images/form/checkbox.png) no-repeat -25px 0px;}
+.habralenta_settings .category-list .category.full .checkbox{background:url(../images/form/checkbox.png) no-repeat 0px 0px;}
+.habralenta_settings .category-list .category.part .checkbox{background:url(../images/form/checkbox.png) no-repeat -50px 0px;}
 
-.habralenta_settings .category-list .category.disabled .checkbox{cursor:default;background:url(/assets/images/form/checkbox.png) no-repeat -25px -75px;}
-.habralenta_settings .category-list .category.disabled.full .checkbox{background:url(/assets/images/form/checkbox.png) no-repeat 0px -75px;}
-.habralenta_settings .category-list .category.disabled.part .checkbox{background:url(/assets/images/form/checkbox.png) no-repeat -50px -75px;}
+.habralenta_settings .category-list .category.disabled .checkbox{cursor:default;background:url(../images/form/checkbox.png) no-repeat -25px -75px;}
+.habralenta_settings .category-list .category.disabled.full .checkbox{background:url(../images/form/checkbox.png) no-repeat 0px -75px;}
+.habralenta_settings .category-list .category.disabled.part .checkbox{background:url(../images/form/checkbox.png) no-repeat -50px -75px;}
 .habralenta_settings .category-list .category.disabled .title{color:#aaa;}
 .habralenta_settings .category-list .category.disabled .title a,
 .habralenta_settings .category-list .category.disabled .title a:hover{color:#aaa;border-bottom:1px dashed #aaa;cursor:default;}
@@ -397,11 +397,11 @@ vertical-align: middle;}
 .habralenta_settings .category-list .category .hubs.show{display:block;}
 .habralenta_settings .category-list .category .hubs .hub{font-size:85%;overflow:hidden;margin-bottom:0.6em;position:relative;}
 .habralenta_settings .category-list .category .hubs .hub:last-child{margin-bottom:0em;}
-.habralenta_settings .category-list .category .hubs .hub .checkbox{float:left;position:absolute;top:0;left:0;cursor:pointer;width:14px;height:14px;margin-top:0.1em;background:url(/assets/images/form/checkbox.png) no-repeat -25px 0px;}
-.habralenta_settings .category-list .category .hubs .hub.subscription .checkbox{background:url(/assets/images/form/checkbox.png) no-repeat 0px 0px;}
+.habralenta_settings .category-list .category .hubs .hub .checkbox{float:left;position:absolute;top:0;left:0;cursor:pointer;width:14px;height:14px;margin-top:0.1em;background:url(../images/form/checkbox.png) no-repeat -25px 0px;}
+.habralenta_settings .category-list .category .hubs .hub.subscription .checkbox{background:url(../images/form/checkbox.png) no-repeat 0px 0px;}
 
-.habralenta_settings .category-list .category.disabled .hubs .hub .checkbox{cursor:default;background:url(/assets/images/form/checkbox.png) no-repeat -25px -75px;}
-.habralenta_settings .category-list .category.disabled .hubs .hub.subscription .checkbox{background:url(/assets/images/form/checkbox.png) no-repeat 0px -75px;}
+.habralenta_settings .category-list .category.disabled .hubs .hub .checkbox{cursor:default;background:url(../images/form/checkbox.png) no-repeat -25px -75px;}
+.habralenta_settings .category-list .category.disabled .hubs .hub.subscription .checkbox{background:url(../images/form/checkbox.png) no-repeat 0px -75px;}
 .habralenta_settings .category-list .category.disabled .hubs .hub a{color:#aaa;cursor:default;}
 
 .habralenta_settings .category-list .category .hubs .hub a{float:left;display:block;margin-left:24px;}
@@ -420,14 +420,14 @@ vertical-align: middle;}
 .habralenta_settings #save_success{color:green;display:none;margin-left:10px;}
 .habralenta_settings #save_success.show{display:inline;}
 .habralenta_settings #form_habralenta_settings .btn{margin-right: 5px;}
-.habralenta_settings #form_habralenta_settings .btn.loading{background: url(/assets/images/form/loader_button.gif) repeat;}
+.habralenta_settings #form_habralenta_settings .btn.loading{background: url(../images/form/loader_button.gif) repeat;}
 
 .habralenta_settings hr.mail-stripe {
     height: 2px;
     width: 300px;
     margin-left: -20px;
     border: none;
-    background: url(/assets/images/mail-stripe.png)
+    background: url(../images/mail-stripe.png)
 }
 
 #lenta_notifications{}
