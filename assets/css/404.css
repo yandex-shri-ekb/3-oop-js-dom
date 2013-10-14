@@ -1,0 +1,73 @@
+body{box-shadow: inset 0 0 0 7px #444054;background: #5a556b url(/assets/images/404/stars.bottom.png) repeat center top;margin:0;padding:0;position: relative;font-family: 'PT Sans', sans-serif;
+	min-height: 750px;
+	min-width:1024px;
+}
+html,
+body{height:100%;}
+
+.stars{background: #5a556b url(/assets/images/404/page404.bg.png) no-repeat center top;
+	max-width:1000px;margin:auto;	margin-top:7px;position: relative;
+}
+
+
+.h{height: 7px;}
+
+.page404{
+	text-align: center;
+	padding: 40px 0 0;
+	position: relative;
+
+}
+.page404 .title{
+	padding: 16px 0;
+	text-transform: uppercase;
+	color:#f9efdd;
+	font-size:29px;
+	border-top: 3px double #e6dccf;
+	border-bottom: 3px double #e6dccf;
+	display: inline-block;
+	position: relative;
+	min-width:120px;
+}
+.page404 .title .label_top{font-size:13px;font-style:italic;text-transform: capitalize;position: absolute;
+	left:50%;top:-10px;background: #5a556b;width:40px;text-align: center;
+	margin-left:-20px;
+}
+
+.page404 .title .label_bottom{
+	background: #5a556b url(/assets/images/404/dot.png) no-repeat center top;
+	width: 11px;
+	height:11px;
+	padding: 0 7px;
+	position: absolute;
+	left: 50%;
+	bottom: -7px;
+	margin-left:-12px;
+}
+.page404 .state{font-size:14px;color:#f9efdd;text-transform: uppercase;margin-top:20px;}
+.page404 .button{margin-top:450px;padding-bottom: 55px;}
+.page404 .button a{background: #549c86;font-size:15px;color:#f9efdd;text-transform: uppercase;text-decoration: none;padding: 10px 30px;display: inline-block;
+	box-shadow: 5px 5px 0 0 #3d7b68;
+}
+
+.page404 #habr_center_universe{position: absolute;left:497px;top:375px;border: 0 solid blue;width:1px;height:1px;}
+
+.page404 .habr{display: block;width:110px;height:110px;border: 0 solid red;position: absolute;top:-55px;left:-55px;}
+
+.page404 .planet{border:1px solid red;width:1px;height:1px;display:inline-block;position: absolute;}
+.page404 .planet a.name{display:inline-block;vertical-align: middle;color: #f9efdd;text-transform: uppercase;font-size: 15px;text-decoration:none;}
+.page404 .planet a.name:hover{text-decoration: underline;}
+
+.page404 .planet a.picture{display: inline-block;position: absolute;}
+
+.page404 .planet.brainstorage{left:0;top:0;}
+.page404 .planet.brainstorage .name{position: absolute;left:50px;top:-10px;}
+.page404 .planet.brainstorage .picture{left:-42px;top:-83px;background: url(/assets/images/404/brainstorage.picture.png) no-repeat 0 0;width:77px;height:117px;}
+
+.page404 .planet.hantim{left:0;top:0;}
+.page404 .planet.hantim .name{position: absolute;left:40px;top:-10px;}
+.page404 .planet.hantim .picture{left:-25px;top:-25px;background: url(/assets/images/404/freelansim.picture.png) no-repeat 0 0;width:50px;height:50px;}
+
+.page404 .planet.freelansim{left:0;top:0;}
+.page404 .planet.freelansim .name{position: absolute;left:40px;top:-15px;}
+.page404 .planet.freelansim .picture{left:-30px;top:-25px;background: url(/assets/images/404/hantim.picture.png) no-repeat 0 0;width:59px;height:50px;}
