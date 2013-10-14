@@ -65,7 +65,11 @@ window.HabraWriter = function (usernames, gComments, gArticles) {
         return comments;
     };
 
-    this.getArticle = function () {
+    this.getArticleText = function () {
         return gArticles.getText().map(function (article) { return $('<p>' + article + '</p>'); });
+    };
+
+    this.getArticleHeader = function () {
+        return gArticles.getSentence();
     }
 }
