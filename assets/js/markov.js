@@ -237,7 +237,7 @@
     App.prototype.assignEvents = function() {
       var self;
       self = this;
-      return $(document).on('click', this.view.$runButton, function(e) {
+      return $(document).on('click', '.run-btn', function(e) {
         if (self.isRun) {
           return false;
         }

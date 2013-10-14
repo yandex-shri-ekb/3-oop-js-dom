@@ -270,7 +270,7 @@ class App
 
   assignEvents: ->
     self = @
-    $(document).on('click', @view.$runButton, (e)->
+    $(document).on('click', '.run-btn', (e)->
       if self.isRun then return false
       self.isRun = true
       self.runApp()
