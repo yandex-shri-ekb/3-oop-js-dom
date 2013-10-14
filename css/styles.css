@@ -1,0 +1,128 @@
+body {
+    margin: 0;
+}
+
+.navbar
+{
+    margin: 0 0 20px;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px 0 10px 60px;
+    text-align: left;
+
+    background: #e2e2e2;
+    background: linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%);
+}
+
+.navbar__logo
+{
+    color: #5B5B5B;
+    display: inline-block;
+    font: 25px/1 Tahoma;
+    margin: 0 20px 0 0;
+    vertical-align: middle;
+}
+
+.navbar__button
+{
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.navbar__progress
+{
+    height: 22px;
+    width: 200px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.navbar__status
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.modal
+{
+    bottom: 0;
+    display: none;
+    left: 0;
+    overflow-x: auto;
+    overflow-y: scroll;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.modal__dialog
+{
+    left: 50%;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    right: auto;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 20;
+}
+
+.modal__title
+{
+    border-bottom: 1px solid #E5E5E5;
+    padding: 15px;
+}
+
+.modal__body
+{
+    padding: 15px 0;
+}
+
+.modal__footer
+{
+
+}
+
+.modal__backdrop
+{
+    background-color: #000000;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 9;
+    opacity: 0.4;
+}
+
+.modal__content
+{
+    padding: 10px;
+    background: #FFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+}
+
+.modal__field
+{
+    -moz-box-sizing: border-box;
+    margin-bottom: 15px;
+    padding: 5px;
+    width: 100%;
+}
+
+.modal__button
+{
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.modal__label
+{
+    display: block;
+}

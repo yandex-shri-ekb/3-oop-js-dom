@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Бредогенератор3000</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/habr.css">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <div class="modal" id="modal">
+            <div class="modal__dialog">
+                <div class="modal__content">
+                    <div class="modal__title">Настройки</div>
+                    <div class="modal__body">
+                        <label class="modal__label">1</label>
+                        <input class="modal__field" type="text"/>
+                        <label class="modal__label">2</label>
+                        <input class="modal__field" type="text"/>
+                        <label class="modal__label">3</label>
+                        <input class="modal__field" type="text"/>
+                        <label class="modal__label">4</label>
+                        <input class="modal__field" type="text"/>
+                    </div>
+                    <div class="modal__footer">
+                        <button class="modal__button" id="modal-save">Сохранить</button>
+                        <button class="modal__button" id="modal-cancel">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div id="layout">
+                <div class="navbar">
+                    <div class="navbar__form">
+                        <div class="navbar__logo">Бредогенератор3000</div>
+                        <button class="navbar__button" id="go">Сгенерировать текст</button>
+                        <button class="navbar__button" id="settings">Настройки</button>
+                        <progress class="navbar__progress" id="progress" value="0" max="100"></progress>
+                        <div class="navbar__status" id="status"></div>
+                    </div>
+                </div>
+
+                <div id="header">
+                    <div class="userpanel silver">
+                        <a class="login" href="https://auth.habrahabr.ru/login/">войти</a> <a
+                            href="https://auth.habrahabr.ru/register/">зарегистрироваться</a>
+                    </div>
+                    <a title="На главную страницу" href="http://habrahabr.ru/" class="logo "></a>
+                    <div class="search">
+                        <form action="//habrahabr.ru/search/" method="get" name="search" id="search_form">
+                            <input type="submit" value="">
+                            <input type="text" tabindex="1" speech="" x-webkit-speech="" name="q" autocomplete="off">
+                        </form>
+                    </div>
+                    <div class="main_menu">
+                        <a class="active" href="http://habrahabr.ru/posts/top/">посты</a><a href="http://habrahabr.ru/qa/">q&amp;a</a><a
+                            href="http://habrahabr.ru/events/coming/">события</a><a href="http://habrahabr.ru/hubs/">хабы</a><a
+                            href="http://habrahabr.ru/companies/">компании</a>
+                    </div>
+                </div>
+                <div class="content_left">
+                    <div class="post shortcuts_item">
+                        <div class="published">вчера в 20:03</div>
+                        <h1 class="title">
+                            <span id="habr-title" class="post_title">Желтый-желтый заголовок</span>
+                        </h1>
+
+                        <div class="hubs">
+                            <a title="Вы не подписаны на этот хаб" class="hub " href="http://habrahabr.ru/hub/gdev/">Game
+                            Development</a><span title="Профильный хаб" class="profiled_hub">*</span>
+                        </div>
+
+                        <div id="habr-content" class="content html_format">
+                            Статья еще не готова, вам необходимо ее сгенерировать
+                        </div>
+
+                        <ul class="tags" id="habr-tags">
+                            <li><a rel="tag" href="#">mafia</a></li>,
+                            <li><a rel="tag" href="#">civilization</a></li>,
+                            <li><a rel="tag" href="#">steam</a></li>
+                        </ul>
+                        <div class="infopanel_wrapper">
+                            <div id="infopanel_post_197362" class="infopanel ">
+                                <div class="voting   ">
+                                    <span title="Голосовать могут только зарегистрированные пользователи." class="plus"></span>
+                                    <div class="mark">
+                                        <span title="Результат голосования виден только авторизованным пользователям"
+                                            class="score">&mdash;</span>
+                                    </div>
+                                    <span title="Голосовать могут только зарегистрированные пользователи." class="minus"></span>
+                                </div>
+                                <div title="Просмотры поста" class="pageviews">100500</div>
+                                <div class="favorite">
+                                    <a title="Только зарегистрированные пользователи могут добавлять посты в избранное"
+                                        onclick="return false;" href="#" class="guest"></a>
+                                </div>
+                                <div title="Количество пользователей, добавивших пост в избранное" class="favs_count">9000+</div>
+                                <div class="author">
+                                    <a href="#" title="Автор текста">Бредогенератор3000</a>
+                                    <span title="рейтинг пользователя" class="rating">100500</span>
+                                </div>
+                                <div class="share">
+                                    <div class="twitter">
+                                        <a target="_blank" title="Опубликовать ссылку в Twitter"
+                                            href="http://twitter.com/intent/tweet?text=%D0%91%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%B0%D1%8F+Mafia2+%D0%B8%D0%BB%D0%B8+Civilization+V+%28Steam%29+%23habr+http://habr.ru/p/197362/"></a>
+                                    </div>
+                                    <div class="vkontakte">
+                                        <a onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"
+                                            title="Опубликовать ссылку во ВКонтакте"
+                                            href="http://vk.com/share.php?url=http://habrahabr.ru/post/197362/"></a>
+                                    </div>
+                                    <div class="facebook">
+                                        <a onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"
+                                            title="Опубликовать ссылку в Facebook"
+                                            href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/197362/"></a>
+                                    </div>
+                                    <div class="googleplus">
+                                        <a onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"
+                                            title="Опубликовать ссылку в Google Plus"
+                                            href="https://plus.google.com/share?url=http://habrahabr.ru/post/197362/"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div id="comments" class="comments_list ">
+                        <h2 class="title ">комментарии (<span id="comments_count">101</span>)</h2>
+                    </div>
+                    <p class="for_users_only_msg">Только зарегистрированные пользователи могут оставлять комментарии. <a
+                        href="https://auth.habrahabr.ru/login/">Войдите</a>, пожалуйста.</p>
+                </div>
+                <div class="sidebar_right">
+                    <div class="block daily_best_posts" style="width: auto; opacity: 1;">
+                        <div class="title">Лучшее <sup>за 24 часа</sup></div>
+                        <div class="posts_list">
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/post/197362/">Бесплатная Mafia2 или Civilization V
+                                (Steam)</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/post/197388/">Драма Инстаграма &mdash; веерные блокировки
+                                аккаунтов</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/post/197512/">Сказ о том, как Первый канал сам создает
+                                запрещенный контент и жалуется на него</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/company/badoo/blog/197456/">Как мы мигрировали миллионные
+                                страны за рабочий день</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/post/197480/">Не пора ли нам в D?</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/post/197398/">Воображение, как у Эсмеральды</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/post/197344/">Моя первая оверлейная программа</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/post/197366/">Проект open source GPU на Kickstarter</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/post/197364/">Erlang для самых маленьких. Глава 2: Модули и
+                                функции</a>
+                            </div>
+                            <div class="post_item">
+                                <a class="post_name" href="http://habrahabr.ru/company/boxowerview/blog/196542/">NVIDIA Shield &mdash;
+                                лучшая портативная консоль для гика</a>
+                            </div>
+                        </div>
+                        <div class="all"><a href="/top/">все лучшие</a></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="rotated_posts">
+                    <div class="rotated_post ">
+                        <a class="grey" href="http://habrahabr.ru/post/180183/">Поддержка The Neverhood добавлена в ScummVM</a>
+                    </div>
+                    <div class="rotated_post ">
+                        <a class="grey" href="http://habrahabr.ru/post/194312/">Google vs. Смерть = Calico</a>
+                    </div>
+                    <div class="rotated_post last">
+                        <a class="grey" href="http://habrahabr.ru/post/189876/">Опубликованы технические спецификации проекта
+                        Hyperloop</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="footer">
+            <dl>
+                <dd><a href="https://auth.habrahabr.ru/login/">Войти</a></dd>
+                <dd><a href="https://auth.habrahabr.ru/register/">Регистрация</a></dd>
+            </dl>
+            <dl>
+                <dt>Разделы</dt>
+
+                <dd><a href="http://habrahabr.ru/qa/">Q&amp;A</a></dd>
+                <dd><a href="http://habrahabr.ru/hubs/">Хабы</a></dd>
+                <dd><a href="http://habrahabr.ru/events/">События</a></dd>
+                <dd><a href="http://habrahabr.ru/companies/">Компании</a></dd>
+                <dd><a href="http://habrahabr.ru/users/">Пользователи</a></dd>
+            </dl>
+            <dl>
+                <dt>Посты</dt>
+
+                <dd><a href="http://habrahabr.ru/posts/top/">Лучшие</a></dd>
+                <dd><a href="http://habrahabr.ru/posts/collective/">Тематические</a></dd>
+                <dd><a href="http://habrahabr.ru/posts/corporative/">Корпоративные</a></dd>
+                <dd><a href="http://habrahabr.ru/sandbox/">Песочница</a></dd>
+            </dl>
+            <dl>
+                <dt>Инфо</dt>
+                <dd><a href="http://habrahabr.ru/info/about/">О сайте</a></dd>
+                <dd><a href="http://habrahabr.ru/info/help/rules/">Правила</a></dd>
+                <dd><a href="http://habrahabr.ru/info/help/">Помощь</a></dd>
+                <dd><a href="http://habrahabr.ru/info/agreement/">Соглашение</a></dd>
+                <dd><a href="http://habrahabr.ru/info/stats/">Статистика</a></dd>
+            </dl>
+            <dl>
+                <dt>Услуги</dt>
+                <dd><a href="http://habrahabr.ru/info/advertising/">Реклама</a></dd>
+                <dd><a href="http://habrahabr.ru/info/advertising/corporate/">Корпоративные тарифы</a></dd>
+                <dd><a href="http://habrahabr.ru/info/advertising/workshops/">Семинары</a></dd>
+                <dd><a href="http://habrahabr.ru/special/">Спецпроекты</a></dd>
+            </dl>
+            <div class="copyright">
+
+                <div class="about">
+                    <a href="http://thematicmedia.ru/" class="footer_logo">Тематические Медиа</a>
+                    &copy; 2006&ndash;2013
+                    <br><br>
+                    <a href="http://habrahabr.ru/feedback/">Служба поддержки</a><br><br>
+                    <a href="http://m.habrahabr.ru">Мобильная версия</a><br><br>
+
+
+                    <div class="social_accounts">
+                        <a class="tw" href="https://twitter.com/habrahabr"></a>
+                        <a class="fb" href="https://www.facebook.com/habrahabr.ru"></a>
+                        <a class="vk" href="http://vk.com/habr"></a>
+                        <!-- <a href="" class="gp"></a> //-->
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <script src="//yandex.st/jquery/2.0.3/jquery.min.js"></script>
+        <script src="UltimateTextGenerator.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
