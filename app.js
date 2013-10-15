@@ -61,7 +61,7 @@ var articleTextGen = new UltimateTextGenerator(),
                 url : 'habr.html',
                 success : function(response) {
                     processHabrHtml(response);
-                    //generate();
+                    generate();
                 }
             });
         }
@@ -88,21 +88,15 @@ var articleTextGen = new UltimateTextGenerator(),
             newText = '',
             newComment = '',
             nParagraph = getRandomInt(+$settingsPn1.val(), +$settingsPn2.val()),
-            nSentence,
-            nWords,
-            nComments = getRandomInt(1, 20),
+            nComments = getRandomInt(10, 30),
             publishDate = randomDate(new Date(2012, 0, 1), new Date()),
             commentDate;
 
         while(p++ < nParagraph) {
-            nSentence = getRandomInt(+$settingsSn1.val(), +$settingsSn2.val());
-            for(s = 0; s < nSentence; s++) {
-                nWords = getRandomInt(+$settingsWn1.val(), +$settingsWn2.val());
-                newText += ' ' + articleTextGen.generateSentence(nWords, '.', false, true, 3);
-            }
+            newText += generatePost(getRandomInt(+$settingsSn1.val(), +$settingsSn2.val()));
 
             if(p !== nParagraph) {
-                newText += '<br><br><br>';
+                newText += '<br><br>';
             }
         }
 
@@ -113,12 +107,7 @@ var articleTextGen = new UltimateTextGenerator(),
         progressTo(90, 'Generating comments...');
         for(var i = 0; i < nComments; i++) {
             commentDate = new Date(publishDate.getTime() + getRandomInt(0, 60) * 60000);
-            newComment = '';
-            nSentence = getRandomInt(+$settingsSn1.val(), +$settingsSn2.val());
-            for(s = 0; s < nSentence; s++) {
-                nWords = getRandomInt(+$settingsWn1.val(), +$settingsWn2.val());
-                newComment += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
-            }
+            newComment = generateComment(getRandomInt(+$settingsSn1.val(), +$settingsSn2.val()));
 
             $habrComments.append(createNewComment(getRandomNickname(), commentDate.toLocaleString(), newComment));
         }
@@ -127,6 +116,28 @@ var articleTextGen = new UltimateTextGenerator(),
         $habrTitle.html(newTitle);
 
         progressTo(100, 'Done!');
+    }
+
+    function generatePost(nSentence) {
+        var nWords, text = '';
+        nSentence = getRandomInt(+$settingsSn1.val(), +$settingsSn2.val());
+        for(var s = 0; s < nSentence; s++) {
+            nWords = getRandomInt(+$settingsWn1.val(), +$settingsWn2.val());
+            text += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
+        }
+
+        return text;
+    }
+
+    function generateComment(nSentence) {
+        var nWords, text = '';
+        nSentence = getRandomInt(+$settingsSn1.val(), +$settingsSn2.val());
+        for(var s = 0; s < nSentence; s++) {
+            nWords = getRandomInt(+$settingsWn1.val(), +$settingsWn2.val());
+            text += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
+        }
+
+        return text;
     }
 
     function createNewComment(author, time, text) {

@@ -12,18 +12,42 @@ var UltimateTextGenerator = function() {
     * }
     */
     var _dictionary = {};
-    this.d = _dictionary;
+    this.d = _dictionary; // TODO remove
 
     /**
      * Добавить кусок текста в словарь
      * @param {string} text
      */
     this.add = function(text) {
-        // Убираем всякую пежню
-        //text = text.replace(/(\.\.\.|[;\(\)—«»/\\#])/g, '');
 
-        // Возможно проще оставить только нужные символы
+        text = prepare(text);
+        var words = text.split(' '), l = words.length;
+
+        if(l < 2) {
+            return;
+        }
+
+        // последнее слово пропускаем
+        for(var i = 0; i < l - 1; i++) {
+            addPair(words[i], words[i+1]);
+        }
+    };
+
+    /**
+     * @param {string} text
+     */
+    function prepare(text) {
+        // Убираем всякую пежню
+        //text = text.replace(/([;\(\)—«»/\\#])/g, '');
+
+        // &nbsp
+        text = text.replace(/&\w+;|&#\d+;/g, ' ');
+
+        // Оставим только буквы и цифры()
         text = text.replace(/[^A-zА-я0-9ёЁ !?.,:-]/g, ' ');
+
+        // Повторения знаков пунктуации
+        text = text.replace(/([!?.,:-])[!?.,:-]+/g, '$1');
 
         //                       к е п о ч к а
         text = text.replace(/т\.(к|е|п|о|ч|д)\./g, function(result) {
@@ -53,21 +77,8 @@ var UltimateTextGenerator = function() {
             // пробелы
             .replace(/[ ]{2,}/g, ' ');
 
-        var words = text.split(' '), l = words.length;
-
-        if(l < 2) {
-            return;
-        }
-
-        // последнее слово пропускаем
-        for(var i = 0; i < l - 1; i++) {
-            /*if(words[i] == 'вашим') {
-               i++;i--;
-            }*/
-
-            addPair(words[i], words[i+1]);
-        }
-    };
+        return text;
+    }
 
     /**
      * Добавить пару в словарь
@@ -76,8 +87,8 @@ var UltimateTextGenerator = function() {
      * @param {string} w2
      */
     function addPair(w1, w2) {
-        var pair = _dictionary.hasOwnProperty(w1) ? _dictionary[w1] : {};
-        if(pair.hasOwnProperty(w2)) {
+        var pair = typeof _dictionary[w1] !== 'undefined' ? _dictionary[w1] : {};
+        if(typeof pair[w2] !== 'undefined') {
             pair[w2] += 1;
         }
         else {
@@ -111,7 +122,9 @@ var UltimateTextGenerator = function() {
             }
 
             prefix = suffix;
-
+            if(suffix.length < 3) {
+                i--;
+            }
         }
 
         if(['.', '!', '?'].indexOf(textArr[textArr.length - 1]) === -1) {
@@ -149,7 +162,7 @@ var UltimateTextGenerator = function() {
      * @return string
      */
     this.getSuffix = function(prefix) {
-        if(!_dictionary.hasOwnProperty(prefix)) {
+        if(typeof _dictionary[prefix] === 'undefined') {
             //throw new Error('Префикс ' + prefix + ' не найден.');
             return '.';
         }
@@ -173,7 +186,7 @@ var UltimateTextGenerator = function() {
         }
 
         return suffix;
-    }
+    };
 
     /**
      * @param {string} string
