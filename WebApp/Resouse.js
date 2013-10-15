@@ -28,7 +28,7 @@ var masseges = $message.join(" ").split("\n").filter(removeVoid).filter(function
 var text = $habr.text().split("\n").filter(removeVoid).filter(function (a)
 {
   return 50 < a.length
-}).join(" ").toLowerCase().replace(/[\.,;:?!](?=\s)/g, " $& ").replace(/[\(\)\[\]]/g, "").split(" ").filter(removeVoid);
+}).join(" ").toLowerCase().replace(/<\/?[^>]+>/g, '').replace(/[\.,;:?!](?=\s)/g, " $& ").replace(/[\(\)\[\]]/g, "").split(" ").filter(removeVoid);
 
 var $bred = $("<div>").append($("#bred").remove());
 

@@ -14,7 +14,7 @@ var make_text = function (text, min_length, Dic, List)
   var temp = function b() // выбираем первые слова без знаков
   {
     var a = select(List);
-    return /[\.,;:?!]/g.test(a) ? b() : a
+    return /[\.,;:?!—]/g.test(a) ? b() : a
   }(), Title = temp.split(" ");
 
   for (var i = 0; i < min_length; i++) {
