@@ -20,11 +20,10 @@ $('.blah-preference').on("submit", function() {
 
       });
 
-
-
-/*я не знаю, но так локально не работает, будет хорошо, если объяcнит кто-нибудь почему
+/*так как это локально не работает, для тестов используем вариант выше
 $.get("habr.html", function(data){
-  alert("data loaded"+data);
-}
+    $(this).find(".generateBlah-button").attr("disabled", true);
+      gen.init(data);  
+});
 */
 }) 
