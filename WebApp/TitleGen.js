@@ -26,5 +26,5 @@ var make_text = function (text, min_length, Dic, List)
     i == min_length - 1 && Title.push("."); // мега конструкция работает как условие но короче и быстрее
     temp = [Title[Title.length - 2], Title[Title.length - 1]].join(" ")
   }
-  return Title.join(" ").UpperCaseOne();
+  return Title.join(" ").replace(/\s(?=[\.,;:?!])/g, "").UpperCaseOne();
 };

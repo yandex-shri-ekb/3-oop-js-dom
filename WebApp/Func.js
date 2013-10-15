@@ -12,7 +12,7 @@ String.prototype.UpperCaseOne = function ()
 
 /**
  * Выбирает случайный элемент из массива и возвращает его
- * @param {Array}
+ * @param a
  */
 var select = function (a)
 {
@@ -27,4 +27,19 @@ var select = function (a)
 function removeVoid(a)
 {
   return a != "";
+}
+/**
+ * Получаем текст
+ * @returns {String}
+ * @param a
+ */
+function GetText(a)
+{
+  return $(a).text();
+}
+
+var texto = function (a)
+{
+  return a.toLowerCase().split("\n").join(" ").replace(/[\.,;:?!](?=\s)/g, " $& ").replace(/[\(\)\[\]]/g, "") //надоели эти скобки
+    .split(" ").filter(removeVoid);
 }
