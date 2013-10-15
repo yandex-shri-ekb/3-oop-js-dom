@@ -31,8 +31,8 @@
     window.Writer = function (usernames, gComments, gArticles) {
         var config = {
             maxCommentLevel: 3,
-            minFirstLevelCommentNumber: 5,
-            maxFirstLevelCommentNumber: 23,
+            minFirstLevelCommentNumber: 2,
+            maxFirstLevelCommentNumber: 10,
             replyProbability: {
                 0: 0.5,
                 1: 0.3,
@@ -42,11 +42,11 @@
             }
         };
 
-        function getComment() {
+        function getComment(options) {
             var comment = new Comment(
                     getRandomElement(usernames),
                     'an hour ago',
-                    gComments.getText().map(function (article) {
+                    gComments.getText(options).map(function (article) {
                         return '<p>' + article + '</p>';
                     }).join('')
                 ),
@@ -62,7 +62,7 @@
             return comment;
         }
 
-        this.getCommentTree = function () {
+        this.getCommentTree = function (options) {
             var commentNumber = getRandomIntegerInRange(
                     config.minFirstLevelCommentNumber,
                     config.maxFirstLevelCommentNumber
@@ -71,14 +71,14 @@
                 i;
 
             for (i = 0; i < commentNumber; i += 1) {
-                comments.push(getComment());
+                comments.push(getComment(options));
             }
 
             return comments;
         };
 
-        this.getArticleText = function () {
-            return gArticles.getText().map(function (article) {
+        this.getArticleText = function (options) {
+            return gArticles.getText(options).map(function (article) {
                 return '<p>' + article + '</p>';
             });
         };
