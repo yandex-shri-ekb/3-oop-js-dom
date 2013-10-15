@@ -29,7 +29,13 @@ var articleTextGen = new UltimateTextGenerator(),
         $settingsSn1 = $('#settings-sn1'),
         $settingsSn2 = $('#settings-sn2'),
         $settingsWn1 = $('#settings-wn1'),
-        $settingsWn2 = $('#settings-wn2');
+        $settingsWn2 = $('#settings-wn2'),
+        settingsPn1 = +$settingsPn1.val(),
+        settingsPn2 = +$settingsPn2.val(),
+        settingsSn1 = +$settingsSn1.val(),
+        settingsSn2 = +$settingsSn2.val(),
+        settingsWn1 = +$settingsWn1.val(),
+        settingsWn2 = +$settingsWn2.val();
 
     $settings.on('click', function() {
         $('<div class="modal__backdrop"></div>').appendTo($body);
@@ -87,13 +93,13 @@ var articleTextGen = new UltimateTextGenerator(),
             s = 0,
             newText = '',
             newComment = '',
-            nParagraph = getRandomInt(+$settingsPn1.val(), +$settingsPn2.val()),
+            nParagraph = getRandomInt(settingsPn1, settingsPn2),
             nComments = getRandomInt(10, 30),
             publishDate = randomDate(new Date(2012, 0, 1), new Date()),
             commentDate;
 
         while(p++ < nParagraph) {
-            newText += generatePost(getRandomInt(+$settingsSn1.val(), +$settingsSn2.val()));
+            newText += generatePostText(getRandomInt(settingsSn1, settingsSn2));
 
             if(p !== nParagraph) {
                 newText += '<br><br>';
@@ -106,10 +112,7 @@ var articleTextGen = new UltimateTextGenerator(),
         $habrCommentsCount.text(nComments);
         progressTo(90, 'Generating comments...');
         for(var i = 0; i < nComments; i++) {
-            commentDate = new Date(publishDate.getTime() + getRandomInt(0, 60) * 60000);
-            newComment = generateComment(getRandomInt(+$settingsSn1.val(), +$settingsSn2.val()));
-
-            $habrComments.append(createNewComment(getRandomNickname(), commentDate.toLocaleString(), newComment));
+            $habrComments.append(generateComment(publishDate, 1));
         }
 
         var newTitle = articleTextGen.generateSentence(getRandomInt(2, 5), '.', true, true, 0);
@@ -118,22 +121,39 @@ var articleTextGen = new UltimateTextGenerator(),
         progressTo(100, 'Done!');
     }
 
-    function generatePost(nSentence) {
+    function generatePostText(nSentence) {
         var nWords, text = '';
-        nSentence = getRandomInt(+$settingsSn1.val(), +$settingsSn2.val());
+        nSentence = getRandomInt(settingsSn1, settingsSn2);
         for(var s = 0; s < nSentence; s++) {
-            nWords = getRandomInt(+$settingsWn1.val(), +$settingsWn2.val());
+            nWords = getRandomInt(settingsWn1, settingsWn2);
             text += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
         }
 
         return text;
     }
 
-    function generateComment(nSentence) {
+    function generateComment(minDate, lvl) {
+        var text = generateCommentText(getRandomInt(settingsSn1, settingsSn2));
+        var date = new Date(minDate.getTime() + getRandomInt(0, 60) * 60000);
+        var $comment = createNewComment(getRandomNickname(), date.toLocaleString(), text);
+
+        if(Math.random() < (1 - lvl * 0.2)) {
+            var $child, i;
+            var n = (3 - lvl) < 1 ? 1 : getRandomInt(1, 3 - lvl);
+            for(i = 0; i < n; i++) {
+                $child = generateComment(date, lvl + 1);
+                $child.appendTo($comment.children('.reply_comments'));
+            }
+        }
+
+        return $comment;
+    }
+
+    function generateCommentText(nSentence) {
         var nWords, text = '';
-        nSentence = getRandomInt(+$settingsSn1.val(), +$settingsSn2.val());
+        nSentence = getRandomInt(1, settingsSn2);
         for(var s = 0; s < nSentence; s++) {
-            nWords = getRandomInt(+$settingsWn1.val(), +$settingsWn2.val());
+            nWords = getRandomInt(settingsWn1, settingsWn2);
             text += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
         }
 

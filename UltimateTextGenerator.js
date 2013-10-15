@@ -29,7 +29,7 @@ var UltimateTextGenerator = function() {
 
         // последнее слово пропускаем
         for(var i = 0; i < l - 1; i++) {
-            addPair(words[i], words[i+1]);
+            addPair(words[i], words[i + 1]);
         }
     };
 
@@ -87,12 +87,12 @@ var UltimateTextGenerator = function() {
      * @param {string} w2
      */
     function addPair(w1, w2) {
-        var pair = typeof _dictionary[w1] !== 'undefined' ? _dictionary[w1] : {};
-        if(typeof pair[w2] !== 'undefined') {
-            pair[w2] += 1;
+        var pair = _dictionary[w1];
+        if(typeof pair !== 'undefined') {
+            pair.push(w2);
         }
         else {
-            pair[w2] = 1;
+            pair = [w2];
         }
 
         _dictionary[w1] = pair;
@@ -162,30 +162,13 @@ var UltimateTextGenerator = function() {
      * @return string
      */
     this.getSuffix = function(prefix) {
-        if(typeof _dictionary[prefix] === 'undefined') {
+        var suffixs = _dictionary[prefix];
+        if(typeof suffixs === 'undefined') {
             //throw new Error('Префикс ' + prefix + ' не найден.');
             return '.';
         }
 
-        var suffixs = _dictionary[prefix];
-        var totalN = 0, suf;
-
-        for (suf in suffixs) {
-            totalN += suffixs[suf];
-        }
-
-        var rand = Math.random() * totalN;
-
-        var currentN = 0, suffix;
-        for (suf in suffixs) {
-            currentN += suffixs[suf];
-            if(rand <= currentN) {
-                suffix = suf;
-                break;
-            }
-        }
-
-        return suffix;
+        return suffixs[ suffixs.length * Math.random() << 0 ];
     };
 
     /**
