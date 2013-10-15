@@ -90,13 +90,10 @@ var articleTextGen = new UltimateTextGenerator(),
         progressTo(75, 'Generating text...');
 
         var p = 0,
-            s = 0,
             newText = '',
-            newComment = '',
             nParagraph = getRandomInt(settingsPn1, settingsPn2),
             nComments = getRandomInt(10, 30),
-            publishDate = randomDate(new Date(2012, 0, 1), new Date()),
-            commentDate;
+            publishDate = randomDate(new Date(2012, 0, 1), new Date());
 
         while(p++ < nParagraph) {
             newText += generatePostText(getRandomInt(settingsSn1, settingsSn2));

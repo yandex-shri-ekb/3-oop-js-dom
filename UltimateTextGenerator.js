@@ -6,9 +6,9 @@ var UltimateTextGenerator = function() {
     * Мы будем хранить suffix и для него все prefix с количеством вхождений,
     * на основе которых можно расчитать вероятность, с которой будет выбран тот или иной suffix
     * {
-    *   prefix1: {suffix1:P1, ..., suffixN:PN},
-    *   ...
-    *   prefixK: {suffix1:P1, ..., suffixN:PN}
+    *     prefix1: [suffix11, ..., suffix1N],
+    *     ...,
+    *     prefixK: [suffixK1, ..., suffixKN]
     * }
     */
     var _dictionary = {};
