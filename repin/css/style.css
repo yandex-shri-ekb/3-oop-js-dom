@@ -1,0 +1,154 @@
+.container
+{
+    width: 100%;
+    max-width: 1200px;
+    min-width: 600px;
+    margin: 0 auto;
+    padding: 0 35px;
+}
+
+    article
+    {
+        font-size: 13px;
+        margin: 0 20px 10px 0;
+        line-height: 160%;
+        font-family: Verdana, sans-serif;
+        float: left;
+        overflow: hidden;
+        width: 880px;
+    }
+        article > a, .message > a
+        {
+            color: #6DA3BD;
+        }
+
+            article > a:hover, .message > a:hover
+            {
+                color: #4d7285;
+            }
+
+            article > a:visited, .message > a:visited
+            {
+                color: #909;
+            }
+
+        .comments
+        {
+            font-size: 13px;
+            font-family: Arial, sans-serif;
+            line-height: 140%;
+            padding-bottom: 5px;
+            padding-top: 10px;
+        }
+            
+            .comment
+            {
+                margin-bottom: 20px;
+            }
+
+            .comments .comment:last-child
+            {
+                margin-bottom: 0;
+            }
+
+                a.avatar
+                {
+                    float: left;
+                    margin-right: 10px;
+                    width: 24px;
+                    height: 24px;
+                    display: block;
+                    overflow: hidden;
+                    -webkit-border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    border-radius: 3px;
+                }
+
+                .username
+                {
+                    float: left;
+                    margin-top: 3px;
+                    color: #666666;
+                    font-weight: bold;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+
+                .username:hover
+                {
+                    color: #333;
+                }
+
+                .message
+                {
+                    clear: both;
+                }
+                    blockquote
+                    {
+                        border-left: 2px solid #bbb;
+                        margin: .83em 0;
+                        padding-left: 15px;
+                        clear: both;
+                        quotes: none;
+                    }
+
+            code
+            {
+                font-size: 12px;
+                background: #f8f8f8;
+                display: block;
+                white-space: pre-wrap;
+                font-family: Menlo, Monaco, "Courier New", monospace;
+                padding: 1px 4px;
+                color: #222;
+                background-color: #F7F7F9;
+                border: 1px solid #E1E1E8;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+            }
+    .sidebar_right
+    {
+        float: right;
+        width: 300px;
+    }
+        .block
+        {
+            font: 400 12px/18px Tahoma, Arial, sans-serif;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            background: #f0f0e7;
+            -webkit-border-radius: 5px;
+               -moz-border-radius: 5px;
+                 -o-border-radius: 5px;
+                    border-radius: 5px;
+        }
+            .block > .title
+            {
+                color: #999999;
+                margin-bottom: 20px;
+                font-size: 24px;
+                letter-spacing: -1px;
+                font-family: Verdana, sans-serif;
+            }
+
+            .block ul
+            {
+                list-style: none;
+                padding: 0;
+            }
+
+                .block ul li
+                {
+                    margin-bottom: 10px;
+                }
+
+                    .block ul a
+                    {
+                        color: #666;
+                    }
+
+                        .block ul a:hover
+                        {
+                            color: #a3a3a3;
+                        }
