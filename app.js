@@ -1,7 +1,6 @@
 "use strict";
 
-var articleTextGen = new UltimateTextGenerator(),
-    commentTextGen = new UltimateTextGenerator(),
+var commentTextGen = new UltimateTextGenerator(),
     isParsed = false,
     nicknames = [];
 
@@ -30,12 +29,9 @@ var articleTextGen = new UltimateTextGenerator(),
         $settingsSn2 = $('#settings-sn2'),
         $settingsWn1 = $('#settings-wn1'),
         $settingsWn2 = $('#settings-wn2'),
-        settingsPn1 = +$settingsPn1.val(),
-        settingsPn2 = +$settingsPn2.val(),
-        settingsSn1 = +$settingsSn1.val(),
-        settingsSn2 = +$settingsSn2.val(),
-        settingsWn1 = +$settingsWn1.val(),
-        settingsWn2 = +$settingsWn2.val();
+        _settings = {};
+
+    var articleWorker = new SimpleWorker("worker.js");
 
     $settings.on('click', function() {
         $('<div class="modal__backdrop"></div>').appendTo($body);
@@ -59,16 +55,12 @@ var articleTextGen = new UltimateTextGenerator(),
     });
 
     $go.on('click', function() {
-
         progressTo(0, 'Download habr.html...');
 
         if(!isParsed) {
-            $.ajax({
-                url : 'habr.html',
-                success : function(response) {
-                    processHabrHtml(response);
-                    generate();
-                }
+            $.ajax({url : 'habr.html'}).done(function(response) {
+                processHabrHtml(response);
+                generate();
             });
         }
         else {
@@ -89,21 +81,27 @@ var articleTextGen = new UltimateTextGenerator(),
     function generate() {
         progressTo(75, 'Generating text...');
 
-        var p = 0,
-            newText = '',
-            nParagraph = getRandomInt(settingsPn1, settingsPn2),
+        _settings = {
+            p: [+$settingsPn1.val(), +$settingsPn2.val()],
+            s: [+$settingsSn1.val(), +$settingsSn2.val()],
+            w: [+$settingsWn1.val(), +$settingsWn2.val()]
+        };
+
+        var
             nComments = getRandomInt(10, 30),
             publishDate = randomDate(new Date(2012, 0, 1), new Date());
 
-        while(p++ < nParagraph) {
-            newText += generatePostText(getRandomInt(settingsSn1, settingsSn2));
+        articleWorker
+            .send({cmd:'generateSentence', args:[getRandomInt(2, 5), '.', true, true, 0]})
+            .then(function(data) {
+                $habrTitle.text(data);
+            });
 
-            if(p !== nParagraph) {
-                newText += '<br><br>';
-            }
-        }
-
-        $habrContent.html(newText);
+        articleWorker
+            .send({cmd:'generatePost', args:[_settings.p[0], _settings.p[1], _settings.s[0], _settings.s[1], _settings.w[0], _settings.w[1]]})
+            .then(function(data) {
+                $habrContent.html(data);
+            });
 
         $habrComments.html('');
         $habrCommentsCount.text(nComments);
@@ -112,25 +110,11 @@ var articleTextGen = new UltimateTextGenerator(),
             $habrComments.append(generateComment(publishDate, 1));
         }
 
-        var newTitle = articleTextGen.generateSentence(getRandomInt(2, 5), '.', true, true, 0);
-        $habrTitle.html(newTitle);
-
         progressTo(100, 'Done!');
     }
 
-    function generatePostText(nSentence) {
-        var nWords, text = '';
-        nSentence = getRandomInt(settingsSn1, settingsSn2);
-        for(var s = 0; s < nSentence; s++) {
-            nWords = getRandomInt(settingsWn1, settingsWn2);
-            text += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
-        }
-
-        return text;
-    }
-
     function generateComment(minDate, lvl) {
-        var text = generateCommentText(getRandomInt(settingsSn1, settingsSn2));
+        var text = generateCommentText(getRandomInt(_settings.s[0], _settings.s[1]));
         var date = new Date(minDate.getTime() + getRandomInt(0, 60) * 60000);
         var $comment = createNewComment(getRandomNickname(), date.toLocaleString(), text);
 
@@ -148,9 +132,9 @@ var articleTextGen = new UltimateTextGenerator(),
 
     function generateCommentText(nSentence) {
         var nWords, text = '';
-        nSentence = getRandomInt(1, settingsSn2);
+        nSentence = getRandomInt(1, _settings.s[1]);
         for(var s = 0; s < nSentence; s++) {
-            nWords = getRandomInt(settingsWn1, settingsWn2);
+            nWords = getRandomInt(_settings.w[0], _settings.w[1]);
             text += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
         }
 
@@ -190,8 +174,8 @@ var articleTextGen = new UltimateTextGenerator(),
             if(index % 4 === 0 && index > 0) {
                 progressTo(++progress, 'Parse articles; ' + index + ' out of 100...');
 
-                var articleData = parseArticle($(article), false);
-                articleTextGen.add(articleData);
+                var text = parseArticle($(article), false);
+                articleWorker.send({cmd:'add', args:[text]});
             }
         });
 
@@ -218,9 +202,6 @@ var articleTextGen = new UltimateTextGenerator(),
      * @return string
      */
     function parseArticle($elem, cloneElem) {
-
-        // $(':header')
-
         var $article = cloneElem ? $elem.clone() : $elem;
 
         var html = $article
@@ -229,7 +210,7 @@ var articleTextGen = new UltimateTextGenerator(),
             .end()
             .html();
 
-        var text = html.toLowerCase()
+        return html.toLowerCase()
             // табы
             .replace(/\t+/g, ' ')
             // переносы строк
@@ -237,13 +218,5 @@ var articleTextGen = new UltimateTextGenerator(),
             // теги
             .replace(/<\/?[^<]*?>/g, '')
             .trim();
-
-        /*var text = $elem.clone()
-         .children()
-         .remove()
-         .end()
-         .text();*/
-
-        return text;
     }
 })(jQuery);

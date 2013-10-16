@@ -12,7 +12,6 @@ var UltimateTextGenerator = function() {
     * }
     */
     var _dictionary = {};
-    this.d = _dictionary; // TODO remove
 
     /**
      * Добавить кусок текста в словарь
@@ -133,7 +132,7 @@ var UltimateTextGenerator = function() {
 
         // возможно это заменить на пост-обработку текста
         textArr.forEach(function(word) {
-            if(['.', ',', '!', '?', ':', ';'].indexOf(word) !== -1) {
+            if(['.', ',', '!', '?', ':', ';', ' '].indexOf(word) !== -1) {
                 text += word;
             }
             else {
@@ -152,7 +151,7 @@ var UltimateTextGenerator = function() {
         do {
             pref = keys[ keys.length * Math.random() << 0];
         }
-        while(['.', ',', '!', '?', ':', ';', '-'].indexOf(pref) !== -1);
+        while(['.', ',', '!', '?', ':', ';', '-', ' '].indexOf(pref) !== -1);
 
         return pref;
     }
