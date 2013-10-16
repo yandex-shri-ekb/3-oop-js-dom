@@ -1,38 +1,24 @@
 /*jslint browser:true*/
 /*global getRandomElement, getRandomElementByProbability, getRandomIntegerInRange*/
-(function () {
+(function (window) {
     'use strict';
 
-    var Comment, Comments;
-
-    Comment = function (author, date, message) {
+    var Comment = function (author, date, message) {
         this.author = author;
         this.date = date;
         this.message = message;
-        this.replies = new Comments();
+        this.replies = [];
     };
 
     Comment.prototype.addReply = function (comment) {
         this.replies.push(comment);
     };
 
-    Comments = function () {
-        return undefined;
-    };
-
-    Comments.prototype = [];
-
-    Comments.prototype.getNumber = function () {
-        return this.length + this.reduce(function (length, comment) {
-            return length + comment.replies.getNumber();
-        }, 0);
-    };
-
     window.Writer = function (usernames, gComments, gArticles) {
         var config = {
             maxCommentLevel: 3,
-            minFirstLevelCommentNumber: 2,
-            maxFirstLevelCommentNumber: 10,
+            minFirstLevelCommentNumber: 10,
+            maxFirstLevelCommentNumber: 20,
             replyProbability: {
                 0: 0.5,
                 1: 0.3,
@@ -56,7 +42,7 @@
                 i;
 
             for (i = 0; i < repliesNumber; i += 1) {
-                comment.addReply(getComment());
+                comment.addReply(getComment(options));
             }
 
             return comment;
@@ -67,7 +53,7 @@
                     config.minFirstLevelCommentNumber,
                     config.maxFirstLevelCommentNumber
                 ),
-                comments = new Comments(),
+                comments = [],
                 i;
 
             for (i = 0; i < commentNumber; i += 1) {
@@ -87,4 +73,4 @@
             return gArticles.getSentence();
         };
     };
-}());
+}(this));

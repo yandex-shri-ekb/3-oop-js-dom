@@ -6,12 +6,40 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="placeholder" style="display: none;">
-        <h1>Uh oh...</h1>
-
-        <p>Looks like it's going to take a while to get the result.</p>
-
-        Meanwhile, you can choose <a href="http://abetterbrowser.org/">a better browser</a>.
+    <div class="settings">
+        <form>
+            <fieldset>
+                <legend>Количество слов в предложении</legend>
+                <input name="words_per_sentence_min" type="text" size="2" maxlength="2" value="1"> —
+                <input name="words_per_sentence_max" type="text" size="2" maxlength="2" value="5">
+            </fieldset>
+            <fieldset>
+                <legend>Количество предложений в абзаце</legend>
+                <input name="sentences_per_paragraph_min" type="text" size="2" maxlength="2" value="1"> —
+                <input name="sentences_per_paragraph_max" type="text" size="2" maxlength="2" value="5">
+            </fieldset>
+            <fieldset>
+                <legend>Количество абзацев в статье</legend>
+                <input name="paragraphs_per_article_min" type="text" size="2" maxlength="2" value="1"> —
+                <input name="paragraphs_per_article_max" type="text" size="2" maxlength="2" value="5">
+            </fieldset>
+            <fieldset>
+                <button id="generate_article">Написать чудесную статью</button>
+            </fieldset>
+        </form>
+    </div>
+    <div class="processing" style="display: none;">
+        <p>Ализар уже приступил к работе.</p>
+        <p>А пока посмотрите котиков.</p>
+        <img class="kitten">
+        <form>
+            <button id="moar_kittens">Хочу ещё котиков!</button>
+            <button id="read_article" style="display: none;">Дайте уже на статью посмотреть!</button>
+        </form>
+    </div>
+    <div class="processing-fallback" style="display: none;">
+        <p>Нельзя просто так взять и написать хорошую статью.</p>
+        <p>Отличная возможность выпить чайку и <a href="http://abetterbrowser.org/">обновить браузер</a></p> 
     </div>
     <article style="display: none;">
         <header>
@@ -51,65 +79,13 @@
     </script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/jquery.ext.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/dictionary.js"></script>
     <script src="js/parser.js"></script>
     <script src="js/writer.js"></script>
     <script src="js/garry.js"></script>
-    <script>
-        $('.placeholder').show();
-
-        $.get('habr.1500.html', function (data) {
-            window.parser = new Parser($(data)),
-            window.gArticles = new Garry().eat(parser.articles()),
-            window.gComments = new Garry().eat(parser.comments()),
-            window.writer = new Writer(parser.usernames(), gComments, gArticles);
-
-            /* TODO get rid of ugly brackets */
-            $('.content').html(writer.getArticleText({
-                paragraphs: {perText: {min: 5, max: 10}},
-                sentences: {perParagraph: {min: 1, max: 5}},
-                words: {perSentence: {min: 3, max: 15}}
-            }));    /* especially here ↓ */
-            $('article').append(buildCommentSection(writer.getCommentTree({
-                paragraphs: {perText: {min: 1, max: 3}},
-                sentences: {perParagraph: {min: 1, max: 5}},
-                words: {perSentence: {min: 3, max: 6}}
-            })));
-
-            $('.placeholder').hide();
-            $('article').show();
-
-            $('article > header > h1').text(writer.getArticleHeader());
-        });
-
-        function buildCommentSection(comments) {
-            return $('.comments')
-                       .append('<h1>Комментарии (' + comments.getNumber() + ')</h1>')
-                       .append(buildCommentTree(comments, +new Date()));
-        }
-
-        function buildCommentTree(comments, initial_date) {
-            return $('<ul>').append(comments.map(function(comment) {
-                initial_date += getRandomIntegerInRange(1, 60) * 60 * 1000;
-                comment.date = timestampTostring(initial_date);
-                var $comment = $('[data-template="comment"]').render(comment),
-                    $replies = buildCommentTree(comment.replies, initial_date);
-
-                return $comment.append($replies);
-            }));
-        }
-
-        $.fn.render = function (data) {
-            var tpl = $(this).html(),
-                i;
-
-            for (i in data) if (data.hasOwnProperty(i)) {
-                tpl = tpl.replace(new RegExp('{' + i + '}', 'g'), data[i]);
-            }
-
-            return $(tpl);
-        };
-    </script>
+    <script src="js/main.js"></script>
+    
 </body>
 </html>

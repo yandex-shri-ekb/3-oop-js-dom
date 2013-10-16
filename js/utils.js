@@ -1,6 +1,26 @@
 /*jslint browser:true*/
-(function () {
+(function (window) {
     'use strict';
+
+    function normalizeWeights(obj) {
+        var j, k, total;
+
+        total = 0;
+
+        for (j in obj) {
+            if (obj.hasOwnProperty(j)) {
+                total += obj[j];
+            }
+        }
+
+        for (k in obj) {
+            if (obj.hasOwnProperty(k)) {
+                obj[k] /= total;
+            }
+        }
+
+        return obj
+    }
 
     window.getRandomIntegerInRange = function(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -15,6 +35,8 @@
         var number = Math.random(),
             total = 0,
             i;
+
+        obj = normalizeWeights(obj);
 
         for (i in obj) {
             if (obj.hasOwnProperty(i)) {
@@ -56,4 +78,4 @@
         return d.getDay() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear()
             + ' в ' + d.getHours() + ':' + ('0' + d.getMinutes()).slice(-2);
     };
-}());
+}(this));

@@ -218,3 +218,35 @@ footer .tags a
     font-family: Arial, sans-serif;
     line-height: 140%;
 }
+
+fieldset
+{
+    border: none;
+}
+
+input, button
+{
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+input
+{
+    padding: .2em .4em;
+}
+
+button
+{
+    /*position: relatice;*/
+    background: #eee;
+    padding: .2em .4em;
+    outline: none;
+}
+
+button:active
+{
+    top: 1px;
+    left: 1px;
+    background: #ddd;
+}
+
