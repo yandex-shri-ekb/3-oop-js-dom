@@ -8,6 +8,11 @@
 #
 # В работе использованы части регулярных выражений от @mayton и его некоторые другие идеи
 
+# Основные функции
+# - Генерация статьи и комментариев,
+#   с использованием словаря запрещенных слов и указанием количества слов/предложений/абзацев
+# - Генерация ников
+# - Генерация даты
 class Generator
 
   constructor : (config)->
@@ -18,8 +23,8 @@ class Generator
     }
     @libs = { # запрещенные последние слова в предложении
       forbiddenLastWords: config.libs.forbiddenLastWords
-      months: ['января', 'февраля', 'марта', 'апреля', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
       nicknames: [] # зарезервировано для будущего использования
+      months: config.libs.months
     }
     @cache = {
       nicknamesLen: 0 # будет обновлено при инициализации
@@ -31,7 +36,7 @@ class Generator
 
   # Настройка параметров генератора
   #
-  # @private
+  # @public
   configure: (config, firstInit = true) ->
 
     @config = {
@@ -54,7 +59,7 @@ class Generator
 
   # Запускает разбор статей и комментариев
   #
-  # @private
+  # @public
   init: ->
     # Находим все статьи в тексте
     $articles = @config.content.match(/<article>[\s\S]*?<\/article>/g)
@@ -77,7 +82,7 @@ class Generator
 
   # Добавляет слова из комментария в словарь
   #
-  # @private
+  # @public
   parseComment: ($comment)->
     $comment = @removePre($comment)
 
@@ -92,7 +97,7 @@ class Generator
 
   # Добавляет слова из статьи в словарь
   #
-  # @private
+  # @public
   parseArticle: ($article)->
     $article = @removePre($article)
     words = $article.text().split(/\s/)
@@ -102,7 +107,7 @@ class Generator
 
   # Создает текст на основе словаря
   #
-  # @private
+  # @public
   generateText: (dict, minWords, maxWords)->
     minWords-- # Уменьшаем количество слов, т.к. индексы начинаются с нуля, а не с единицы
     maxWords--
@@ -128,20 +133,20 @@ class Generator
 
   # Определяет, можно ли закончить данным словом предложение, чтобы не потярять смысл.
   #
-  # @private
+  # @public
   lastWordIsValid: (word)->
     return !(word.toLowerCase() in @libs.forbiddenLastWords)
 
   # Создает заголовок для статьи
   #
-  # @private
+  # @public
   generateTitle: ->
     text = @generateText(@dict.article, @config.words.min, @config.words.max)
     text = @purifyText(text)
 
   # Создает текст статью
   #
-  # @private
+  # @public
   generateArticle: ->
     pCount = Helper.getRandomInt(@config.paragraphs.min, @config.paragraphs.max)
     text = ''
@@ -149,13 +154,13 @@ class Generator
       sCount = Helper.getRandomInt(@config.sentences.min, @config.sentences.max)
       temp = @generateText(@dict.article, sCount*@config.words.min, sCount*@config.words.max)
       text += @purifyText(temp)
-      if i isnt pCount-1 then text += "<br/><br/>"
+      if i isnt pCount then text += "<br/><br/>"
 
     return text
 
   # Создает текст комментария
   #
-  # @private
+  # @public
   generateComment: ->
     pCount = 1
     text = ''
@@ -181,7 +186,7 @@ class Generator
 
   # Очищает текст и делает его красивым
   #
-  # @private
+  # @public
   purifyText: (text) ->
     # Некоторые из регулярок позаимствованы у @mayton, за что ему огромное спасибо :)
     # Некоторые были модицированы, некоторые придуманы самостоятельно
@@ -241,7 +246,7 @@ class Generator
 
   # Отправляет паука в Google Images, в надежде, что он найдет картинку по запросу
   #
-  # @private
+  # @public
   generateImage: (query)->
     # Можно использовать события success и error $.ajax, но так более читаемо
     $.when($.ajax('http://ajax.googleapis.com/ajax/services/search/images', {
@@ -254,7 +259,7 @@ class Generator
 
   # Обрабатывает успешное событие при генерации изображения
   #
-  # @private
+  # @public
   onSuccessGenerateImage: (data)->
     if data.responseData? && data.responseData.results? # если есть результат
       data = data.responseData.results[0]
@@ -269,139 +274,8 @@ class Generator
 
   # Обрабатывает событие ошибки при генерации изображения
   #
-  # @private
+  # @public
   onFailureGenerateImage: (e) ->
     alert('Произошла ошибка при получении данных с Google.com')
 
-class App
-
-  constructor: ->
-    @$article = $('#article')
-
-    @view = {
-      $title         : @$article.find('.post_title'),
-      $content       : @$article.find('.content'),
-      $author        : @$article.find('.author a'),
-      $createDate    : @$article.find('.createDate'),
-      $commentsCount : @$article.find('.comments_count')
-      $comments      : @$article.find('.comments_list')
-      $form          : @$article.find('form')
-      $overlay       : $('.overlay')
-    }
-
-    @isRun = false
-    @assignEvents()
-
-  # Назначение событий
-  assignEvents: ->
-    $(document).on('click', '.run-btn', $.proxy(@onClickRunBtn, @))
-
-  onClickRunBtn: (e)->
-    if @isRun then return false
-    @isRun = true
-    @runApp()
-    return false
-
-  # Запускает создание статьи и комментариев
-  #
-  # @private
-  runApp: ->
-    if !@generator # генератор еще не инициализирован
-
-      @view.$overlay.show()
-      # Можно было бы использовать success, error, но такой вариант мне кажется более читаемым
-      # в любом случае, если передан один аргумент, то возвращается promise-версия объекта $.ajax
-      $.when($.ajax('books/habr.html'))
-        .done($.proxy(@onSuccessRun, @))
-        .fail($.proxy(@onFailRun, @))
-        .always($.proxy(@onAlwaysRun, @))
-    else
-      @runWriter()
-      @generator.configure(@getConfig(''), false)
-
-  onSuccessRun: (content)->
-    @generator = new Generator(@getConfig(content))
-    @runWriter()
-    @$article.show()
-
-  onFailRun: (e)->
-    alert("Произошла ошибка при загрузки статьи. Пожалуйста, повторите через несколько минут.")
-
-  onAlwaysRun: ->
-    @view.$overlay.css('display', 'none')
-
-  # Просим Донцову придумать статью и несколько более-менее связных комментариев
-  #
-  # @private
-  runWriter: ->
-    @writeArticle()
-    @writeComments()
-    @isRun = false
-
-  # Выводит статью
-  #
-  # @private
-  writeArticle: ->
-    @view.$content.html(@generator.generateArticle())
-    title = @generator.generateTitle()
-    author = @generator.generateNick()
-    @view.$title.html(title)
-    @view.$author.html(author)
-    @generator.generateImage(title)
-
-  # Выводит несколько комментариев
-  #
-  # @private
-  writeComments: ->
-    count = Helper.getRandomInt(10, 20)
-    # через filter работает быстрее, чем если указать сразу два класса
-    $emptyComment = @$article.find('.comment_item').filter('.hidden')
-
-    $comments = $()
-
-    for i in [0..count]
-      $comment = $emptyComment.clone()
-      message  = @generator.generateComment()
-      username = @generator.generateNick()
-      time     = @generator.generateTime()
-
-      $comment.find('.message').html(message)
-      $comment.find('.username').html(username)
-      $comment.find('time').text(time)
-
-      $comments = $comments.add($comment)
-
-    $comments.removeClass('hidden')
-    @view.$commentsCount.text(count)
-    @view.$comments.append($comments)
-
-
-  # Создает конфигурацию на основе введенных данных из формы.
-  #
-  # @private
-  getConfig: (content)->
-    # Можно заменить name на id
-    form = @view.$form
-    return config = {
-
-      content: content
-      npref: form.find('[name=npref]').val()
-
-      words:
-        min: form.find('[name=words_min]').val()
-        max: form.find('[name=words_max]').val()
-
-      sentences:
-        min: form.find('[name=sentences_min]').val()
-        max: form.find('[name=sentences_max]').val()
-
-      paragraphs:
-        min: form.find('[name=paragraphs_min]').val()
-        max: form.find('[name=paragraphs_max]').val()
-
-      libs:
-        forbiddenLastWords: window.libs.forbiddenLastWords
-    }
-
-$ ->
-  window.app = new App
+@Generator = Generator # делаем класс доступным из window

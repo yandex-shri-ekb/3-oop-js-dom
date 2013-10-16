@@ -97,20 +97,22 @@
 					</div>
 				</form>
 			</div>
-			<div id="habr_center_universe">
+			<div class="habr-wrap">
+				<div id="habr_center_universe">
 
-				<a href="#" class="habr"></a>
+					<a href="#" class="habr"></a>
 
-				<div class="planet brainstorage">
-					<a href="#" class="picture"></a>
-				</div>
+					<div class="planet brainstorage">
+						<a href="#" class="picture"></a>
+					</div>
 
-				<div class="planet hantim">
-					<a href="#" class="picture"></a>
-				</div>
+					<div class="planet hantim">
+						<a href="#" class="picture"></a>
+					</div>
 
-				<div class="planet freelansim">
-					<a href="#" class="picture"></a>
+					<div class="planet freelansim">
+						<a href="#" class="picture"></a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -782,7 +784,7 @@
 
 <div id="footer">
 	<dl class="user">
-		<dt><a href="#">$user$</a></dt>
+		<dt><a href="#">username</a></dt>
 		<dd><a href="#">Трекер</a></dd>
 		<dd><a href="#">Написать</a></dd>
 		<dd><a href="#">Настройки</a></dd>
@@ -864,13 +866,25 @@
 	</div>
 
 </div>
+<div class="overlay layer">
+	<div id="dialog">
+		<div class="ajax-loader loader">
+			Подождите, идет генерация статьи...
+		</div>
+	</div>
+</div>
+
 <script src="assets/js/jquery.js"></script>
-<script src="assets/js/lib.js"></script>
+<script src="assets/js/libs.js"></script>
 <script src="assets/js/dict.js"></script>
-<script src="assets/js/markov.js"></script>
+<script src="assets/js/generator.js"></script>
+<script src="assets/js/app.js"></script>
 <script type="text/javascript">
 	/* Пока некорректно реагирует на resize */
+	/* Можно вынести в отдельный файл */
 	$(document).ready(function(){
+		window.currentApp = new App();
+
 		var hantim = $('.hantim.planet'),
 				freelansim = $('.freelansim.planet'),
 				brainstorage = $('.brainstorage.planet');
@@ -887,7 +901,7 @@
 				'-o-transform': "translateX(" + Math.sin(hantim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(hantim_start * 0.0025) * 165 + "px)",
 				'-webkit-transform': "translateX(" + Math.sin(hantim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(hantim_start * 0.0025) * 165 + "px)",
 				'transform': "translateX(" + Math.sin(hantim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(hantim_start * 0.0025) * 165 + "px)"
-			}
+			};
 			hantim.css(hantim_css);
 
 			++freelansim_start;
@@ -897,7 +911,7 @@
 				'-o-transform': "translateX(" + Math.sin(freelansim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(freelansim_start * 0.0025) * 165 + "px)",
 				'-webkit-transform': "translateX(" + Math.sin(freelansim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(freelansim_start * 0.0025) * 165 + "px)",
 				'transform': "translateX(" + Math.sin(freelansim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(freelansim_start * 0.0025) * 165 + "px)"
-			}
+			};
 			freelansim.css(freelansim_css);
 
 			++brainstorage_start;
@@ -907,7 +921,7 @@
 				'-o-transform': "translateX(" + Math.sin(brainstorage_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(brainstorage_start * 0.0025) * 165 + "px)",
 				'-webkit-transform': "translateX(" + Math.sin(brainstorage_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(brainstorage_start * 0.0025) * 165 + "px)",
 				'transform': "translateX(" + Math.sin(brainstorage_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(brainstorage_start * 0.0025) * 165 + "px)"
-			}
+			};
 			brainstorage.css(brainstorage_css);
 		}, 1);
 	})

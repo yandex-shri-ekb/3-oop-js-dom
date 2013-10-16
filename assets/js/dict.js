@@ -1,7 +1,15 @@
 /* Хотел все переписать на чистый JS, но не успел */
+
+/*
+ * @Helper
+ *
+ * Реализует отсутствующие функции JS
+ */
 var Helper = (function() {
 
     function Helper() {}
+        // Возвращает случайное число
+        // Аналог @public static функции
         Helper.getRandomInt = function(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         };
@@ -9,6 +17,12 @@ var Helper = (function() {
 
 })();
 
+/*
+* @Dict
+*
+* Класс-итератор
+* Используется для реализации алгоритма "Цепи Маркова"
+*/
 var Dict = function() {
 
     this.dict = {};
@@ -18,12 +32,12 @@ var Dict = function() {
     this.isValid = true;
 };
 
-// return last word of current prefix
+// Возвращает текущее слово-префикс
 Dict.prototype.current = function() {
     return this.currentPrefix[this.currentPrefix.length - 1];
 };
 
-// updates the current prefix to next
+// Переходит к следующему префиксу
 Dict.prototype.next = function() {
     if (!this.isValid) return;
 
@@ -40,10 +54,9 @@ Dict.prototype.next = function() {
         if (this.isValid === false)
             this.isValid = true;
     }
-
 };
 
-// adds words and prefixs
+// Добавляет слова, с разделением по префиксу, равному npref
 Dict.prototype.add = function(words, npref) {
     for (var i = 0; i < words.length - npref; i++) {
 
@@ -60,7 +73,7 @@ Dict.prototype.add = function(words, npref) {
     }
 };
 
-// updates current prefix
+// Обновляет текущий префикс на случайный
 Dict.prototype.shuffle = function() {
     var keys = this.getKeys(this.dict);
     do {
@@ -70,7 +83,7 @@ Dict.prototype.shuffle = function() {
     this.isValid = true;
 };
 
-// returns keys of object
+// Возвращает keys объекта
 Dict.prototype.getKeys = function(obj) {
     if (Object.keys)
         return Object.keys(obj);
