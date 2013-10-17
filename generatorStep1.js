@@ -34,8 +34,8 @@ function Generator(config) {
     this.Dictionaries ={
       articleDict: new Dictionary,
       commentDict: new Dictionary,
-      wordSForDictionary: [],
-      commentForDictionary: [],
+      wordSForDictionary: '',
+      commentForDictionary: '',
       authorComment: []
     };
 
@@ -66,16 +66,41 @@ function Generator(config) {
     
 Generator.prototype.init = function(sourceText) {
     this.text = sourceText;
-    
+var textComment = '';    
 //ищем и считаем количество статей статьи article    
     var $articles = $( this.text.match(/<article>([\s\S]*?)<\/article>/g).join('') );
     this.config.countArticles = this.text.match(/<article>([\s\S]*?)<\/article>/g).length;
     
 
 //считаем комментарии и добавляем их текст в словарный запас словаря для комментариев
+
     var comment = this.text.match(/(class="message")/g);
     this.config.countComment = comment.length / this.config.countArticles;
+  
+
+
+var $comments = $articles.find('.comment').each(function() {
     
+    var $textComment =  $( this ).children('.message').text();
+    var $authorComment = $( this ).children('.username').text();
+
+textComment += $textComment;
+
+
+})
+
+this.Dictionaries.commentForDictionary= textComment;
+alert('1111111'+this.Dictionaries.commentForDictionary);
+alert('');
+
+
+
+
+
+
+
+
+   /* 
     var $comments = $articles.find('sectoin .comment');
     var comment ='';
     $comments.each(function(index, element) {
