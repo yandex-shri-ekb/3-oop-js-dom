@@ -65,19 +65,31 @@ function Generator(config) {
 //Инициализируем генератор и делаем тексты для словарей статей, комментариев, авторов комментария, считаем средние показатели
     
 Generator.prototype.init = function(sourceText) {
+    var textComment = '',    
+        self = this;
     this.text = sourceText;
-var textComment = '';    
-//ищем и считаем количество статей статьи article    
-    var $articles = $( this.text.match(/<article>([\s\S]*?)<\/article>/g).join('') );
-    this.config.countArticles = this.text.match(/<article>([\s\S]*?)<\/article>/g).length;
     
+//ищем и считаем количество статей статьи article 
+
+    var $articles = this.text.match(/<article>([\s\S]*?)<\/article>/g).join('');
+console.log($articles);
+    this.config.countArticles = this.text.match(/<article>([\s\S]*?)<\/article>/g).length;
+
+  var b = this.text.match(/<article>/g).length;
+  alert(b);  
 
 //считаем комментарии и добавляем их текст в словарный запас словаря для комментариев
 
     var comment = this.text.match(/(class="message")/g);
     this.config.countComment = comment.length / this.config.countArticles;
-  
+ 
 
+$articles = $( $articles );
+alert( $articles );
+
+$articles = $( $articles ).find('section .comments').remove('section').end();
+alert( $articles );
+self.Dictionaries.wordSForDictionary = $articles.text();
 
 var $comments = $articles.find('.comment').each(function() {
     
@@ -86,40 +98,16 @@ var $comments = $articles.find('.comment').each(function() {
 
 textComment += $textComment;
 
-
+self.Dictionaries.authorComment.push($authorComment);
 })
 
-this.Dictionaries.commentForDictionary= textComment;
+
+
+self.Dictionaries.commentForDictionary = textComment;
+
 alert('1111111'+this.Dictionaries.commentForDictionary);
-alert('');
-
-
-
-
-
-
-
-
-   /* 
-    var $comments = $articles.find('sectoin .comment');
-    var comment ='';
-    $comments.each(function(index, element) {
-        //console.log(this)
-        var $somment = $(element);
-var nick = $comment.children('.username').text();
-this.Dictionaries.commentForDictionary.push($textComment);
-        //var $textComment = $( this ).text();
-        this.Dictionaries.authorComment.push(nick);
-
-    });
-
-    
-    console.log('stop');
-    /*$comment.each(function( item ) {
-      var $textComment = item.text();
-      this.Dictionaries.commentForDictionary.push($textComment);
-
-    });*/
+alert(self.Dictionaries.authorComment);
+alert(self.Dictionaries.wordSForDictionary);
 
 
 //выбираем авторов комментариев и добавляем их в "массив авторов""
