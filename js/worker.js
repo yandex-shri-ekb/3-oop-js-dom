@@ -5,19 +5,29 @@ importScripts(
     'garry.js'
 );
 
-self.onmessage = function(e) {
-    var settings = e.data.settings,
-        gArticles = new Garry().eat(e.data.articles),
-        gComments = new Garry().eat(e.data.comments),
-        writer = new Writer(e.data.usernames, gComments, gArticles);
+var gArticles,
+    gComments,
+    writer;
 
-    self.postMessage({
-        header: writer.getArticleHeader(),
-        text: writer.getArticleText(settings),
-        comments: writer.getCommentTree({
-            paragraphs: {perArticle: {min: 1, max: 3}},
-            sentences: {perParagraph: {min: 1, max: 5}},
-            words: {perSentence: {min: 3, max: 6}}
-        })
-    });
+self.onmessage = function(e) {
+    switch (e.data.action) {
+        case 'prepareDictionary':
+            gArticles = new Garry().eat(e.data.articles);
+            gComments = new Garry().eat(e.data.comments);
+            writer = new Writer(e.data.usernames, gComments, gArticles);
+
+            self.postMessage({ action: 'dictionaryPrepared' });
+            break;
+        case 'generateArticle':
+            self.postMessage({
+                action: 'articleGenerated',
+                header: writer.getArticleHeader(),
+                text: writer.getArticleText(e.data.settings),
+                comments: writer.getCommentTree({
+                    paragraphs: {perArticle: {min: 1, max: 3}},
+                    sentences: {perParagraph: {min: 1, max: 5}},
+                    words: {perSentence: {min: 3, max: 6}}
+                })
+            });
+    }
 };
