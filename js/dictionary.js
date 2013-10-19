@@ -13,13 +13,10 @@
             var key = (predecessors || []).join(delimiter);
 
             if (dictionary[key] === undefined) {
-                dictionary[key] = {};
-            }
-            if (dictionary[key][word] === undefined) {
-                dictionary[key][word] = 0;
+                dictionary[key] = [];
             }
 
-            dictionary[key][word] += 1;
+            dictionary[key].push(word);
         };
 
         this.first = function () {
@@ -36,11 +33,12 @@
             var key, word;
 
             key = predecessors.join(delimiter);
-            word = getRandomElementByProbability(dictionary[key]);
 
-            if (word === undefined) {
+            if (dictionary[key] === undefined) {
                 return this.first();
             }
+
+            word = getRandomElement(dictionary[key]);
 
             predecessors.push(word);
 

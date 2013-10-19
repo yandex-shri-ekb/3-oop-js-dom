@@ -11,17 +11,17 @@
             <fieldset>
                 <legend>Количество слов в предложении</legend>
                 <input name="words_per_sentence_min" type="text" size="2" maxlength="2" value="1"> —
-                <input name="words_per_sentence_max" type="text" size="2" maxlength="2" value="5">
+                <input name="words_per_sentence_max" type="text" size="2" maxlength="2" value="20">
             </fieldset>
             <fieldset>
                 <legend>Количество предложений в абзаце</legend>
                 <input name="sentences_per_paragraph_min" type="text" size="2" maxlength="2" value="1"> —
-                <input name="sentences_per_paragraph_max" type="text" size="2" maxlength="2" value="5">
+                <input name="sentences_per_paragraph_max" type="text" size="2" maxlength="2" value="10">
             </fieldset>
             <fieldset>
                 <legend>Количество абзацев в статье</legend>
-                <input name="paragraphs_per_article_min" type="text" size="2" maxlength="2" value="1"> —
-                <input name="paragraphs_per_article_max" type="text" size="2" maxlength="2" value="5">
+                <input name="paragraphs_per_article_min" type="text" size="2" maxlength="2" value="10"> —
+                <input name="paragraphs_per_article_max" type="text" size="2" maxlength="2" value="20">
             </fieldset>
             <fieldset>
                 <button id="generate_article">Написать чудесную статью</button>
@@ -80,6 +80,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="js/jquery.ext.js"></script>
+    <script src="js/stopwatch.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/dictionary.js"></script>
     <script src="js/parser.js"></script>

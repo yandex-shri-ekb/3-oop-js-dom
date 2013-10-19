@@ -70,7 +70,7 @@
         };
 
         this.getArticleHeader = function () {
-            return gArticles.getSentence();
+            return gArticles.getSentence({ words: { perSentence: { min: 3, max: 10 }}});
         };
     };
 }(this));

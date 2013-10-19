@@ -13,13 +13,9 @@ self.onmessage = function(e) {
 
     self.postMessage({
         header: writer.getArticleHeader(),
-        text: writer.getArticleText({
-            paragraphs: {perText: {min: 10, max: 20}},
-            sentences: {perParagraph: {min: 1, max: 20}},
-            words: {perSentence: {min: 3, max: 15}}
-        }),
+        text: writer.getArticleText(settings),
         comments: writer.getCommentTree({
-            paragraphs: {perText: {min: 1, max: 3}},
+            paragraphs: {perArticle: {min: 1, max: 3}},
             sentences: {perParagraph: {min: 1, max: 5}},
             words: {perSentence: {min: 3, max: 6}}
         })

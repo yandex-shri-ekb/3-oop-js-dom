@@ -19,7 +19,7 @@
                 },
                 paragraphs: {
                     total: 0,
-                    perText: {
+                    perArticle: {
                         min: 10, //Infinity,
                         max: 20, //-Infinity,
                         avg: 0
@@ -58,8 +58,8 @@
 
                 getText: function (options) {
                     var length = getRandomIntegerInRange(
-                        options.paragraphs.perText.min,
-                        options.paragraphs.perText.max
+                        options.paragraphs.perArticle.min,
+                        options.paragraphs.perArticle.max
                     );
 
                     var i = 0;
@@ -67,16 +67,16 @@
                     var text = [];
 
                     while (i++ < length) {
-                        text.push(self.getParagraph());
+                        text.push(self.getParagraph(options));
                     }
 
                     return text;
                 },
 
-                getParagraph: function () {
+                getParagraph: function (options) {
                     var length = getRandomIntegerInRange(
-                        stats.sentences.perParagraph.min,
-                        stats.sentences.perParagraph.max
+                        options.sentences.perParagraph.min,
+                        options.sentences.perParagraph.max
                     );
 
                     var i = 0;
@@ -84,16 +84,16 @@
                     var paragraph = '';
 
                     while (i++ < length) {
-                        paragraph += ' ' + self.getSentence();
+                        paragraph += ' ' + self.getSentence(options);
                     }
 
                     return paragraph.trim();
                 },
 
-                getSentence: function () {
+                getSentence: function (options) {
                     var length = getRandomIntegerInRange(
-                            stats.words.perSentence.min,
-                            stats.words.perSentence.max
+                            options.words.perSentence.min,
+                            options.words.perSentence.max
                         ),
                         sentence = '',
                         endChars = '.!?'.split(''),
@@ -136,9 +136,9 @@
         //     stats.texts.total += 1;
 
         //     stats.paragraphs.total += length;
-        //     stats.paragraphs.perText.avg = Math.round(stats.paragraphs.total / stats.texts.total);
-        //     if (length < stats.paragraphs.perText.min) stats.paragraphs.perText.min = length;
-        //     if (length > stats.paragraphs.perText.max) stats.paragraphs.perText.max = length;
+        //     stats.paragraphs.perArticle.avg = Math.round(stats.paragraphs.total / stats.texts.total);
+        //     if (length < stats.paragraphs.perArticle.min) stats.paragraphs.perArticle.min = length;
+        //     if (length > stats.paragraphs.perArticle.max) stats.paragraphs.perArticle.max = length;
 
         //     paragraphs.map(function (paragraph) {
         //         var sentences = paragraph.split('.')
@@ -171,9 +171,13 @@
             var tokens = text.match(/([а-я]+|[,.!?;:])/ig),
                 stack = [];
 
+            // stopwatch.tap();
+
             if (tokens === null) {
                 return;
             }
+
+            // console.log(tokens.length);
 
             tokens.forEach(function (token) {
                 token = token.toLowerCase();
@@ -184,6 +188,8 @@
                     stack.shift();
                 }
             });
+
+            // console.log('Added tokens: ' + stopwatch.tap());
 
             window.dict = dict;
         }
