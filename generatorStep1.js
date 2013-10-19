@@ -1,23 +1,23 @@
-/* Основной функциоал генератора
+/* Основной функционал генератора
 * генерируем предложения и структуру
 *
 */
 "use strict";
 function Generator(config) {
 
-//Для проверки: запущен ли генератор    
+//Для проверки: запущен ли генератор
 
     this.existence = false;
 
-//Настройки для написания бреда, получаемы с формы на странице    
+//Настройки для написания бреда, получаемы с формы на странице
 
     this.config = {
-      minWords: config.minWords,
-      maxWords: config.maxWords,
-      minProposals: config.minProposals,
-      maxProposals: config.maxProposals,
-      minParagraph: config.minParagraph,
-      maxParagraph: config.maxParagraph,
+      minWords: config.minWords,               // минимальное количество слов
+      maxWords: config.maxWords,               // максимальное количество слов
+      minProposals: config.minProposals,       // минимальное количество предложений
+      maxProposals: config.maxProposals,       // максимальное количество предложений
+      minParagraph: config.minParagraph,       // минимальное количество абзацев
+      maxParagraph: config.maxParagraph,       // максимальное количество абзацев 
 
 //Среднее кол-во слов, предложений, абзацев в списке habra-статьей
 
@@ -28,9 +28,9 @@ function Generator(config) {
       countComment: 0
     };
 
-    this.text;
+   // this.text;
 
-//Создаем словарную основу: словарь статей, словарь комментариев и авторов комментариев
+//Создаем словарную основу: словарь статей, словарь комментариев и авторов комментариев, строки-содержащие все статьи и все комментарии
     this.Dictionaries ={
       articleDict: new Dictionary,
       commentDict: new Dictionary,
@@ -42,13 +42,16 @@ function Generator(config) {
     var currentPair,
         self = this;
     
-    this.getText = function(text){
-      self.text = self.text.replace(/<\/?[^>]*>/gi, 'ТЭГ'); //убираем все теги и ссылки в тексте 
-      self.text = self.text.replace(/[^\w\sА-яёЁ!.?,:]/g, ' '); // убираем скобочки и символы
-      self.text = self.text.replace(/(\s*[!.?,:])/g, ' $1'); //перед знаками ставим пробелы
-      self.text = self.text.replace(/\s+/g, ' '); //заменяем множество полученных пробелов одним
+/*    this.getText = function(text){
+    var text = text;
+      text = text.replace(/<\/?[^>]*>/gi, '');  //убираем все теги и ссылки в тексте
+      text = text.replace(/[^\w\sА-яёЁ!.?,:]/g, ' '); // убираем скобочки и символы
+      text = text.replace(/(\s*[!.?,:])/g, ' $1'); //перед знаками ставим пробелы
+      text = text.replace(/\s+/g, ' '); //заменяем множество полученных пробелов одним
 
+return text;
     }
+*/
 //Извлекаем слова из списка и добаляем в словарь
     
     this.extractWords = function(Dictionary) {
@@ -65,53 +68,70 @@ function Generator(config) {
 //Инициализируем генератор и делаем тексты для словарей статей, комментариев, авторов комментария, считаем средние показатели
     
 Generator.prototype.init = function(sourceText) {
-    var textComment = '',    
+    var textComment = '',
+        textArticle = '',
         self = this;
     this.text = sourceText;
     
-//ищем и считаем количество статей статьи article 
+//ищем и считаем количество статей 
 
-    var $articles = this.text.match(/<article>([\s\S]*?)<\/article>/g).join('');
-console.log($articles);
-    this.config.countArticles = this.text.match(/<article>([\s\S]*?)<\/article>/g).length;
-
-  var b = this.text.match(/<article>/g).length;
-  alert(b);  
+    var $articles = self.text.match(/<article>([\s\S]*?)<\/article>/g).join('');
+    this.config.countArticles = self.text.match(/<article>([\s\S]*?)<\/article>/g).length;
 
 //считаем комментарии и добавляем их текст в словарный запас словаря для комментариев
 
-    var comment = this.text.match(/(class="message")/g);
+    var comment = self.text.match(/(class="message")/g);
     this.config.countComment = comment.length / this.config.countArticles;
  
+//заполняем массив авторов комментариев и тексты комментариев 
+    $articles = $( $articles ); //чтобы дальше использовать jquery 
 
-$articles = $( $articles );
-alert( $articles );
+    var $comments = $articles.find('.comment').each(function() {
+      var $textComment = $( this ).children('.message').text();
+      var $authorComment = $( this ).children('.username').text();
+      
+      textComment += $textComment;
 
-$articles = $( $articles ).find('section .comments').remove('section').end();
-alert( $articles );
-self.Dictionaries.wordSForDictionary = $articles.text();
+      self.Dictionaries.authorComment.push($authorComment);
+    })
 
-var $comments = $articles.find('.comment').each(function() {
+//считаем количество абзацев 
+    $articles = $articles.find('section')
+                     .remove()
+                     .end()
+                     .html();
+    $articles = $articles.replace(/(<br>\n+|\r+<br>)+/g, '\n');
+console.log($articles);
+
+    var valueParagraph = $articles.match(/\n/g).length;
+alert(valueParagraph);
+    self.config.countParagraph = valueParagraph / this.config.countArticles;
+
+// заполняем исходники для словарей комментариев и статей    
+/*    self.Dictionaries.wordSForDictionary = $articles;
+    self.Dictionaries.commentForDictionary = textComment;
+*/
+    textArticle = $articles;
+
+//отдаем работы по составлению словаря работнику
+
+    var langWorker = new Worker('worker.js');
     
-    var $textComment =  $( this ).children('.message').text();
-    var $authorComment = $( this ).children('.username').text();
+    langWorker.postMessage ({
+      articles: textArticle,
+      comments: textComment
+    });
+    langWorker.onMessage = function (event) {
+      self.Dictionaries.articleDict.text = event.data.articleArray;
+      self.Dictionaries.commentDict.text = event.data.commentArray;
+    };
 
-textComment += $textComment;
-
-self.Dictionaries.authorComment.push($authorComment);
-})
-
-
-
-self.Dictionaries.commentForDictionary = textComment;
-
-alert('1111111'+this.Dictionaries.commentForDictionary);
-alert(self.Dictionaries.authorComment);
-alert(self.Dictionaries.wordSForDictionary);
+console.log(self.Dictionaries.articleDict);
+console.log(self.Dictionaries.authorComment);
+console.log(self.Dictionaries.commentDict);
 
 
-//выбираем авторов комментариев и добавляем их в "массив авторов""
-   
+
 }
 
 
@@ -141,7 +161,7 @@ var iterator = new Iterator(tempMas);
     firstPair = iterator.randomItem();
     words = firstPair.split(' ');
     
-    while( words[0].match( /[.!?#]/ ) && words[1].match( /[.!?#]/ ) ) {
+    while( words[0].match( /[.!?#]/ ) || words[1].match( /[.!?#]/ ) ) {
       firstPair = iterator.randomItem();
       words = firstPair.split(' ');
     }
@@ -157,7 +177,7 @@ var iterator = new Iterator(tempMas);
       var word = gen.getNextWord(proposal);
       if(word.match( /[.!?#]/ )){
         proposal.push(word);
-        return proposal;  
+        return proposal;
       }
       proposal.push(word);
       lengthProposal = proposal.length;
@@ -169,7 +189,7 @@ var iterator = new Iterator(tempMas);
 Generator.prototype.getNextWord = function(proposal) {
     var lengthProposal = proposal.length,
         lastWord = proposal[lengthProposal-1],
-        beforeLastWord =  proposal[lengthProposal - 2],
+        beforeLastWord = proposal[lengthProposal - 2],
         currentPair = beforeLastWord + ' '+lastWord,
         masWords = [],
         rndKey,
@@ -189,8 +209,13 @@ Generator.prototype.getNextWord = function(proposal) {
       return word = '.';
     }
     return word;
-}    
+}
 
+function Dictionary() {
+ //   this.wordSForDictionary = wordSForDictionary;
+    this.text = {};
+   // this.authorComment = [];
+}
 
 /* Итератор, который итерирует все
 *
@@ -209,7 +234,7 @@ Iterator.prototype = {
     },
     randomItem: function() {
       if(this.items.length ===1) {
-        return this.items[0] 
+        return this.items[0]
       }
       var rndKey = Math.floor(this.items.length * Math.random());
       return this.items[rndKey];
