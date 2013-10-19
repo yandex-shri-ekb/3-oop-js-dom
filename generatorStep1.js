@@ -124,11 +124,12 @@ alert(valueParagraph);
     langWorker.onMessage = function (event) {
       self.Dictionaries.articleDict.text = event.data.articleArray;
       self.Dictionaries.commentDict.text = event.data.commentArray;
-    };
-
 console.log(self.Dictionaries.articleDict);
 console.log(self.Dictionaries.authorComment);
 console.log(self.Dictionaries.commentDict);
+    };
+
+
 
 
 
