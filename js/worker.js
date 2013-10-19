@@ -21,12 +21,14 @@ self.onmessage = function(e) {
         case 'generateArticle':
             self.postMessage({
                 action: 'articleGenerated',
-                header: writer.getArticleHeader(),
+                header: writer.getArticleHeader({
+                    words: { perSentence: { min: 3, max: 10 }}
+                }),
                 text: writer.getArticleText(e.data.settings),
                 comments: writer.getCommentTree({
                     paragraphs: {perArticle: {min: 1, max: 3}},
                     sentences: {perParagraph: {min: 1, max: 5}},
-                    words: {perSentence: {min: 3, max: 6}}
+                    words: {perSentence: {min: 3, max: 15}}
                 })
             });
     }

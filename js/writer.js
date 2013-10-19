@@ -69,8 +69,8 @@
             });
         };
 
-        this.getArticleHeader = function () {
-            return gArticles.getSentence({ words: { perSentence: { min: 3, max: 10 }}});
+        this.getArticleHeader = function (options) {
+            return gArticles.getSentence(options);
         };
     };
 }(this));

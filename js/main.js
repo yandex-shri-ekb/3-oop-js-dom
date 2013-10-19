@@ -1,9 +1,11 @@
 (function () {
     'use strict';
 
-    var isDictionaryPrepared = false,
+    var textUrl = 'habr.html',
+        isDictionaryPrepared = false,
         isArticleRequested = false,
         worker,
+        writer,
         useAsyncLoad = typeof Worker !== 'undefined';
 
     if (useAsyncLoad) {
@@ -19,13 +21,13 @@
                     }
                     break;
                 case 'articleGenerated':
-                    $('.content').html(e.data.text);
-                    $('article').append(buildCommentSection(e.data.comments));
+                    buildArticle(
+                        e.data.header,
+                        e.data.text,
+                        e.data.comments
+                    );
 
                     $('.processing').hide();
-                    $('article').show();
-
-                    $('article > header > h1').text(e.data.header);
                 break;
             }
         };
@@ -34,7 +36,7 @@
     }
 
     function prepareDictionaryAsync() {
-        $.get('habr.html', function (data) {
+        $.get(textUrl, function (data) {
             var parser = new Parser($(data));
             
             worker.postMessage({
@@ -54,39 +56,40 @@
     }
 
     $('#generate_article').on('click', function (e) {
-        isArticleRequested = true;
+        e.preventDefault();
 
-        if (isDictionaryPrepared) {
-            if (useAsyncLoad) {
+        if (useAsyncLoad) {
+            isArticleRequested = true;
+
+            if (isDictionaryPrepared) {
                 generateArticleAsync(getUserSettings());
-            } else {
-                generateArticleSync(settings);
             }
+        } else {
+            generateArticleSync(getUserSettings());
         }
 
         return false;
     });
 
     function generateArticleSync(settings) {
+        if (writer !== undefined) {
+            buildArticleWithWriter(writer, settings);
+
+            return;
+        }
+
         $('.processing-fallback').show();
 
-        $.get('habr.html', function (data) {
+        $.get(textUrl, function (data) {
             var parser = new Parser($(data)),
                 gArticles = new Garry().eat(parser.articles()),
-                gComments = new Garry().eat(parser.comments()),
-                writer = new Writer(parser.usernames(), gComments, gArticles);
+                gComments = new Garry().eat(parser.comments());
 
-            $('.content').html(writer.getArticleText(settings));
-            $('article').append(buildCommentSection(writer.getCommentTree({
-                paragraphs: {perArticle: {min: 1, max: 3}},
-                sentences: {perParagraph: {min: 1, max: 5}},
-                words: {perSentence: {min: 3, max: 6}}
-            })));
+            writer = new Writer(parser.usernames(), gComments, gArticles);
+
+            buildArticleWithWriter(writer, settings);
 
             $('.processing-fallback').hide();
-            $('article').show();
-
-            $('article > header > h1').text(writer.getArticleHeader());
         });
     }
 
@@ -96,6 +99,7 @@
                 return length + getNumber(comment.replies)  ;
             }, 0);
         };
+
         return $('.comments')
                    .append('<h1>Комментарии (' + getNumber(comments) + ')</h1>')
                    .append(buildCommentTree(comments, +new Date()));
@@ -132,5 +136,27 @@
                 max: intVal('words_per_sentence_max')
             }}
         };
+    }
+
+    function buildArticle(header, text, comments) {
+        $('article')
+            .find('header > h1').text(header).end()
+            .find('.content').html(text).end()
+            .append(buildCommentSection(comments))
+            .show();
+    }
+
+    function buildArticleWithWriter(writer, settings) {
+        buildArticle(
+            writer.getArticleHeader({
+                words: { perSentence: { min: 3, max: 10 }}
+            }),
+            writer.getArticleText(settings),
+            writer.getCommentTree({
+                paragraphs: {perArticle: {min: 1, max: 3}},
+                sentences: {perParagraph: {min: 1, max: 5}},
+                words: {perSentence: {min: 3, max: 15}}
+            })
+        );
     }
 }());
