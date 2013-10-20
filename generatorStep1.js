@@ -3,6 +3,7 @@
 *
 */
 "use strict";
+
 function Generator(config) {
 
 //Для проверки: запущен ли генератор
@@ -114,23 +115,27 @@ alert(valueParagraph);
     textArticle = $articles;
 
 //отдаем работы по составлению словаря работнику
-
-    var langWorker = new Worker('worker.js');
+    var worker = new Worker('worker.js');
     
-    langWorker.postMessage ({
+    worker.postMessage ({
       articles: textArticle,
       comments: textComment
     });
-    langWorker.onMessage = function (event) {
+
+    worker.onmessage = function (event) {
+      alert(event.data);
+
       self.Dictionaries.articleDict.text = event.data.articleArray;
       self.Dictionaries.commentDict.text = event.data.commentArray;
 console.log(self.Dictionaries.articleDict);
 console.log(self.Dictionaries.authorComment);
 console.log(self.Dictionaries.commentDict);
     };
-
-
-
+/*
+textArticle = getText( textArticle );
+self.Dictionaries.articleDict = fillDictionary(textArticle);
+console.log( self.Dictionaries.articleDict );
+*/
 
 
 }
@@ -255,3 +260,16 @@ Iterator.prototype = {
       }
     }
 }
+
+
+
+/*
+onmessage = function(element) {
+  postMessage({
+    articleArray: fillDictionary( getText(element.data.articles) ),
+    commentArray: fillDictionary( getText(element.data.comments) )
+  })
+}
+*/
+
+
