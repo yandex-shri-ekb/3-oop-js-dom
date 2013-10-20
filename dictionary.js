@@ -1,4 +1,4 @@
-function Dictionary(wordSForDictionary) {
+/*function Dictionary(wordSForDictionary) {
     this.wordSForDictionary = wordSForDictionary;
     this.text = {};
     this.authorComment = [];
@@ -25,3 +25,4 @@ Dictionary.prototype.fillDictionary = function() {
         this.text[this.wordSForDictionary[i]+' '+this.wordSForDictionary[i+1]].push(this.wordSForDictionary[i+2]);
       }
 };
+*/
