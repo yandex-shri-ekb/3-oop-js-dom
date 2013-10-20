@@ -8,7 +8,7 @@ var getText = function(text) {
 
     text = text.replace(/<\/?[^>]*>/gi, '');           //убираем все теги и ссылки в тексте
     text = text.replace(/[^\w\sА-яёЁ!.?,:]/g, ' ');    // убираем скобочки и символы
-    text = text.replace(/(\s*[!.?,:])/g, ' $1');       //перед знаками ставим пробелы
+    text = text.replace(/(\s*[!.?,:])/g, ' $1 ');       //перед знаками ставим пробелы
     text = text.replace(/\s+/g, ' ');                  //заменяем множество полученных пробелов одним
     
     return text;
@@ -21,10 +21,10 @@ var fillDictionary = function(words) {
         text = {};
 
     tempArray = words.split(' ');
-    lengthMassiv = words.length;
+    lengthMassiv = tempArray.length;
 
     for (var i=0; i<lengthMassiv; i+=1){
-        wordSForDictionary.push( words[i].toLowerCase() );
+        wordSForDictionary.push( tempArray[i].toLowerCase() );
       }
      // return Dictionary;
     
@@ -37,7 +37,7 @@ var fillDictionary = function(words) {
 */
       outer:
       for(var i=0; i<lengthDictionary; i+=1) {
-        if(wordSForDictionary[i+2]==undefined){
+       /* if(wordSForDictionary[i+2]==undefined){
           if(wordSForDictionary[i]+' '+wordSForDictionary[i+1] in text) {
             text[wordSForDictionary[i]+' '+wordSForDictionary[i+1]].push('#');
           break outer;
@@ -45,7 +45,7 @@ var fillDictionary = function(words) {
           text[wordSForDictionary[i]+' '+wordSForDictionary[i+1]] =[];
           text[wordSForDictionary[i]+' '+wordSForDictionary[i+1]].push('#');
           break outer;
-        }
+        }*/
         if(wordSForDictionary[i]+' '+wordSForDictionary[i+1] in text) {
           text[wordSForDictionary[i]+' '+wordSForDictionary[i+1]].push(wordSForDictionary[i+2])
           continue;
