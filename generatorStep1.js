@@ -10,15 +10,15 @@ function Generator(config) {
 
     this.existence = false;
 
-//Настройки для написания бреда, получаемы с формы на странице
+//Настройки для написания бреда, получаемые с формы на странице
 
     this.config = {
-      minWords: config.minWords,               // минимальное количество слов
-      maxWords: config.maxWords,               // максимальное количество слов
-      minProposals: config.minProposals,       // минимальное количество предложений
-      maxProposals: config.maxProposals,       // максимальное количество предложений
-      minParagraph: config.minParagraph,       // минимальное количество абзацев
-      maxParagraph: config.maxParagraph,       // максимальное количество абзацев 
+      minWords: +config.minWords,               // минимальное количество слов
+      maxWords: +config.maxWords,               // максимальное количество слов
+      minProposals: +config.minProposals,       // минимальное количество предложений
+      maxProposals: +config.maxProposals,       // максимальное количество предложений
+      minParagraph: +config.minParagraph,       // минимальное количество абзацев
+      maxParagraph: +config.maxParagraph,       // максимальное количество абзацев 
 
 //Среднее кол-во слов, предложений, абзацев в списке habra-статьей
 
@@ -26,7 +26,14 @@ function Generator(config) {
       countProposals: 0,
       countParagraph: 0,
       countArticles: 0,
-      countComment: 0
+      countComment: 0,
+
+//Задаем настройки для статьи кол-во предложений, абзацев, комментариев (число комментариев задается общим числом)
+
+    articleWordsInProposal: 0,
+    articleProposals: 0,
+    articleParagraphs: 0,
+    articleComments: 0
     };
 
    // this.text;
@@ -115,6 +122,7 @@ alert(valueParagraph);
     textArticle = $articles;
 
 //отдаем работы по составлению словаря работнику
+/*
     var worker = new Worker('worker.js');
     
     worker.postMessage ({
@@ -131,27 +139,66 @@ console.log(self.Dictionaries.articleDict);
 console.log(self.Dictionaries.authorComment);
 console.log(self.Dictionaries.commentDict);
     };
-/*
-textArticle = getText( textArticle );
-self.Dictionaries.articleDict = fillDictionary(textArticle);
-console.log( self.Dictionaries.articleDict );
+ worker.terminate();   
 */
+textArticle = getText( textArticle );
+textComment = getText( textComment );
+
+self.Dictionaries.articleDict = fillDictionary(textArticle);
+self.Dictionaries.commentDict = textComment;
+
+console.log( self.Dictionaries.articleDict );
+console.log( self.Dictionaries.articleDict );
 
 
+    self.existence = true;
+    self.createArticle();
 }
 
 
+Generator.prototype.createArticle = function() {
+    var self = this,
+        tempMassiv = [],
+        textArticle =[],
+        currentNumParagraph = 0;
 
+//Рассчитываем число абзацев в статье   
+    tempMassiv = self.createNumber(self.config.minParagraph, self.config.maxParagraph);
+    var iterator = new Iterator(tempMassiv);
 
-Generator.prototype.createProposal = function(Dictionary, a, b) {
+    self.config.articleParagraphs = iterator.randomItem();
+  
+
+while( currentNumParagraph != self.config.articleParagraphs) {
+  textArticle.push(self.createProposal(self.Dictionaries.articleDict)); 
+  currentNumParagraph++;
+}
+alert(textArticle.join(''));
+}
+
+Generator.prototype.createNumber = function(a, b) {
+  var massiv=[];
+
+  for(var i=a; i<=b; i+=1){
+    massiv.push(i);
+  }
+  return massiv;
+}
+
+Generator.prototype.createProposal = function(Dictionary) {
     var tempMas = [],
         proposal = [],
         words = [],
         lengthProposal,
         findingLength,
+        self = this,
         firstPair;
-
-    for (var i=a; i<=b; i+=1) {
+//Определяем кол-во предложений в абзаце
+tempMas = self.createNumber(self.config.minProposals, self.config.maxProposals);
+var iterator = new Iterator(tempMas);
+findingLength = iterator.randomItem();
+tempMas.length = 0;
+/*    for (var i=a; i<=b; i+=1) {
       tempMas.push(i);
     }
     
@@ -159,15 +206,15 @@ var iterator = new Iterator(tempMas);
 
     findingLength = iterator.randomItem();
     tempMas.length = 0;
-  
-    for(var key in Dictionary.text) {
+ */ 
+    for(var key in Dictionary) {
       tempMas.push(key);
     }
 
     firstPair = iterator.randomItem();
     words = firstPair.split(' ');
     
-    while( words[0].match( /[.!?#]/ ) || words[1].match( /[.!?#]/ ) ) {
+    while( words[0].match( /[.!?,:]/ ) || words[1].match( /[.!?,:]/ ) ) {
       firstPair = iterator.randomItem();
       words = firstPair.split(' ');
     }
@@ -180,8 +227,8 @@ var iterator = new Iterator(tempMas);
     while ( findingLength !== lengthProposal) {
      
      
-      var word = gen.getNextWord(proposal);
-      if(word.match( /[.!?#]/ )){
+      var word = gen.getNextWord(proposal, Dictionary);
+      if(word.match( /[.!?]/ )) {
         proposal.push(word);
         return proposal;
       }
@@ -192,11 +239,11 @@ var iterator = new Iterator(tempMas);
     return proposal;
 }
 
-Generator.prototype.getNextWord = function(proposal) {
+Generator.prototype.getNextWord = function(proposal, Dictionary) {
     var lengthProposal = proposal.length,
         lastWord = proposal[lengthProposal-1],
         beforeLastWord = proposal[lengthProposal - 2],
-        currentPair = beforeLastWord + ' '+lastWord,
+        currentPair = beforeLastWord+' '+lastWord,
         masWords = [],
         rndKey,
         count = 0,
@@ -204,10 +251,10 @@ Generator.prototype.getNextWord = function(proposal) {
         word;
 
 
-    masWords = this.articleDict.text[currentPair];
+    masWords = Dictionary[currentPair];
     var iterator = new Iterator(masWords);
     word = iterator.randomItem();
-    while (word.match( /[.!?#]/ ) && (count < maxCount)) {
+    while (word.match( /[.!?]/ ) && (count < maxCount)) {
       word = iterator.randomItem();
       count++;
     }
