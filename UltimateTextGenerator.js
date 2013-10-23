@@ -76,7 +76,7 @@ var UltimateTextGenerator = function() {
             // пробелы
             .replace(/[ ]{2,}/g, ' ');
 
-        return text;
+        return text.trim();
     }
 
     /**
@@ -87,7 +87,9 @@ var UltimateTextGenerator = function() {
      */
     function addPair(w1, w2) {
         var pair = _dictionary[w1];
-        if(typeof pair !== 'undefined') {
+
+        // зарезервированные слова типа watch у объекта
+        if(pair !== undefined && Object.prototype.toString.call( pair ) === '[object Array]') {
             pair.push(w2);
         }
         else {

@@ -1,9 +1,5 @@
 "use strict";
 
-var commentTextGen = new UltimateTextGenerator(),
-    isParsed = false,
-    nicknames = [];
-
 /*
  * Схема работы:
  *     Собираем текст -> Обрабатываем текст -> Профит
@@ -11,8 +7,6 @@ var commentTextGen = new UltimateTextGenerator(),
 (function($) {
 
     var $body = $('body'),
-        $progress = $('#progress'),
-        $status = $('#status'),
         $go = $('#go'),
         $settings = $('#settings'),
         $modal = $('#modal'),
@@ -29,9 +23,12 @@ var commentTextGen = new UltimateTextGenerator(),
         $settingsSn2 = $('#settings-sn2'),
         $settingsWn1 = $('#settings-wn1'),
         $settingsWn2 = $('#settings-wn2'),
-        _settings = {};
+        _settings = {},
+        _startTime,
+        _isParsed = false;
 
-    var articleWorker = new SimpleWorker("worker.js");
+    var articleWorker = new SimpleWorker("worker.js"),
+        commentWorker = new SimpleWorker("worker.js");
 
     $settings.on('click', function() {
         $('<div class="modal__backdrop"></div>').appendTo($body);
@@ -55,9 +52,11 @@ var commentTextGen = new UltimateTextGenerator(),
     });
 
     $go.on('click', function() {
-        progressTo(0, 'Download habr.html...');
+        _startTime = new Date().getTime();
 
-        if(!isParsed) {
+        timeLog('Download habr.html...');
+
+        if(!_isParsed) {
             $.ajax({url : 'habr.html'}).done(function(response) {
                 processHabrHtml(response);
                 generate();
@@ -70,17 +69,13 @@ var commentTextGen = new UltimateTextGenerator(),
         return false;
     });
 
-    function progressTo(val, comment) {
-        console.log(val + ' ' + comment);
-        $progress.attr('value', val);
-        if(comment) {
-            $status.text(comment);
-        }
+    function timeLog(comment) {
+        var elapsed = new Date().getTime() - _startTime;
+        console.log(comment +'; ' + elapsed.toFixed(2));
     }
 
     function generate() {
-        progressTo(75, 'Generating text...');
-
+        // refresh settings
         _settings = {
             p: [+$settingsPn1.val(), +$settingsPn2.val()],
             s: [+$settingsSn1.val(), +$settingsSn2.val()],
@@ -88,11 +83,11 @@ var commentTextGen = new UltimateTextGenerator(),
         };
 
         var
-            nComments = getRandomInt(10, 30),
+            nComments = randomInt(10, 30),
             publishDate = randomDate(new Date(2012, 0, 1), new Date());
 
         articleWorker
-            .send({cmd:'generateSentence', args:[getRandomInt(2, 5), '.', true, true, 0]})
+            .send({cmd:'generateSentence', args:[randomInt(2, 5), '.', true, true, 0]})
             .then(function(data) {
                 $habrTitle.text(data);
             });
@@ -105,81 +100,45 @@ var commentTextGen = new UltimateTextGenerator(),
 
         $habrComments.html('');
         $habrCommentsCount.text(nComments);
-        progressTo(90, 'Generating comments...');
-        for(var i = 0; i < nComments; i++) {
-            $habrComments.append(generateComment(publishDate, 1));
-        }
 
-        progressTo(100, 'Done!');
-    }
-
-    function generateComment(minDate, lvl) {
-        var text = generateCommentText(getRandomInt(_settings.s[0], _settings.s[1]));
-        var date = new Date(minDate.getTime() + getRandomInt(0, 60) * 60000);
-        var $comment = createNewComment(getRandomNickname(), date.toLocaleString(), text);
-
-        if(Math.random() < (1 - lvl * 0.2)) {
-            var $child, i;
-            var n = (3 - lvl) < 1 ? 1 : getRandomInt(1, 3 - lvl);
-            for(i = 0; i < n; i++) {
-                $child = generateComment(date, lvl + 1);
-                $child.appendTo($comment.children('.reply_comments'));
-            }
-        }
-
-        return $comment;
-    }
-
-    function generateCommentText(nSentence) {
-        var nWords, text = '';
-        nSentence = getRandomInt(1, _settings.s[1]);
-        for(var s = 0; s < nSentence; s++) {
-            nWords = getRandomInt(_settings.w[0], _settings.w[1]);
-            text += ' ' + commentTextGen.generateSentence(nWords, '.', false, true, 3);
-        }
-
-        return text;
-    }
-
-    function createNewComment(author, time, text) {
-        return $($habrCommentsTemplate.html())
-            .find('.username').text(author).end()
-            .find('time').text(time).end()
-            .find('.message').text(text).end();
-    }
-
-    function getRandomNickname() {
-        return nicknames[getRandomInt(0, nicknames.length - 1)];
+        commentWorker
+            .send({cmd:'generateComments', args:[nComments, publishDate.getTime(), _settings.s[0], _settings.s[1], _settings.w[0], _settings.w[1]]})
+            .then(function(comments) {
+                console.log(comments);
+                var $comments = createComments(comments);
+                $habrComments.html($comments);
+            });
     }
 
     function processHabrHtml(data) {
-        var progress = 10;
-        progressTo(progress, 'Parse habr.html...');
+        timeLog('Parse habr.html...');
 
-        var $articles = $(data.match(/<article>([\s\S]*?)<\/article>/g).join(''));
-        var $comments = $articles.find('.comments .comment');
+        var body = data.match(/<article>([\s\S]*?)<\/article>/g).join('');
 
-        progressTo(progress += 5, 'Parse comments...');
+        timeLog('Create dom...');
 
-        $comments.each(function(index, element) {
-            var $comment = $(element);
+        var $articles = $(body);
 
-            var nick = $comment.find('.username').text();
-            nicknames.push(nick);
+        timeLog('Parse comments...');
 
-            commentTextGen.add($comment.find('.message').text().trim());
+        var $comments = $articles.find('.comments'), nicknames = [];
+
+        commentWorker.send({cmd:'add', args:[$comments.find('.message').text()]});
+        $comments.find('.username').text(function(index, text) {
+            nicknames.push(text);
         });
+        commentWorker.send({cmd:'addNicknames', args:[nicknames]});
+
+        timeLog('Parse articles...');
 
         $articles.each(function(index, article) {
-            if(index % 4 === 0 && index > 0) {
-                progressTo(++progress, 'Parse articles; ' + index + ' out of 100...');
-
-                var text = parseArticle($(article), false);
-                articleWorker.send({cmd:'add', args:[text]});
-            }
+            var html = getArticleHtml($(article), false);
+            articleWorker.send({cmd:'addHtml', args:[html]});
         });
 
-        isParsed = true;
+        timeLog('Done!');
+
+        _isParsed = true;
     }
 
     /**
@@ -187,7 +146,7 @@ var commentTextGen = new UltimateTextGenerator(),
      * @param {int} max
      * @return int
      */
-    function getRandomInt(min, max)
+    function randomInt(min, max)
     {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
@@ -201,22 +160,41 @@ var commentTextGen = new UltimateTextGenerator(),
      * @param {boolean} cloneElem
      * @return string
      */
-    function parseArticle($elem, cloneElem) {
+    function getArticleHtml($elem, cloneElem) {
         var $article = cloneElem ? $elem.clone() : $elem;
 
-        var html = $article
+        return $article
             .find('code,pre,table,a,.comments')
             .remove()
             .end()
             .html();
-
-        return html.toLowerCase()
-            // табы
-            .replace(/\t+/g, ' ')
-            // переносы строк
-            .replace(/\r?\n|\r/g, ' ')
-            // теги
-            .replace(/<\/?[^<]*?>/g, '')
-            .trim();
     }
+
+    function createComments(comments, $parent) {
+        var $comments = [];
+
+        comments.forEach(function(item) {
+            var $comment = createComment(item.nickname, item.date, item.text);
+
+            if(item.comments.length > 0) {
+                var $childs = createComments(item.comments, $comment);
+
+                if($parent) {
+                    $parent.find('.reply_comments').append($childs);
+                }
+            }
+
+            $comments.push($comment);
+        });
+
+        return $comments;
+    }
+
+    function createComment(author, time, text) {
+        return $($habrCommentsTemplate.html())
+            .find('.username').text(author).end()
+            .find('time').text(time).end()
+            .find('.message').text(text).end();
+    }
+
 })(jQuery);
