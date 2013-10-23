@@ -1,0 +1,176 @@
+body 
+{
+    font: 13px/1.5 verdana, tahoma, sans-serif;
+    padding: 200px 345px 300px 45px;
+    margin: 0 auto;
+    width: 75%;
+    min-width: 990px;
+    max-width: 810px;
+}
+
+h1 
+{
+    font-size: 30px;
+    padding: 0 0 16px;
+    margin: 0;
+}
+
+h2 
+{
+    font-size: 1.2em;
+    color: #999;
+    padding: 20px 0 15px;
+    margin: 0;
+}
+
+p 
+{
+    padding: 0 0 10px;
+    margin: 0;
+}
+
+.comment-list 
+{
+    margin: 100px 0 20px -20px;
+    overflow: hidden;
+}
+
+.comment-list-caption 
+{
+    font-size: 20px;
+    color: #afa56a;
+    padding: 0 0 20px 20px;
+}
+
+.comment-list-caption:before 
+{
+    content: url(http://habrahabr.ru/images/comments.gif);
+}
+
+.comment 
+{
+    position: relative;
+    margin: 0 0 30px 20px;
+}
+
+.comment
+.comment
+.comment
+.comment
+.comment 
+.comment /* да, трэшак =) */
+{
+    margin-left: 0;
+}
+
+.comment-caption
+{
+    padding: 0 0 15px;
+}
+
+.comment:hover:before 
+{
+    position: absolute;
+    content: "•••••";
+    right: 100%;
+    white-space: nowrap;
+    color: #91b9cd;
+    padding-right: 5px;
+    margin-right: -10px;
+    letter-spacing: 13px;
+    z-index: -1;
+}
+
+.comment-rait 
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #333;
+}
+
+.comment-rait:after 
+{
+    content: "↑ ↓";
+    font-weight: 700;
+    color: #333;
+}
+
+.comment-reply 
+{
+    margin: 20px 0 0;
+}
+
+.comment-nickname 
+{
+    color: #666;
+    font-size: 11px;
+    font-weight: 700;
+}
+.comment-nickname:hover 
+{
+    color: #333;
+}
+
+.comment-nickname:before
+{
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    content: '';
+    background: #ccc;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.comment-date 
+{
+    color: #666;
+    font-size: 10px;
+    margin: 0 10px;
+}
+.comment-link 
+{
+    font-size: 10px;
+    color: #6da3bd;
+    text-decoration: none;
+}
+
+/* цвета забыл в скрипт зафигачить */
+/* так что в редакторе пробежался регуляркой */
+/* а то надоело курить бегать пока там шарманка развернется */
+/* скоро кровью начну кашлять */
+.comment-rait-pos {
+    color: #390;
+}
+
+.comment-rait-neg {
+    color: #c00;
+}
+
+.bad-1,
+.bad-2,
+.bad-3,
+.bad-4,
+.bad-5
+{
+    -webkit-transition: .3s linear opacity;
+            transition: .3s linear opacity;
+}
+
+.bad-1:hover,
+.bad-2:hover,
+.bad-3:hover,
+.bad-4:hover,
+.bad-5:hover
+{
+    opacity: 1;
+}
+
+/* сорри за кодстайл */
+.bad-1 { opacity: .8 ; }
+.bad-2 { opacity: .65; }
+.bad-3 { opacity: .5 ; }
+.bad-4 { opacity: .35; }
+.bad-5 { opacity: .2 ; }
