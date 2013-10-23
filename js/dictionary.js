@@ -48,5 +48,9 @@
 
             return word;
         };
+
+        this.reset = function () {
+            predecessors = [];  
+        }
     };
 }(this));

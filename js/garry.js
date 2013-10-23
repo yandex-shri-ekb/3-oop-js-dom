@@ -3,12 +3,7 @@
 
     window.Garry = function (options) {
         var dict = window.dict = new Dictionary,
-            blacklist = {
-                '.': ['.', '-'],
-                '-': ['-', '.', ','],
-                ':': ['.'],
-                ',': [',']
-            },
+            punctuation = ',.!?;:',
             // defaults = {
             //     paragraphs: true,
             //     length: 100
@@ -97,7 +92,7 @@
                         ),
                         sentence = '',
                         endChars = '.!?'.split(''),
-                        punctChars = ',:'.split('').concat(endChars);
+                        punctChars = ',:;'.split('').concat(endChars);
 
 
                     while (length--) {
@@ -114,7 +109,11 @@
                         }
                     }
 
-                    while (endChars.indexOf(dict.next()) !== -1);
+                    dict.reset();
+
+                    if (punctChars.indexOf(sentence.slice(-1)[0]) !== -1) {
+                        sentence = sentence.slice(0, -1);
+                    }
 
                     return ucfirst(sentence) + '.';
                 }
@@ -126,72 +125,46 @@
             }            
         }
 
-        // function getStats(text) {
-        //     start = +new Date;
-        //     var paragraphs = text.split('<br>')
-        //                          .map(function (paragraph) { return paragraph.trim(); })
-        //                          .filter(function (paragraph) { return paragraph !== ''; }),
-        //         length = paragraphs.length;
-
-        //     stats.texts.total += 1;
-
-        //     stats.paragraphs.total += length;
-        //     stats.paragraphs.perArticle.avg = Math.round(stats.paragraphs.total / stats.texts.total);
-        //     if (length < stats.paragraphs.perArticle.min) stats.paragraphs.perArticle.min = length;
-        //     if (length > stats.paragraphs.perArticle.max) stats.paragraphs.perArticle.max = length;
-
-        //     paragraphs.map(function (paragraph) {
-        //         var sentences = paragraph.split('.')
-        //                                  .map(function (sentence) { return sentence.trim(); })
-        //                                  .filter(function (sentence) { return sentence !== ''; }),
-        //             length = sentences.length;
-
-        //         stats.sentences.total += length;
-        //         stats.sentences.perParagraph.avg = Math.round(stats.sentences.total / stats.paragraphs.total);
-        //         if (length < stats.sentences.perParagraph.min) stats.sentences.perParagraph.min = length;
-        //         if (length > stats.sentences.perParagraph.max) stats.sentences.perParagraph.max = length;
-
-        //         sentences.map(function (sentence) {
-        //             var words = (sentence.match(/([а-я-]+|[,.!?;:])/ig) || [])
-        //                                 .map(function (sentence) { return sentence.trim(); })
-        //                                 .filter(function (sentence) { return sentence !== ''; }),
-        //                 length = words.length;
-
-        //             stats.words.total += length;
-        //             stats.words.perSentence.avg = Math.round(stats.words.total / stats.paragraphs.total);
-        //             if (length < stats.words.perSentence.min) stats.words.perSentence.min = length;
-        //             if (length > stats.words.perSentence.max) stats.words.perSentence.max = length;
-        //         });
-        //     });
-        //     console.log(new Date - start);
-        // }
-
         function buildDictionary(text) {
-            /* todo: relocate to getStats */
-            var tokens = text.match(/([а-я]+|[,.!?;:])/ig),
+            var tokens = text.match(new RegExp('([а-я]+|[' + punctuation + '])', 'ig')),
                 stack = [];
-
-            // stopwatch.tap();
 
             if (tokens === null) {
                 return;
             }
 
-            // console.log(tokens.length);
-
             tokens.forEach(function (token) {
                 token = token.toLowerCase();
-                dict.add(token, stack);
+
+                if (!shouldSkipToken(token, stack)) {
+                    dict.add(token, stack);
+                }
 
                 stack.push(token);
                 if (stack.length > 2) {
                     stack.shift();
                 }
             });
+        }
 
-            // console.log('Added tokens: ' + stopwatch.tap());
+        function shouldSkipToken(token, stack) {
+            if (stack.length === 0 && punctuation.indexOf(token) !== -1) {
+                return true;
+            }
 
-            window.dict = dict;
+            if (stack.length === 1 && punctuation.indexOf(stack[0]) !== -1) {
+                return true;
+            }
+
+            if (punctuation.indexOf(stack[1]) !== -1 && punctuation.indexOf(token) !== -1) {
+                return true;
+            }
+
+            if (punctuation.indexOf(stack[0]) !== -1 && punctuation.indexOf(stack[1]) !== -1) {
+                return true;
+            }
+
+            return false;
         }
 
         return self;

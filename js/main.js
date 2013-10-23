@@ -55,9 +55,7 @@
         });
     }
 
-    $('#generate_article').on('click', function (e) {
-        e.preventDefault();
-
+    $('#generate_article').on('click', function () {
         if (useAsyncLoad) {
             isArticleRequested = true;
 
