@@ -1,0 +1,699 @@
+html,
+body,
+h1,
+h2,
+p
+{
+    margin: 0;
+}
+
+ol, ul
+{
+    list-style: none outside none;
+}
+
+a
+{
+    color: #6DA3BD;
+}
+
+a:hover
+{
+    color: #4D7285;
+}
+
+body
+{
+    padding: 10px;
+    min-width: 600px;
+    background: #fff;
+    color: #000;
+    text-align: left;
+    font: 400 14px Arial, Helvetica, sans-serif;
+}
+
+header
+{
+    height: 195px;
+    border-bottom: 4px solid #fc3;
+}
+
+h1
+{
+    padding: 0 0 10px;
+    text-align: center;
+    font: 400 36px Verdana, Helvetica, sans-serif;
+}
+
+h1 span
+{
+    color: #f00;
+}
+
+button
+{
+    position: relative;
+    display: inline-block;
+    margin: 0.5em;
+    padding: 0.5em 0.6em 0.4em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #bfbfbf;
+    box-shadow: 0 0.3em 0.3em rgba(255, 254, 255, 0.6) inset, 0 -0.1em 0.3em rgba(0, 0, 0, 0.15) inset, 0 0.1em 3px #999, 0 0.3em 1px #727272, 0 0.5em 5px rgba(0, 0, 0, 0.2);
+    color: #333;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font: bold 14px/1em Arial, Helvetica, sans-serif;
+    transition: background 0.2s ease-in-out 0s;
+}
+
+button:hover
+{
+    background: #D3D3D3;
+    cursor: pointer;
+}
+
+button:active
+{
+    box-shadow: 0 0.3em 0.3em rgba(255, 255, 255, 0.6) inset, 0 -0.1em 0.3em rgba(0, 0, 0, 0.2) inset, 0 0.1em 1px rgba(0, 0, 0, 0.4), 0 0.2em 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(0.2em);
+}
+
+button:focus
+{
+    outline: medium none;
+    color: rgba(254, 255, 255, 0.898);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+button[disabled], .button[disabled]:hover, .button.disabled, .button.disabled:hover
+{
+    border-top: medium none;
+    background-color: rgba(0, 0, 0, 0.05);
+    background-image: none;
+    box-shadow: 0 0.3em 0.3em rgba(255, 254, 255, 0.4) inset, 0 -0.1em 0.3em rgba(0, 0, 0, 0.1) inset, 0 0.1em 1px rgba(0, 0, 0, 0.3), 0 0.2em 6px rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.2);
+    text-shadow: none;
+    opacity: 0.5;
+    cursor: default;
+    transform: translateY(5px);
+}
+
+input
+{
+    width:  33px;
+}
+
+.settings
+{
+    float: left;
+}
+
+.settings span
+{
+    font-weight: 700;
+}
+
+.settings .setting
+{
+    padding: 3px 0;
+}
+
+.settings .setting .words
+{
+    float: left;
+    padding: 5px 46px 0 0;
+}
+
+.settings .setting .proffer
+{
+    float: left;
+    padding: 5px 32px 0 0;
+}
+
+.settings .setting .paragraph
+{
+    float: left;
+    padding: 5px 49px 0 0;
+}
+
+.buttons
+{
+    float: right;
+    margin: 77px 0 0;
+    width: 250px;
+    text-align: center;
+}
+
+.buttons .control
+{
+    padding: 3px 0;
+    text-align: center;
+}
+
+.buttons .control label
+{
+    padding: 5px 0 0;
+}
+
+#loading
+{
+    position: absolute;
+    z-index: 1;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: 0.8;
+}
+
+#loading img
+{
+    margin: 70px 50%;
+}
+
+#loading .textload
+{
+    left: 30px;
+    position: relative;
+    text-align: center;
+    top: -60px;
+}
+
+section
+{
+    margin: 30px auto;
+    width: 880px;
+}
+
+header section
+{
+    margin: 0 auto;
+}
+
+article
+{
+    display: none;
+}
+
+article .published
+{
+    margin: 0 0 2px;
+    color: #7E7E7E;
+    font-size: 11px;
+}
+
+
+article h1.title
+{
+    margin: 0 0 8px;
+    padding: 0;
+    color: #333333;
+    text-align: left;
+    letter-spacing: -1px;
+    font: normal 30px/118% sVerdana,Tahoma,sans-serif;
+}
+
+article .hubs {
+    margin: 0 0 15px;
+    padding: 2px 25px;
+    background: url("../images/hub.icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #999;
+    font-size: 11px;
+}
+
+article .hubs a
+{
+    color: #999;
+}
+
+article .content
+{
+    overflow: hidden;
+    margin: 0 0 15px;
+    font: 13px/160% Verdana,sans-serif;
+}
+
+article .content p
+{
+    padding: 10px 0;
+}
+
+article .content code
+{
+    display: block;
+    margin: 15px 0;
+    padding: 0 4px;
+    border: 1px solid #E1E1E8;
+    border-radius: 3px;
+    background-color: #F7F7F9;
+    color: #222;
+    white-space: pre-wrap;
+    font-family: 12px Menlo,Monaco,"Courier New",monospace;
+}
+
+article ul.tags
+{
+    margin: 0 0 15px;
+    padding: 2px 0 2px 20px;
+    background: url("../images/bg-tags2.gif") no-repeat scroll 0 50% rgba(0, 0, 0, 0);
+    font: 10px Verdana,sans-serif;
+}
+
+article ul.tags li
+{
+    display: inline;
+    color: #999;
+}
+
+article ul.tags li a
+{
+    color: #666;
+}
+
+article .infopanel
+{
+    display: inline-block;
+    padding: 0 10px;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+    vertical-align: middle;
+    font-family: 11px Arial,sans-serif;
+}
+
+article .infopanel .voting
+{
+    position: relative;
+    float: left;
+    margin: 6px 26px 6px 0;
+    padding: 0 20px;
+}
+
+article .infopanel .voting span.plus
+{
+    background: url("../images/icons_vote_posts.gif") no-repeat scroll right top rgba(0, 0, 0, 0);
+}
+
+article .infopanel .voting .plus
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 11px;
+    height: 15px;
+}
+
+article .infopanel .voting .mark
+{
+    float: left;
+    margin-top: 1px;
+    color: #A9A9A9;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+article .infopanel .voting .mark.positive span
+{
+    color: #390;
+}
+
+article .infopanel .voting span.minus
+{
+    background: url("../images/icons_vote_posts.gif") no-repeat scroll right bottom rgba(0, 0, 0, 0);
+}
+
+article .infopanel .voting .minus
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 11px;
+    height: 15px;
+}
+
+article .infopanel .pageviews
+{
+    float: left;
+    margin: 0 20px 0 0;
+    padding: 0 0 0 20px;
+    background: url("../images/pageviews.png") no-repeat scroll 0 6px rgba(0, 0, 0, 0);
+    font-size: 9px;
+    line-height: 28px;
+}
+
+article .infopanel .favorite
+{
+    float: left;
+    margin: 0 5px 0 0;
+    padding: 6px 0 5px;
+}
+
+article .infopanel .favorite a.guest
+{
+    background: url("../images/favorite.gif") no-repeat scroll left top rgba(0, 0, 0, 0);
+    cursor: help;
+}
+
+article .infopanel .favorite a
+{
+    display: block;
+    margin: 1px 0 0 0;
+    width: 15px;
+    height: 13px;
+}
+
+article .infopanel .favs_count
+{
+    position: relative;
+    display: block;
+    float: left;
+    overflow: hidden;
+    font-size: 9px;
+    line-height: 28px;
+    cursor: help;
+}
+
+article .infopanel .author
+{
+    position: relative;
+    float: left;
+    margin: 0 0 0 19px;
+    padding: 0 0 0 17px;
+    background: url("../images/bg-user2.gif") no-repeat scroll 0 7px rgba(0, 0, 0, 0);
+    font-weight: 700;
+    line-height: 27px;
+}
+
+article .infopanel .author a
+{
+    color: #CF0000;
+    text-decoration: none;
+    font-size: 9px;
+}
+
+article .infopanel .author a:hover
+{
+    color: #F17D7D;
+}
+
+article .infopanel .author .rating
+{
+    position: relative;
+    top: -5px;
+    left: 0;
+    color: #C6C;
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 9px;
+    cursor: help;
+}
+
+article .infopanel .share
+{
+    float: left;
+    overflow: hidden;
+    margin-left: 19px;
+}
+
+article .infopanel .twitter,
+article .infopanel .vkontakte,
+article .infopanel .facebook,
+article .infopanel .googleplus
+{
+    float: left;
+    margin: 0 5px 0 0;
+    padding: 5px 0;
+}
+
+article .infopanel .twitter a
+{
+    display: block;
+    width: 19px;
+    height: 19px;
+    background: url("../images/share.icons.png") no-repeat scroll -42px 0 rgba(0, 0, 0, 0);
+    opacity: 0.5;
+}
+
+article .infopanel .vkontakte a
+{
+    display: block;
+    width: 19px;
+    height: 19px;
+    background: url("../images/share.icons.png") no-repeat scroll -21px 0 rgba(0, 0, 0, 0);
+    opacity: 0.5;
+}
+
+article .infopanel .facebook a
+{
+    display: block;
+    width: 19px;
+    height: 19px;
+    background: url("../images/share.icons.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    opacity: 0.5;
+}
+
+article .infopanel .googleplus a
+{
+    display: block;
+    width: 19px;
+    height: 19px;
+    background: url("../images/share.icons.png") no-repeat scroll -63px 0 rgba(0, 0, 0, 0);
+    opacity: 0.5;
+}
+
+article .infopanel .twitter a:hover
+{
+    background: url("../images/share.icons.png") no-repeat scroll -42px -21px rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+article .infopanel .vkontakte a:hover
+{
+    background: url("../images/share.icons.png") no-repeat scroll -21px -21px rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+article .infopanel .facebook a:hover
+{
+    background: url("../images/share.icons.png") no-repeat scroll 0 -21px rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+article .infopanel .googleplus a:hover
+{
+    background: url("../images/share.icons.png") no-repeat scroll -63px -21px rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+article .infopanel .twitter a:active
+{
+    background: url("../images/share.icons.png") no-repeat scroll -42px -42px rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+article .infopanel .vkontakte a:active
+{
+    background: url("../images/share.icons.png") no-repeat scroll -21px -42px rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+article .infopanel .facebook a:active
+{
+    background: url("../images/share.icons.png") no-repeat scroll 0 -42px rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+article .infopanel .googleplus a:active
+{
+    background: url("../images/share.icons.png?r=1") no-repeat scroll -63px -42px rgba(0, 0, 0, 0);
+    opacity: 1;
+}
+
+.comments_list
+{
+    position: relative;
+    overflow: hidden;
+    margin: 20px 0 10px;
+    padding: 20px;
+}
+
+.comments_list h2.title
+{
+    margin: 0 0 20px;
+    padding: 0 0 0 23px;
+    background: url("../images/comments.gif") no-repeat scroll left 65% rgba(0, 0, 0, 0);
+    color: #AFA56A;
+    letter-spacing: -1px;
+    font-family: 400 20px Verdana,sans-serif;
+}
+
+.comments_list .comment_item .info
+{
+    position: relative;
+    font: 11px/18px tahoma,sans-serif;
+}
+
+.comments_list .comment_item .info .folding-dot-holder
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 1px;
+    height: 1px;
+}
+
+.comments_list .comment_item .info .folding-dot
+{
+    position: absolute;
+    top: 9px;
+    right: 1px;
+    width: 500px;
+    height: 5px;
+    background: url("../images/bg-folding-dot-light.png") repeat-x scroll 100% 0 rgba(0, 0, 0, 0);
+}
+
+.comments_list .comment_item:hover > .comment_body .info > .folding-dot-holder {
+    display: block;
+}
+
+.comments_list .comment_item .info .voting
+{
+    float: right;
+    margin-top: 2px;
+    margin-right: 2px;
+}
+
+.comments_list .comment_item .info .voting span.minus
+{
+    background: url("../images/icons_vote_posts.gif") no-repeat scroll -24px -16px rgba(0, 0, 0, 0);
+}
+
+.comments_list .comment_item .info .voting .minus
+{
+    display: block;
+    float: right;
+    margin: 2px 0 0 5px;
+    width: 11px;
+    height: 15px;
+}
+
+.comments_list .comment_item .info .voting span.plus
+{
+    background: url("../images/icons_vote_posts.gif") no-repeat scroll -24px 0 rgba(0, 0, 0, 0);
+}
+
+.comments_list .comment_item .info .voting .plus
+{
+    display: block;
+    float: right;
+    margin: 2px 0 0 13px;
+    width: 11px;
+    height: 15px;
+}
+
+.comments_list .comment_item .info .voting .mark
+{
+    float: right;
+    padding-top: 2px;
+    color: #A9A9A9;
+    font: 700 13px Arial,Helvetica,sans-serif;
+}
+
+.comments_list .comment_item .info .voting .mark.positive span
+{
+    color: #390;
+}
+
+.comments_list .comment_item .info a.avatar
+{
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 0 10px 0 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+}
+
+.comments_list .comment_item .info a.avatar img
+{
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.comments_list .comment_item .info a.username
+{
+    display: block;
+    float: left;
+    margin: 3px 0 0 0;
+    color: #666;
+    font-weight: bold;
+}
+
+.comments_list .comment_item .info a.username:hover
+{
+    color: #333;
+}
+
+.comments_list .comment_item .info .comma
+{
+    display: block;
+    float: left;
+    margin: 3px 10px 0 0;
+    color: #666;
+    font-weight: 700;
+}
+
+.comments_list .comment_item .info time
+{
+    display: block;
+    float: left;
+    margin: 3px 10px 0 0;
+    color: #666;
+    font-size: 10px;
+}
+
+.comments_list .comment_item .info a.link_to_comment, .comments_list .comment_item .info a.to_parent
+{
+    text-decoration: none;
+}
+
+.comments_list .comment_item .info a.link_to_comment
+{
+    display: block;
+    float: left;
+    margin: 3px 10px 0 0;
+    font-size: 11px;
+}
+
+.comments_list .comment_item .info .to_chidren
+{
+    display: block;
+    float: left;
+    margin: 0 0 0 4px;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.comments_list .comment_item .message
+{
+    padding: 10px 0 5px;
+    font: 13px/140% Arial,sans-serif;
+}
+
+.comments_list .comment_item .reply_comments
+{
+    margin: 20px 0 0;
+}
+
+.comments_list .comment_item .reply_comments .comment_item
+{
+    margin: 0 0 0 20px;
+}

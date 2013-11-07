@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Бредогенератор | 3-oop-js-dom | Кузвесов Артём</title>
+        <link rel="stylesheet" href="css/style.css">
+        <!--[if lt IE 9]>
+            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div id="loading">
+            <img src="images/loading.gif" width="64px" height="64px" alt="Загрузка">
+            <div class="textload"></div>
+        </div>
+        <header>
+            <section>
+                <h1><span>Б</span>редогенератор</h1>
+                <div class="settings">
+                    <div class="setting">
+                        <label for="prefixCount"><span>Количество слов в префиксе:</span></label>
+                        <select id="prefixCount">
+                            <option selected>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>    
+                    <div class="setting">
+                        <div class="words"><span>Слов в предложении:</span></div>
+                        <label for="minWordsCount">от</label>
+                        <input type="number" id="minWordsCount" value="3" maxlength="2" required/>
+                        <label for="maxWordsCount">до</label>
+                        <input type="number" id="maxWordsCount" value="20" maxlength="2" required/>
+                    </div>
+                    <div class="setting">
+                        <div class="proffer"><span>Предложений в абзаце:</span></div>
+                        <label for="minProfferCount">от</label>
+                        <input type="number" id="minProfferCount" value="3" maxlength="2" required/>
+                        <label for="maxProfferCount">до</label>
+                        <input type="number" id="maxProfferCount" value="15" maxlength="2" required/>
+                    </div>
+                    <div class="setting">
+                        <div class="paragraph"><span>Количество абзацев:</span></div>
+                        <label for="minParagraphCount">от</label>
+                        <input type="number" id="minParagraphCount" value="3" maxlength="2" required/>
+                        <label for="maxParagraphCount">до</label>
+                        <input type="number" id="maxParagraphCount" value="20" maxlength="2" required/>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button id="generate">Сгенерировать новый текст</button>
+                </div>
+            </section>
+        </header>
+        <section>
+            <article>
+                <div class="published"></div>
+                <h1 class="title"></h1>
+                <div class="hubs">
+                    <a class="hub" href="http://tech.yandex.ru/education/shri/ekb-2013/">Яндекс ШРИ 2013</a>
+                    ,
+                    <a class="hub" href="http://habrahabr.ru/hub/javascript/">JavaScript</a>
+                    ,
+                    <a class="hub" href="http://habrahabr.ru/hub/jquery/">jQuery</a>
+                </div>
+                <div class="content"></div>
+                <ul class="tags">
+                    <li>
+                        <a href="http://habrahabr.ru/search/?q=[JavaScript]&target_type=posts">JavaScript</a>
+                    </li>
+                    ,
+                    <li>
+                        <a href="http://habrahabr.ru/search/?q=[jQuery]&target_type=posts">jQuery</a>
+                    </li>
+                    ,
+                    <li>
+                        <a href="http://habrahabr.ru/search/?q=[Цепи Маркова]&target_type=posts">Цепи Маркова</a>
+                    </li>
+                </ul>
+                <div class="infopanel ">
+                    <div class="voting ">
+                        <span class="plus" title="Голосовать могут только зарегистрированные пользователи."></span>
+                        <div class="mark positive">
+                            <span class="score">+777</span>
+                        </div>
+                        <span class="minus" title="Голосовать могут только зарегистрированные пользователи."></span>
+                    </div>
+                    <div class="pageviews" title="Просмотры поста">7000000</div>
+                    <div class="favorite">
+                        <a class="guest" title="Только зарегистрированные пользователи могут добавлять посты в избранное" onclick="return false;" href="#"></a>
+                    </div>
+                    <div class="favs_count" title="Количество пользователей, добавивших пост в избранное">400</div>
+                    <div class="author">
+                        <a href="#" title="Автор текста"></a>
+                        <span class="rating" title="рейтинг пользователя">345</span>
+                    </div>
+                    <div class="share">
+                        <div class="twitter">
+                            <a title="Опубликовать ссылку в Twitter" target="_blank" title="Опубликовать ссылку в Twitter" href="http://twitter.com/intent/tweet?text=Бредогенератор+https://rawgithub.com/artkuz/3-oop-js-dom/master/index.html"></a>
+                        </div>
+                        <div class="vkontakte">
+                            <a onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false" title="Опубликовать ссылку во ВКонтакте" href="http://vk.com/share.php?url=https://rawgithub.com/artkuz/3-oop-js-dom/master/index.html"></a>
+                        </div>
+                        <div class="facebook">
+                            <a onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false" title="Опубликовать ссылку в Facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://rawgithub.com/artkuz/3-oop-js-dom/master/index.html"></a>
+                        </div>
+                        <div class="googleplus">
+                            <a onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false" title="Опубликовать ссылку в Google Plus" href="https://plus.google.com/share?url=https://rawgithub.com/artkuz/3-oop-js-dom/master/index.html"/></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="comments" class="comments_list ">
+                    <h2 class="title ">
+                        комментарии (<span id="comments_count"></span>)
+                    </h2>
+                </div>
+            </article>
+        </section>
+        <script src="js/variables.js"></script>
+        <script src="js/ajaxLoad.js"></script>
+        <script src="js/moreFunctions.js"></script>
+        <script src="js/processingInputText.js"></script>
+        <script src="js/assemblingDictionary.js"></script>
+        <script src="js/deliriumGenerator.js"></script>
+        <script src="js/articleGenerator.js"></script>
+        <script src="js/commentsGenerator.js"></script>
+        <script src="js/processing.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

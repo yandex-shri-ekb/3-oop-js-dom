@@ -1,5 +1,7 @@
 # 3-oop-js-dom
 
+[https://rawgithub.com/ArtKuz/3-oop-js-dom/master/index.html](https://rawgithub.com/ArtKuz/3-oop-js-dom/master/index.html)
+
 ## Алгоритм, ООП, DOM, JQuery и Хабрахабр
 
 Третье домашнее задание по курсу ШРИ: ООП, Javascript, DOM и JQuery.
