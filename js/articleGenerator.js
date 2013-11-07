@@ -69,9 +69,6 @@ function combArticles(text) {
     // убираем лишние пробелы
     text = text.replace(/\s([.,:?!])\s?/g, '$1 ');
 
-    // заменяем все e-mail адреса на ссылки
-    text = text.replace(/(\w+[\w\.]*@[\w\.]+\w.\w+)/g, '<a href="mailto:$1">$1</a>');
-
     // делаем из полученного текста полноценный html-абзац
     text = '<p>' + text + '</p>';
 
