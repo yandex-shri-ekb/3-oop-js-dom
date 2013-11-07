@@ -15,6 +15,7 @@
     <body>
         <div id="loading">
             <img src="images/loading.gif" width="64px" height="64px" alt="Загрузка">
+            <div class="textload"></div>
         </div>
         <header>
             <section>
@@ -41,43 +42,44 @@
                         <label for="minProfferCount">от</label>
                         <input type="number" id="minProfferCount" value="3" maxlength="2" required/>
                         <label for="maxProfferCount">до</label>
-                        <input type="number" id="maxProfferCount" value="20" maxlength="2" required/>
+                        <input type="number" id="maxProfferCount" value="15" maxlength="2" required/>
                     </div>
                     <div class="setting">
                         <div class="paragraph"><span>Количество абзацев:</span></div>
                         <label for="minParagraphCount">от</label>
                         <input type="number" id="minParagraphCount" value="3" maxlength="2" required/>
                         <label for="maxParagraphCount">до</label>
-                        <input type="number" id="maxParagraphCount" value="15" maxlength="2" required/>
+                        <input type="number" id="maxParagraphCount" value="20" maxlength="2" required/>
                     </div>
                 </div>
                 <div class="buttons">
-                    <button id="dictionary">Собрать словари</button>
-                    <button id="generate" disabled>Сгенерировать новый текст</button>
+                    <button id="generate">Сгенерировать новый текст</button>
                 </div>
             </section>
         </header>
         <section>
             <article>
-                <!--<div class="published">вчера в 19:58</div>
-                <h1 class="title">
-                    Чиновники отклонили петицию об отмене «антипиратского» закона
-                </h1>
+                <div class="published"></div>
+                <h1 class="title"></h1>
                 <div class="hubs">
-                    <a class="hub" id="userArticle" title="Вы не подписаны на этот хаб" href="#">Dura Lex</a>
+                    <a class="hub" href="http://tech.yandex.ru/education/shri/ekb-2013/">Яндекс ШРИ 2013</a>
                     ,
-                    <a class="hub" id="topicArticle" title="Вы не подписаны на этот хаб" href="#">Копирайт</a>
-                </div>-->
-                <div class="content">
-
+                    <a class="hub" href="http://habrahabr.ru/hub/javascript/">JavaScript</a>
+                    ,
+                    <a class="hub" href="http://habrahabr.ru/hub/jquery/">jQuery</a>
                 </div>
-                <!--<ul class="tags">
+                <div class="content"></div>
+                <ul class="tags">
                     <li>
-                        <a href="#">Российская общественная инициатива</a>
+                        <a href="http://habrahabr.ru/search/?q=[JavaScript]&target_type=posts">JavaScript</a>
                     </li>
                     ,
                     <li>
-                        <a href="#">РОИ</a>
+                        <a href="http://habrahabr.ru/search/?q=[jQuery]&target_type=posts">jQuery</a>
+                    </li>
+                    ,
+                    <li>
+                        <a href="http://habrahabr.ru/search/?q=[Цепи Маркова]&target_type=posts">Цепи Маркова</a>
                     </li>
                 </ul>
                 <div class="infopanel ">
@@ -94,7 +96,7 @@
                     </div>
                     <div class="favs_count" title="Количество пользователей, добавивших пост в избранное">400</div>
                     <div class="author">
-                        <a href="#" title="Автор текста">Osaka</a>
+                        <a href="#" title="Автор текста"></a>
                         <span class="rating" title="рейтинг пользователя">345</span>
                     </div>
                     <div class="share">
@@ -114,150 +116,20 @@
                 </div>
                 <div id="comments" class="comments_list ">
                     <h2 class="title ">
-                        комментарии (<span id="comments_count">104</span>)
+                        комментарии (<span id="comments_count"></span>)
                     </h2>
-                    <div class="comment_item">
-                        <div class="comment_body">
-                            <div class="info" style="">
-                                <div class="folding-dot-holder">
-                                    <div class="folding-dot"></div>
-                                </div>
-                                <div class="voting ">
-                                    <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <div class="mark positive ">
-                                        <span class="score" title="Всего 8: ↑8 и ↓0">+8</span>
-                                    </div>
-                                </div>
-                                <a class="avatar" href="#">
-                                    <img alt="" src="images/stub-user-small.gif">
-                                </a>
-                                <a class="username" href="#">cjmaxik</a>
-                                <span class="comma">,</span>
-                                <time>15 октября 2013 в 06:38</time>
-                                <a class="link_to_comment" href="#">#</a>
-                                <span class="to_chidren"></span>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="message html_format "> Очень познавательная статья. Огромное спасибо! </div>
-                        </div>
-                        <div class="reply_comments"> </div>
-                    </div>
-                    <div class="comment_item">
-                        <div class="comment_body">
-                            <div class="info" style="">
-                                <div class="folding-dot-holder">
-                                    <div class="folding-dot"></div>
-                                </div>
-                                <div class="voting ">
-                                    <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <div class="mark positive ">
-                                        <span class="score" title="Всего 8: ↑8 и ↓0">+8</span>
-                                    </div>
-                                </div>
-                                <a class="avatar" href="#">
-                                    <img alt="" src="images/stub-user-small.gif">
-                                </a>
-                                <a class="username" href="#">cjmaxik</a>
-                                <span class="comma">,</span>
-                                <time>15 октября 2013 в 06:38</time>
-                                <a class="link_to_comment" href="#">#</a>
-                                <span class="to_chidren"></span>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="message html_format "> видео с автоматом на коптере очень некачественный фейк. Вы бы написали об этом, во избежние мыслей в голове у депутатов. :)
-Там даже не учитывется момент импульсса от выстрела. Коптер должен был бы вращаться еще от отдачи, а он только отлетает по оси ствола назад  </div>
-                        </div>
-                        <div class="reply_comments"> </div>
-                    </div>
-                    <div class="comment_item">
-                        <div class="comment_body">
-                            <div class="info" style="">
-                                <div class="folding-dot-holder">
-                                    <div class="folding-dot"></div>
-                                </div>
-                                <div class="voting ">
-                                    <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <div class="mark positive ">
-                                        <span class="score" title="Всего 8: ↑8 и ↓0">+8</span>
-                                    </div>
-                                </div>
-                                <a class="avatar" href="#">
-                                    <img alt="" src="images/stub-user-small.gif">
-                                </a>
-                                <a class="username" href="#">cjmaxik</a>
-                                <span class="comma">,</span>
-                                <time>15 октября 2013 в 06:38</time>
-                                <a class="link_to_comment" href="#">#</a>
-                                <span class="to_chidren"></span>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="message html_format ">  Депутаты нас, конечно, не читают :) но добавил — </div>
-                        </div>
-                        <div class="reply_comments">
-                            <div class="comment_item">
-                        <div class="comment_body">
-                            <div class="info" style="">
-                                <div class="folding-dot-holder">
-                                    <div class="folding-dot"></div>
-                                </div>
-                                <div class="voting ">
-                                    <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <div class="mark positive ">
-                                        <span class="score" title="Всего 8: ↑8 и ↓0">+8</span>
-                                    </div>
-                                </div>
-                                <a class="avatar" href="#">
-                                    <img alt="" src="images/stub-user-small.gif">
-                                </a>
-                                <a class="username" href="#">cjmaxik</a>
-                                <span class="comma">,</span>
-                                <time>15 октября 2013 в 06:38</time>
-                                <a class="link_to_comment" href="#">#</a>
-                                <span class="to_chidren"></span>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="message html_format ">  Депутаты нас, конечно, не читают :) но добавил — </div>
-                        </div>
-                        <div class="reply_comments">
-                            <div class="comment_item">
-                        <div class="comment_body">
-                            <div class="info" style="">
-                                <div class="folding-dot-holder">
-                                    <div class="folding-dot"></div>
-                                </div>
-                                <div class="voting ">
-                                    <span class="minus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <span class="plus" title="Голосовать могут только зарегистрированные пользователи"></span>
-                                    <div class="mark positive ">
-                                        <span class="score" title="Всего 8: ↑8 и ↓0">+8</span>
-                                    </div>
-                                </div>
-                                <a class="avatar" href="#">
-                                    <img alt="" src="images/stub-user-small.gif">
-                                </a>
-                                <a class="username" href="#">cjmaxik</a>
-                                <span class="comma">,</span>
-                                <time>15 октября 2013 в 06:38</time>
-                                <a class="link_to_comment" href="#">#</a>
-                                <span class="to_chidren"></span>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="message html_format ">  Депутаты нас, конечно, не читают :) но добавил — </div>
-                        </div>
-                        <div class="reply_comments"></div>
-                    </div>
-                        </div>
-                    </div>
-                        </div>
-                    </div>
-                </div>-->
+                </div>
             </article>
         </section>
+        <script src="js/variables.js"></script>
+        <script src="js/ajaxLoad.js"></script>
+        <script src="js/moreFunctions.js"></script>
+        <script src="js/processingInputText.js"></script>
+        <script src="js/assemblingDictionary.js"></script>
+        <script src="js/deliriumGenerator.js"></script>
+        <script src="js/articleGenerator.js"></script>
+        <script src="js/commentsGenerator.js"></script>
+        <script src="js/processing.js"></script>
         <script src="js/main.js"></script>
-
     </body>
 </html>
