@@ -28,7 +28,7 @@ $('body').on('click', '#generate', function() {
     getSettings();
     if ((flagNpref != npref)) {
         ajaxHabr("habr.html");
-        setTimeout(generateArticleComments, 1000);
+        setTimeout(generateArticleComments, 10000);
     } else {
         generateArticleComments();
     }
