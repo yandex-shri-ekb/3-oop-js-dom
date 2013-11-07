@@ -36,6 +36,7 @@ function ajaxHabr(link) {
             commentsSize     = indexCommentsArr.length - 1;
             $('#loading .textload').text('');
             $('#loading').css('display', 'none');
+            generateArticleComments();
         }
     });
 }
