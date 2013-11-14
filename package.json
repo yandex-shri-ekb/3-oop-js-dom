@@ -1,0 +1,10 @@
+{
+    "name": "text-generator",
+    "version": "0.0.1",
+    "devDependencies": {
+        "grunt": "latest",
+        "grunt-contrib-requirejs": "latest",
+        "grunt-contrib-cssmin": "latest",
+        "grunt-contrib-copy": "latest"
+    }
+}

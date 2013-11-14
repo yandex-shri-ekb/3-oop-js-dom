@@ -1,0 +1,66 @@
+.settings
+{
+    float: left;
+    padding: 15px 20px 20px;
+    width: 240px;
+    border-radius: 5px;
+    background-color: #f0f0e7;
+    color: #999;
+    font: 13px Tahoma, Verdana, Segoe, sans-serif;
+}
+
+.settings-focus
+{
+    float: none;
+    margin: 0 auto;
+}
+
+.settings_title
+{
+    letter-spacing: -1px;
+    font: 24px Verdana, Geneva, sans-serif;
+}
+
+.settings_control
+{
+    display: block;
+}
+
+.settings_control + .settings_control
+{
+    margin: 8px 0 0;
+}
+
+.settings_range-disabled
+{
+    opacity: .5;
+}
+
+.settings_range_control
+{
+    display: block;
+    float: left;
+    width: 160px;
+}
+
+.settings_range_label
+{
+    display: block;
+    width: 180px;
+    line-height: 24px;
+}
+
+.settings_range_value
+{
+    display: block;
+    float: right;
+    width: 60px;
+    color: #282828;
+    text-align: center;
+    font-size: 12px;
+}
+
+.settings_control_group
+{
+    margin: 20px 0 0;
+}

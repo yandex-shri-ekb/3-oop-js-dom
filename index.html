@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Text Generator</title>
+    <link rel="stylesheet" href="dist/styles/all.css">
+    <!-- <link rel="stylesheet" href="src/styles/all.css"> -->
+</head>
+<body>
+    <script id="article-template" type="text/x-handlebars-template">
+        <div class="article_date">{{prettifyDate date}}</div>
+        <h1>{{header}}</h1>
+        <div class="hubs">
+            {{#each hubs}}
+                <a href="#" class="hubs_link">{{this}}</a>
+            {{/each}}
+        </div>
+        <div id="image" class="content_section"></div>
+        {{#each paragraphs}}
+            <h3>{{this.header}}</h3>
+            <p>{{this.text}}</p>
+        {{/each}}
+    </script>
+
+    <script id="comments-template" type="text/x-handlebars-template">
+        <h2 class="comments_title">комментарии ({{this.count}})</h2>
+        {{&recursion comments}}
+    </script>
+
+    <script id="comment-template" type="text/x-handlebars-template">
+        {{#this}}
+            <div class="comment">
+                <div class="comment_info clearfix">
+                    <img src="dist/images/stub-user-small.gif" alt="" class="comment_info_el comment_info_el-avatar">
+                    <a href="#" class="comment_info_el comment_info_el-username">{{username}}</a>
+                    <span class="comment_info_el comment_info_el-comma">,</span>
+                    <span class="comment_info_el comment_info_el-time">{{prettifyDate date}}</span>
+                </div>
+                <div class="comment_text">{{text}}</div>
+                <div class="comment_reply">{{&recursion comments}}</div>
+            </div>
+        {{/this}}
+    </script>
+
+    <div class="content hide">
+        <div id="article" class="content_section"></div>
+        <div id="comments" class="content_section"></div>  
+    </div>
+   <div id="settings" class="settings settings-focus">
+        <span class="settings_title">Новая статья</span>
+        <div class="settings_control_group">
+            <label class="settings_control">
+                <input id="settings_use-headers" type="checkbox" checked="checked"> Вставлять подзаголовки
+            </label>
+            <label class="settings_control">
+                <input id="settings_use-statistics" type="checkbox"> Использовать статистику
+            </label>
+        </div>
+        <div class="settings_control_group">
+            <div id="paragraphs_range" class="settings_control clearfix">
+                <label class="settings_range_label">Абзацев</label>
+                <input id="settings_paragraphs" class="settings_range_control" type="range"
+                    min="2" max="24" value="4" step="2"
+                    data-amplitude="1"/>
+                <div class="settings_range_value">3 - 5</div>
+            </div>
+            <div id="sentences_range" class="settings_control clearfix">
+                <label class="settings_range_label">Предложений в абзаце</label>
+                <input id="settings_sentences" class="settings_range_control" type="range"
+                    min="3" max="33" value="13" step="2"
+                    data-amplitude="2"/>
+                <div class="settings_range_value">11 - 15</div>
+            </div>
+            <div class="settings_control clearfix">
+                <label class="settings_range_label">Слов в предложении</label>
+                <input id="settings_words" class="settings_range_control" type="range"
+                    min="9" max="34" value="9" step="5"
+                    data-amplitude="6"/>
+                <div class="settings_range_value">3 - 15</div>
+            </div>
+            <div class="settings_control clearfix">
+                <label class="settings_range_label">Комментариев</label>
+                <input id="settings_comments" class="settings_range_control" type="range"
+                    min="15" max="105" value="45" step="10"
+                    data-amplitude="5"/>
+                <div class="settings_range_value">40 - 50</div>     
+            </div>    
+        </div>
+        <div class="settings_control_group">
+            <button type="button" id="generate_button" class="button">Сгенерировать статью</button>
+        </div>
+    </div>
+    <div id="loading" class="hide"></div>
+
+    <script data-main="dist/scripts/build" src="dist/scripts/vendor/require.js"></script>
+    <!-- <script data-main="src/scripts/boot" src="src/scripts/vendor/require.js"></script> -->
+</body>
+</html>

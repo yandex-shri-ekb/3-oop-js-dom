@@ -1,0 +1,63 @@
+.comments_title
+{
+    margin: 0 0 20px;
+    padding: 0 0 0 23px;
+    background: url(../images/comments.gif) no-repeat left 65%;
+    color: #afa56a;
+    font-size: 20px;
+}
+
+.comment_reply
+{
+    margin: 20px 0 0 20px;
+}
+
+.comment_text
+{
+    padding: 10px 0 5px;
+    font: 13px/1.4 Arial, Helvetica, sans-serif;
+}
+
+.comment_info
+{
+    font: 11px/1.6 Tahoma, Verdana, Segoe, sans-serif;
+}
+
+.comment_info_el
+{
+    display: block;
+    float: left;
+    color: #666;
+}
+
+.comment_info_el-username
+{
+    margin: 3px 0 0;
+    font-weight: 700;
+}
+
+.comment_info_el-username:hover
+{
+    color: #333;
+}
+
+.comment_info_el-avatar
+{
+    overflow: hidden;
+    margin: 0 10px 0 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+}
+
+.comment_info_el-comma
+{
+    margin: 3px 10px 0 0;
+    font-weight: 700;
+}
+
+.comment_info_el-time
+{
+    margin: 4px 10px 0 0;
+    font-size: 10px;
+}
