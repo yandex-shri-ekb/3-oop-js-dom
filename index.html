@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="settings">
+        <form>
+            <fieldset>
+                <legend>Количество слов в предложении</legend>
+                <input name="words_per_sentence_min" type="text" size="2" maxlength="2" value="5"> —
+                <input name="words_per_sentence_max" type="text" size="2" maxlength="2" value="20">
+            </fieldset>
+            <fieldset>
+                <legend>Количество предложений в абзаце</legend>
+                <input name="sentences_per_paragraph_min" type="text" size="2" maxlength="2" value="1"> —
+                <input name="sentences_per_paragraph_max" type="text" size="2" maxlength="2" value="10">
+            </fieldset>
+            <fieldset>
+                <legend>Количество абзацев в статье</legend>
+                <input name="paragraphs_per_article_min" type="text" size="2" maxlength="2" value="10"> —
+                <input name="paragraphs_per_article_max" type="text" size="2" maxlength="2" value="20">
+            </fieldset>
+            <fieldset>
+                <button id="generate_article">Написать чудесную статью</button>
+            </fieldset>
+        </form>
+    </div>
+    <div class="processing-fallback" style="display: none;">
+        <p>Нельзя просто так взять и написать хорошую статью.</p>
+        <p>Отличная возможность выпить чайку и <a href="http://abetterbrowser.org/">обновить браузер</a>.</p> 
+    </div>
+    <article style="display: none;">
+        <header>
+            <time>сегодня в 16:17</time>
+            <h1>Так ли необходимо высшее образование системному администратору?</h1>
+            <ul class="tags">
+                <li class="profiled"><a href="#" title="Вы не подписаны на этот хаб">Яндекс API</a></li>
+                <li class="profiled"><a href="#" title="Вы не подписаны на этот хаб">Maps API</a></li>
+                <li><a href="#" title="Вы не подписаны на этот хаб">Блог компании Яндекс</a></li>
+            </ul>
+        </header>
+
+        <section class="content"></section>
+
+        <footer>
+            <ul class="tags">
+                <li><a href="#">api</a></li>
+                <li><a href="#">дизайн</a></li>
+                <li><a href="#">ymapsapi</a></li>
+                <li><a href="#">яндекс.карты</a></li>
+            </ul>
+        </footer>
+
+        <section class="comments"></section>
+    </article>
+
+    <script type="text/x-template" data-template="comment">
+        <li>
+            <header>
+                <a href="#" class="avatar"><img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="{author}"></a>
+                <span class="username"><a href="http://habrahabr.ru/users/{author}/">{author}</a></span>
+                <time>{date}</time>
+                <a href="#" class="permalink">#</a>
+            </header>
+            <section class="message">{message}</section>
+        </li>
+    </script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/jquery.ext.js"></script>
+    <script src="js/stopwatch.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/dictionary.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/writer.js"></script>
+    <script src="js/garry.js"></script>
+    <script src="js/main.js"></script>
+    
+</body>
+</html>
