@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>3-oop-js-dom</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="chain.js"></script>
+    <script src="bred.js"></script>
+    <script src="main.js"></script>
+    <!-- habr.ru-->
+    <link href="//habrahabr.ru/styles/1381160266/all.css" rel="stylesheet" media="all">
+    <link href="//habrahabr.ru/styles/1381160266/_parts/posts.css" rel="stylesheet" media="all">
+    <link href="//habrahabr.ru/styles/1381160266/_parts/comments.css" rel="stylesheet" media="all">
+    <link href="//habrahabr.ru/styles/1381160266/forms.css" rel="stylesheet" media="all">
+    <link href="//habrahabr.ru/styles/1381160266/highlight.css" rel="stylesheet" media="all">
+</head>
+<body>
+<div class="wrapper">
+<div id="layout">
+<div id="header">
+    <div class="userpanel silver">
+        <div class="top">
+            <a href="http://habrahabr.ru/users/user/" class="username dark">User</a>
+            <a href="https://auth.habrahabr.ru/settings/" class="nav-settings">настройки</a>
+            <a href="http://habrahabr.ru/">выйти</a>
+        </div>
+        <div class="bottom">
+            <a href="http://habrahabr.ru/tracker/">трекер</a>
+            <a href="http://habrahabr.ru/tracker/" class="count">+317</a>
+            <a href="http://habrahabr.ru/conversations/">диалоги</a>
+            <a href="http://habrahabr.ru">избранное</a>
+        </div>
+        <div class="charge" id="charge_string">
+            У вас 926 голосов за карму, топики, вопросы и 451 за ответы и комментарии
+        </div>
+    </div>
+    <a class="logo " href="http://habrahabr.ru/feed/posts/" title="На главную страницу"></a>
+    <div class="search">
+        <form id="search_form" name="search" method="get" action="//habrahabr.ru/search/">
+            <input type="submit" value="">
+            <input type="text" name="q" x-webkit-speech="" speech="" tabindex="1" autocomplete="off">
+        </form>
+    </div>
+    <div class="main_menu">
+        <a href="http://habrahabr.ru/feed/posts/">лента</a>
+        <a href="http://habrahabr.ru/posts/top/" class="active">посты</a>
+        <a href="http://habrahabr.ru/qa/">q&amp;a</a>
+        <a href="http://habrahabr.ru/events/coming/">события</a>
+        <a href="http://habrahabr.ru/hubs/">хабы</a>
+        <a href="http://habrahabr.ru/companies/">компании</a>
+    </div>
+</div>
+<div id="content" class="content_left">&nbsp
+<!-- Форма настроек бреда -->
+<form id="bred_form">
+    <div class="add_post">
+        <a href="" title="Добавить пост">
+            <img src="http://habrahabr.ru/images/write-topic.png" alt="">
+        </a>
+    </div>
+    <div class="block form">
+        <h1>Бредописатель</h1>
+        <div class="item src">
+            <label>Источник текста</label>
+            <div>
+                <select name="src">
+                    <option value="habr.html" selected="selected">Habrahabr</option>
+                    <option value="Критика_чистого_разума.txt">Критика чистого разума</option>
+                </select>
+            </div>
+        </div>
+        <div class="item quality">
+            <label>Зависимость слов:</label>
+            <div>
+                <select name="quality">
+                    <option value="1">1</option>
+                    <option value="2" selected="selected">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+        <div class="item words">
+            <label>Комментариев:</label>
+            <div>
+                <select name="comments[min]">
+                    <option value="3">3</option>
+                    <option value="5" selected="selected">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+                —
+                <select name="comments[max]">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="40" selected="selected">40</option>
+                    <option value="70">80</option>
+                    <option value="120">120</option>
+                </select>
+            </div>
+        </div>
+        <div class="item words">
+            <label>Абзацев:</label>
+            <div>
+                <select name="paragraphs[min]">
+                    <option value="5">1</option>
+                    <option value="10" selected="selected">5</option>
+                    <option value="20">10</option>
+                    <option value="40">20</option>
+                    <option value="70">40</option>
+                </select>
+                —
+                <select name="paragraphs[max]">
+                    <option value="5">2</option>
+                    <option value="10" selected="selected">15</option>
+                    <option value="20">25</option>
+                    <option value="40">30</option>
+                    <option value="70">60</option>
+                </select>
+            </div>
+        </div>
+        <div class="item words">
+            <label>Предложений (в абзаце):</label>
+            <div>
+                <select name="sentences[min]">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="5" selected="selected">5</option>
+                    <option value="10">10</option>
+                </select>
+                —
+                <select name="sentences[max]">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20" selected="selected">20</option>
+                    <option value="30">30</option>
+                </select>
+            </div>
+        </div>
+        <div class="item words">
+            <label>Слов (в предложении):</label>
+            <div>
+                <select name="words[min]">
+                    <option value="0">Авто</option>
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10" selected="selected">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                </select>
+                —
+                <select name="words[max]">
+                    <option value="0" selected="selected">Авто</option>
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="30">50</option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="item buttons">
+            <input type="submit" value="Написать бред"/>
+        </div>
+    </div>
+</form>
+
+
+
+<!-- Ожидание -->
+<div id="bred_wait" style="display: none">
+    Пишу, ждите...
+</div>
+<!-- Шаблон статьи -->
+<div id="bred_article" style="display: none">
+    <div class="post shortcuts_item">
+        <div class="published post_date"><!-- Дата статьи -->9 октября 2013 в 07:45</div>
+        <h1 class="title">
+            <span class="post_title"><!-- Заголовок статьи --></span>
+        </h1>
+
+        <div class="hubs">
+            <a href="http://habrahabr.ru/hub/development/" class="hub subscribed"
+               title="Вы подписаны на этот хаб">Бред</a>
+            <span class="profiled_hub" title="Профильный хаб">*</span>
+            ,
+            <a href="http://habrahabr.ru/hub/webdev/" class="hub subscribed"
+               title="Вы подписаны на этот хаб">ШРИ</a>
+            <span class="profiled_hub" title="Профильный хаб">*</span>
+        </div>
+        <div class="content html_format post_text">
+            <!-- Текст статьи -->
+            <div class="clear"></div>
+        </div>
+        <ul class="tags">
+            <li>
+                <a href="http://habrahabr.ru/search/?q=Бред&target_type=posts" rel="tag">Бред</a>
+            </li>
+        </ul>
+        <div class="infopanel_wrapper">
+            <div class="infopanel " id="infopanel_post_142890">
+                <div class="voting   ">
+                    <span class="plus" title="За свои посты голосовать нельзя."></span>
+
+                    <div class="mark positive ">
+                        <span class="score" title="Всего 201: ↑200 и ↓1">+199</span>
+                    </div>
+                    <span class="minus" title="За свои посты голосовать нельзя."></span>
+                </div>
+                <div class="favorite">
+                    <a class="add" title="Добавить в избранное" href="#"> </a>
+                </div>
+                <div class="favs_count" title="Количество пользователей, добавивших пост в избранное">1562
+                </div>
+                <div class="author">
+                    <a title="Автор текста" href="http://habrahabr.ru/users/">User</a>
+                    <span class="rating" title="рейтинг пользователя">712,8</span>
+                </div>
+                <div class="share">
+                    <div class="twitter">
+                        <a href="http://twitter.com/intent/tweet?text=%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D1%82%D0%B8%D0%BF%D0%BD%D0%B0%D1%8F+%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85+%23habr+http://habr.ru/p/142890/"
+                           title="Опубликовать ссылку в Twitter" target="_blank"></a>
+                    </div>
+                    <div class="vkontakte">
+                        <a href="http://vk.com/share.php?url=http://habrahabr.ru/post/142890/"
+                           title="Опубликовать ссылку во ВКонтакте"
+                           onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+                    </div>
+                    <div class="facebook">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/142890/"
+                           title="Опубликовать ссылку в Facebook"
+                           onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+                    </div>
+                    <div class="googleplus">
+                        <a href="https://plus.google.com/share?url=http://habrahabr.ru/post/142890/"
+                           title="Опубликовать ссылку в Google Plus"
+                           onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- Комментарии -->
+    <div class="comments_list post_comments">
+        <h2 class="title ">
+            комментарии (<span class="post_comments_count">0</span>)
+              <span class="subscribe_comments">
+            отслеживать новые:
+                <label>
+                    <input type="checkbox" id="subscribe_comments"
+                           rel="{target_type:'2',target_id:142890 }"
+                           checked="checked">
+                    в почте
+                </label>
+                <label>
+                    <input type="checkbox" id="tracker_comments"
+                           rel="{target_type:'2',target_id:142890 }"
+                           checked="checked">
+                    в трекере
+                </label>
+              </span>
+        </h2>
+        <!-- Шаблон комментария -->
+        <div class="comment_item" id="bred_comment">
+            <span class="parent_id" data-parent_id="0"></span>
+
+            <div class="comment_body">
+                <div class="info">
+                    <div class="folding-dot-holder">
+                        <div class="folding-dot"></div>
+                    </div>
+                    <div class="voting">
+                                        <span class="minus"
+                                              title="Минусовать бред нельзя"></span>
+                        <span class="plus" title="Голосовать за бред нельзя"></span>
+
+                        <div class="mark">
+                            <span class="score" title="Всего 2: ↑1 и ↓1"><!-- Колоса коммента --></span>
+                        </div>
+                    </div>
+                    <a href="http://habrahabr.ru/users/Jons/" class="avatar">
+                        <img src="http://habrahabr.ru/i/avatars/stub-user-small.gif" alt="">
+                    </a>
+                    <a href="http://habrahabr.ru/users" class="username"><!-- Юзер коммента -->USER</a>
+                    <span class="comma">,</span>
+                    <time class="date"><!-- Дата коммента -->27 апреля 2012 в 09:24</time>
+                    <a class="link_to_comment">#</a>
+                    <a href="#" class="favorite add" title="В избранное"></a>
+                    <span class="to_chidren"></span>
+
+                    <div class="clear"></div>
+                </div>
+                <div class="message html_format ">
+                    <!-- Текст коммента -->
+                </div>
+                <div class="reply_form_placeholder"></div>
+                <div class="reply">
+                    <a href="#reply" class="reply_link">ответить</a>
+                </div>
+            </div>
+            <div class="reply_comments">
+                <!-- Ответы на комментарий (подчиенные комменты) -->
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="sidebar_right">
+<div class="block daily_best_posts" style="opacity: 1; width: auto;">
+    <div class="title">
+        Лучшее
+        <sup>за 24 часа</sup>
+    </div>
+    <div class="posts_list">
+        <div class="post_item">
+            <a href="http://habrahabr.ru/company/avi/blog/195580/" class="post_name">Смотрим на мир глазами
+                рака-богомола: ближний инфракрасный диапазон</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/post/195874/" class="post_name">Petrovich просклоняет русские имена</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/post/196616/" class="post_name">Пусковая петля или не стоит верить всему
+                написанному в интернете</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/post/196570/" class="post_name">Самосборные конструкции из движущихся
+                кубиков</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/post/196562/" class="post_name">Wi-Fi Mesh сети для самых маленьких</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/post/196624/" class="post_name">Гвидо ван Россум отвечает на вопросы</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/company/zfort/blog/196538/" class="post_name">Дайджест интересных новостей и
+                материалов из мира PHP за последние две недели № 27 (22 сентября — 6 октября 2013)</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/post/196598/" class="post_name">Фотонаблюдение или timelapse видео на Raspberry
+                Pi</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/post/196544/" class="post_name">Хранимые функции на С в PostgreSQL</a>
+        </div>
+        <div class="post_item">
+            <a href="http://habrahabr.ru/post/196560/" class="post_name">Введение в анализ сложности алгоритмов (часть
+                1)</a>
+        </div>
+    </div>
+    <div class="all">
+        <a href="//habrahabr.ru/top/">все лучшие</a>
+    </div>
+</div>
+<div class="block similar_posts">
+    <div class="title">Похожие посты</div>
+    <div class="posts_list">
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/178811/">Работа с моделями данных в javascript</a>
+            <span class="when">06.05.2013</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/175587/">SSAS 2012: от многомерной к табличной модели
+                данных</a>
+            <span class="when">05.04.2013</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/164803/">Postgre(no)SQL или снова о хранении данных с гибкой
+                структурой</a>
+            <span class="when">06.01.2013</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/137284/">Анализ данных. Приближенные множества</a>
+            <span class="when">30.01.2012</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/107603/">Визуализация модели данных</a>
+            <span class="when">05.11.2010</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/90528/">Мета-данные. На пути к идеалам управления моделями
+                данных</a>
+            <span class="when">09.04.2010</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/67722/">Full Hierarchy — иерархические структуры в базах
+                данных</a>
+            <span class="when">22.08.2009</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/55216/">Архитектура CMS. Модель данных. Часть 3</a>
+            <span class="when">23.03.2009</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/53615/">Архитектура CMS. Модель данных. Часть 2</a>
+            <span class="when">05.03.2009</span>
+        </div>
+        <div class="post_item">
+            <a class="post_name" href="//habrahabr.ru/post/47280/">Иерархические структуры данных и
+                производительность</a>
+            <span class="when">19.12.2008</span>
+        </div>
+    </div>
+</div>
+<div class="block live_broadcast">
+    <div class="title">
+        Прямой эфир  
+        <sup>
+            <span class="dotted tab open" data-type="live_broadcast_activity">посты</span>
+            <span class="dotted tab " data-type="qa_activity">q&amp;a</span>
+        </sup>
+    </div>
+    <div class="live_broadcast_activity ">
+        <div class="posts_list">
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/Mairon/" class="user_name">Mairon</a>
+                →
+                <a href="//habrahabr.ru/post/196696/#comment_6823114" class="post_name">Nokia закрывает приём новых
+                    Symbian и MeeGo-приложений в Nokia Store</a>
+                <span class="count">2</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/uncleLem/" class="user_name">uncleLem</a>
+                →
+                <a href="//habrahabr.ru/post/196440/#comment_6823112" class="post_name">Опрос: единый дизайн для
+                    нескольких платформ?</a>
+                <span class="count">13</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/bogolt/" class="user_name">bogolt</a>
+                →
+                <a href="//habrahabr.ru/post/196680/#comment_6823110" class="post_name">Роскомнадзор и ЛБИ разработали
+                    критерии оценки запрещенной информации в интернете о самоубийствах</a>
+                <span class="count">60</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/JDima/" class="user_name">JDima</a>
+                →
+                <a href="//habrahabr.ru/post/196562/#comment_6823106" class="post_name">Wi-Fi Mesh сети для самых
+                    маленьких</a>
+                <span class="count">304</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/HomoLuden/" class="user_name">HomoLuden</a>
+                →
+                <a href="//habrahabr.ru/post/196648/#comment_6823104" class="post_name">Релиз Rubinius 2.0</a>
+                <span class="count">4</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/robux/" class="user_name">robux</a>
+                →
+                <a href="//habrahabr.ru/post/196624/#comment_6823102" class="post_name">Гвидо ван Россум отвечает на
+                    вопросы</a>
+                <span class="count">25</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/Irenica/" class="user_name">Irenica</a>
+                →
+                <a href="//habrahabr.ru/post/195580/#comment_6823100" class="post_name">Смотрим на мир глазами
+                    рака-богомола: ближний инфракрасный диапазон</a>
+                <span class="count">83</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/roman01la/" class="user_name">roman01la</a>
+                →
+                <a href="//habrahabr.ru/post/196580/#comment_6823098" class="post_name">Оптимизация JavaScript и jQuery
+                    из-под HTML и CSS при разработке сайта</a>
+                <span class="count">25</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/Demosfen/" class="user_name">Demosfen</a>
+                →
+                <a href="//habrahabr.ru/post/195762/#comment_6823096" class="post_name">Облако с нуля с использованием
+                    XenServer</a>
+                <span class="count">10</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/newpavlov/" class="user_name">newpavlov</a>
+                →
+                <a href="//habrahabr.ru/post/196616/#comment_6823094" class="post_name">Пусковая петля или не стоит
+                    верить всему написанному в интернете</a>
+                <span class="count">20</span>
+            </div>
+        </div>
+        <div class="all">
+            <a href="//habrahabr.ru/posts/">все посты</a>
+        </div>
+    </div>
+    <div class="qa_activity hidden">
+        <div class="posts_list">
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/noonesshadow/" class="user_name">noonesshadow</a>
+                →
+                <a href="http://habrahabr.ru/qa/48148/#answer_179456" class="post_name">Почему так сложно сдерживать
+                    стоны?</a>
+                <span class="count">7</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/vizgl/" class="user_name">vizgl</a>
+                →
+                <a href="http://habrahabr.ru/qa/48166/#answer_179454" class="post_name">Анимация. Greensock. TimelineMax
+                    problem</a>
+                <span class="count">1</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/Izaron/" class="user_name">Izaron</a>
+                →
+                <a href="http://habrahabr.ru/qa/48176/#comment_226888" class="post_name">Домены даром</a>
+                <span class="count">2</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/Mario_Z/" class="user_name">Mario_Z</a>
+                →
+                <a href="http://habrahabr.ru/qa/48172/#answer_179452" class="post_name">Перегрев HP Envy m6-1205 как
+                    определить причину?</a>
+                <span class="count">3</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/OnYourLips/" class="user_name">OnYourLips</a>
+                →
+                <a href="http://habrahabr.ru/qa/48190/#answer_179450" class="post_name">Старый руль, game port to
+                    usb?</a>
+                <span class="count">2</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/kenny_opennix/" class="user_name">kenny_opennix</a>
+                →
+                <a href="http://habrahabr.ru/qa/48114/#answer_179448" class="post_name">Ошибка AH00485 из за чего
+                    происходит?</a>
+                <span class="count">1</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/dim_s/" class="user_name">dim_s</a>
+                →
+                <a href="http://habrahabr.ru/qa/48186/#answer_179446" class="post_name">таймер + netty-socketio</a>
+                <span class="count">1</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/Lerg/" class="user_name">Lerg</a>
+                →
+                <a href="http://habrahabr.ru/qa/48130/#comment_226886" class="post_name">Мобильный 2D игровой движок для
+                    TBS</a>
+                <span class="count">1</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/bliznezz/" class="user_name">bliznezz</a>
+                →
+                <a href="http://habrahabr.ru/qa/48164/#answer_179442" class="post_name">Низкая производительность
+                    виртуалки 1С MS sql под kvm</a>
+                <span class="count">5</span>
+            </div>
+            <div class="post_item">
+                <a href="http://habrahabr.ru/users/OnYourLips/" class="user_name">OnYourLips</a>
+                →
+                <a href="http://habrahabr.ru/qa/48192/#answer_179440" class="post_name">Как изучить/разобраться в чужом
+                    PHP коде?</a>
+                <span class="count">1</span>
+            </div>
+        </div>
+        <div class="all">
+            <a href="//habrahabr.ru/qa/">все вопросы</a>
+        </div>
+    </div>
+</div>
+
+<div class="block best_company">
+    <div class="title">
+        Компания дня
+        <img src="//habrahabr.ru/images/bg_cicle_help.png" class="help-tip">
+    </div>
+    <div class="company_info">
+        <div class="name">
+            <img class="favicon"
+                 src="//habr.habrastorage.org/companies/962/805/082/962805082f637b91dbf30ebb10ef3c33_small.jpg"
+                 alt="Mail.Ru Group" height="16" width="16">
+
+            <div class="company_name">
+                <a href="http://habrahabr.ru/company/mailru/" class="title">Mail.Ru Group</a>
+            </div>
+        </div>
+        <p>
+            Последний пост:
+            <a href="http://habrahabr.ru/company/mailru/blog/196614/">Финал чемпионата по программированию Russian Code
+                Cup: как это было</a>
+        </p>
+
+        <div class="buttons">
+            <div id="fans_count">2360 подписчиков</div>
+            <input type="button" id="addCompanyFan" data-id="2" class="blue " title="Мне нравится компания"
+                   value="Подписаться">
+            <input type="button" id="removeCompanyFan" data-id="2" class="hidden"
+                   title="Компания мне больше не нравится" value="Подписан">
+        </div>
+    </div>
+</div>
+<div class="block new_vacanies">
+    <a href="http://hantim.ru" class="title">Хантим</a>
+
+    <div class="vacancies">
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/19950-bekend-razrabotchik">Бэкенд-разработчик</a>
+        </div>
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/24584-php-programmist">PHP-программист</a>
+             →
+            <a href="http://boomstarter.hantim.ru/jobs" class="company_name">Boomstarter</a>
+        </div>
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/24716-java-web-developer">Java Web Developer </a>
+        </div>
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/24714-e-marketing-project-manager-internet-marketing-pm">E-marketing Project
+                Manager (Internet Marketing PM)</a>
+             →
+            <a href="http://createdigital.hantim.ru/jobs" class="company_name">CREATE</a>
+        </div>
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/24088-senior-c-c-developer">Senior C/C++ Developer </a>
+             →
+            <a href="http://zodiac.hantim.ru/jobs" class="company_name">Zodiac Interactive </a>
+        </div>
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/24706-frontend-developer-javascript-angularjs">Frontend developer
+                (Javascript, AngularJS)</a>
+             →
+            <a href="http://gipsetter.hantim.ru/jobs" class="company_name">Gipsetter</a>
+        </div>
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/24708-programmist-klientskoy-chasti-igry-na-s">Программист клиентской части
+                игры (на С#)</a>
+        </div>
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/24700-razrabotchik-prilozheniy">Разработчик приложений</a>
+        </div>
+        <div class="job_item ">
+            <a href="http://hantim.ru/jobs/24702-project-manager-pm-senior-pm">Project Manager (PM)/ Senior PM </a>
+             →
+            <a href="http://createdigital.hantim.ru/jobs" class="company_name">CREATE</a>
+        </div>
+        <div class="job_item marked">
+            <a href="http://hantim.ru/jobs/24698-menedzher-po-prodazham">Менеджер по продажам</a>
+             →
+            <a href="http://joxi.hantim.ru/jobs" class="company_name">QB-interactive</a>
+        </div>
+    </div>
+    <div class="all">
+        <a href="http://hantim.ru/">все вакансии</a>
+    </div>
+</div>
+<div class="block freelansim">
+    <a href="http://freelansim.ru" class="title"></a>
+
+    <div class="tasks">
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38978">Требуется дизайнер</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38976">Верстака макета на WordPress</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38974">Дизайн Landing Page</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38972">Верстка макета на Bootstrap</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38970">Срочно подправить JS-скрипт и HTML</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38966">Скрипт или формула для таблицы в Google Docs</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38962">Оптимизировать скрипт в Google Docs</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38964">Настроить Xdebug на phpstorm</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38956">HTML5 конструктор фотографий</a>
+        </div>
+        <div class="task ">
+            <a href="http://freelansim.ru/tasks/38952">Статья на тему "Среда и пространство"</a>
+        </div>
+    </div>
+    <div class="all">
+        <a href="http://freelansim.ru/tasks">все заказы</a>
+    </div>
+</div>
+<div class="block similar_events">
+    <div class="title">Ближайшие события</div>
+    <div class="events_items">
+        <div class="event_item">
+            <div class="date">
+                <div class="dayname dayname_2"></div>
+                <div class="day">08</div>
+                <div class="month">окт</div>
+            </div>
+            <div class="title">
+                <a href="//habrahabr.ru/events/3424/">Qt Developer Days Starter Edition</a>
+            </div>
+        </div>
+        <div class="event_item">
+            <div class="date">
+                <div class="dayname dayname_2"></div>
+                <div class="day">08</div>
+                <div class="month">окт</div>
+            </div>
+            <div class="title">
+                <a href="//habrahabr.ru/events/3436/">Бесплатный вебинар «Взломать за 60 секунд»</a>
+            </div>
+        </div>
+        <div class="event_item">
+            <div class="date">
+                <div class="dayname dayname_3"></div>
+                <div class="day">09</div>
+                <div class="month">окт</div>
+            </div>
+            <div class="title">
+                <a href="//habrahabr.ru/events/3458/">Международный Гранд-Форум «Вокруг Облака. Бизнес и ИТ»</a>
+            </div>
+        </div>
+        <div class="event_item">
+            <div class="date">
+                <div class="dayname dayname_3"></div>
+                <div class="day">09</div>
+                <div class="month">окт</div>
+            </div>
+            <div class="title">
+                <a href="//habrahabr.ru/events/3428/">Вебинар «Управление системами хранения Fujitsu ETERNUS DX»</a>
+            </div>
+        </div>
+        <div class="event_item">
+            <div class="date">
+                <div class="dayname dayname_3"></div>
+                <div class="day">09</div>
+                <div class="month">окт</div>
+            </div>
+            <div class="title">
+                <a href="//habrahabr.ru/events/3410/">Введение в управление проектами</a>
+            </div>
+        </div>
+    </div>
+    <div class="all">
+        <a href="//habrahabr.ru/events/">все события</a>
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="rotated_posts">
+    <div class="rotated_post ">
+        <a href="http://habrahabr.ru/company/yandex/blog/186316/" class="grey">Разбор задач финала чемпионата мира про
+            программированию ACM ICPC 2013</a>
+    </div>
+    <div class="rotated_post ">
+        <a href="http://habrahabr.ru/post/185846/" class="grey">Curiosity отправляется в путь длиною в год</a>
+    </div>
+    <div class="rotated_post last">
+        <a href="http://habrahabr.ru/post/193554/" class="grey">Отличный ход, QIWI!</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+<div id="footer">
+    <dl class="user">
+        <dt>
+            <a href="http://habrahabr.ru/users/">User</a>
+        </dt>
+        <dd>
+            <a href="http://habrahabr.ru/tracker/">Трекер</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/topic/add/">Написать</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/conversations/">Cообщения</a>
+        </dd>
+        <dd>
+            <a href="https://auth.habrahabr.ru/settings/">Настройки</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/ppa/">ППА</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>Разделы</dt>
+        <dd>
+            <a href="http://habrahabr.ru/qa/">Q&amp;A</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/hubs/">Хабы</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/events/">События</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/companies/">Компании</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/users/">Пользователи</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>Посты</dt>
+        <dd>
+            <a href="http://habrahabr.ru/feed/">Лента</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/posts/top/">Лучшие</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/posts/collective/">Тематические</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/posts/corporative/">Корпоративные</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/sandbox/">Песочница</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>Инфо</dt>
+        <dd>
+            <a href="http://habrahabr.ru/info/about/">О сайте</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/info/help/rules/">Правила</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/info/help/">Помощь</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/info/agreement/">Соглашение</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/info/stats/">Статистика</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>Услуги</dt>
+        <dd>
+            <a href="http://habrahabr.ru/info/advertising/">Реклама</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/info/advertising/corporate/">Корпоративные тарифы</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/info/advertising/workshops/">Семинары</a>
+        </dd>
+        <dd>
+            <a href="http://habrahabr.ru/special/">Спецпроекты</a>
+        </dd>
+    </dl>
+    <div class="copyright">
+        <div class="about">
+            <a class="footer_logo" href="http://thematicmedia.ru/">Тематические Медиа</a>
+            © 2006–2013
+            <br>
+            <br>
+            <a href="http://habrahabr.ru/feedback/">Служба поддержки</a>
+            <br>
+            <br>
+            <a href="http://m.habrahabr.ru">Мобильная версия</a>
+            <br>
+            <br>
+            <div class="social_accounts">
+                <a href="https://twitter.com/habrahabr" class="tw"></a>
+                <a href="https://www.facebook.com/habrahabr.ru" class="fb"></a>
+                <a href="http://vk.com/habr" class="vk"></a>
+                <!-- <a href="" class="gp"></a> //-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer_logos">
+    <div class="project brainstorage">
+        <a href="http://brainstorage.ru" class="icon "></a>
+        <div class="text">Все мозги в одном месте</div>
+    </div>
+    <div class="project freelansim">
+        <a href="http://freelansim.ru" class="icon "></a>
+        <div class="text">Заказы для фрилансеров</div>
+    </div>
+    <div class="project hantim">
+        <a href="http://hantim.ru" class="icon "></a>
+        <div class="text">Вакансии для айтишников</div>
+    </div>
+    <div class="project autokadabra">
+        <a href="http://autokadabra.ru" class="icon "></a>
+        <div class="text ">Уютная и дружелюбная</div>
+    </div>
+</div>
+</body>
+</html>
