@@ -1,0 +1,929 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width = 1080">
+	<title>Генератор текста</title>
+	<meta name="author" content="Александр Сердитов, РГППУ"/>
+	<link rel="icon" type="image/png" href="favicon.ico" />
+
+	<link href="assets/css/index.css" rel="stylesheet" media="all">
+	<link href="assets/css/all.css" rel="stylesheet" media="all">
+	<link href="assets/css/posts.css" rel="stylesheet" media="all">
+	<link href="assets/css/comments.css" rel="stylesheet" media="all">
+	<link href="assets/css/forms.css" rel="stylesheet" media="all">
+	<link href="assets/css/highlight.css" rel="stylesheet" media="all">
+	<link href="assets/css/printer.css" rel="stylesheet" media="print">
+
+</head>
+<body>
+<div class="wrapper">
+
+<div id="layout">
+<div id="header">
+	<div class="userpanel silver">
+		<div class="top">
+			<a href="#" class="username dark">username</a>
+
+			<a href="#" class="nav-settings">настройки</a>
+			<a href="#">выйти</a>
+		</div>
+		<div class="bottom">
+			<a href="#">трекер</a>
+
+			<a href="#">избранное</a>
+		</div>
+		<div class="charge" id="charge_string">
+
+		</div>
+	</div>
+	<a class="logo " href="#" title="На главную страницу"></a>
+	<div class="search">
+		<form id="search_form" name="search" method="get" action="http://habrahabr.ru/search/">
+			<input type="submit" value="">
+			<input type="text" name="q" x-webkit-speech="" speech="" tabindex="1" autocomplete="off">
+		</form>
+	</div>
+
+	<div class="main_menu">
+		<a href="#">лента</a>
+		<a href="#" class="active">посты</a>
+		<a href="#">q&amp;a</a>
+		<a href="#">события</a>
+		<a href="#">хабы</a>
+		<a href="#">компании</a>
+	</div>
+
+</div>
+
+<div class="content_left">
+	<div id="settings" class="content_left">
+		<div class="settings-inner">
+			<h1 class="title">Настройки генератора</h1>
+			<div class="form">
+				<form>
+					<div class="row">
+						<label>Cлов в предложении:</label>
+						<div class="controls-group">
+							<span>от </span><input type="text" name="words_min" value="6" maxlength="2">
+							<span>до </span><input type="text" name="words_max" value="20" maxlength="2">
+						</div>
+					</div>
+					<div class="row">
+						<label>Предложений в абзаце:</label>
+						<div class="controls-group">
+							<span>от </span><input type="text" name="sentences_min" value="6" maxlength="2">
+							<span>до </span><input type="text" name="sentences_max" value="14" maxlength="2">
+						</div>
+					</div>
+					<div class="row">
+						<label>Абзацев в статье:</label>
+						<div class="controls-group">
+							<span>от </span><input type="text" name="paragraphs_min" value="9" maxlength="2">
+							<span>до </span><input type="text" name="paragraphs_max" value="17" maxlength="2">
+						</div>
+					</div>
+					<div class="row">
+						<label>Cлов в префиксе:</label>
+						<select name="npref">
+							<option>1</option>
+							<option selected="">2</option>
+							<option>3</option>
+							<option>4</option>
+						</select>
+					</div>
+					<div class="buttons">
+						<a href="#" class="run-btn">Сочинить</a>
+					</div>
+				</form>
+			</div>
+			<div id="habr_center_universe">
+
+				<a href="#" class="habr"></a>
+
+				<div class="planet brainstorage">
+					<a href="#" class="picture"></a>
+				</div>
+
+				<div class="planet hantim">
+					<a href="#" class="picture"></a>
+				</div>
+
+				<div class="planet freelansim">
+					<a href="#" class="picture"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<div id="article" style="display: none">
+	<div class="post shortcuts_item">
+		<div class="published"></div>
+		<h1 class="title">
+
+
+
+			<span class="post_title"></span>
+
+
+
+
+
+
+
+
+
+		</h1>
+
+		<div class="hubs">
+			<a href="#" class="hub " title="Вы не подписаны на этот хаб">ИТ-Инфраструктура</a><span class="profiled_hub" title="Профильный хаб">*</span>,
+			<a href="#" class="hub " title="Вы не подписаны на этот хаб">Будущее здесь</a>,
+			<a href="#" class="hub subscribed" title="Вы подписаны на этот хаб">Исследования и прогнозы в IT</a>
+		</div>
+
+
+		<div class="content html_format">
+
+			<div class="clear"></div>
+		</div>
+		<ul class="tags">
+			<li><a href="#" rel="tag">децентрализация</a></li><li>, <a href="#" rel="tag">bitcoin</a></li><li>, <a href="#" rel="tag">i2p</a></li>
+		</ul>
+
+		<div class="infopanel_wrapper">
+			<div class="infopanel " id="infopanel_post_197290">
+
+				<div class="voting   ">
+
+					<span class="plus"></span>
+
+					<div class="mark">
+						<span class="score" title="Оценка будет видна после завершения голосования">—</span>
+					</div>
+
+					<span class="minus"></span>
+
+				</div>
+
+				<div class="pageviews" title="Просмотры поста">22100</div>
+
+				<div class="favorite">
+					<a class="add" title="Добавить в избранное" href="#"> </a>
+				</div>
+				<div class="favs_count" title="Количество пользователей, добавивших пост в избранное">150</div>
+
+
+
+
+
+
+
+				<div class="author">
+					<a title="Автор текста" href="#">ian_238</a>
+					<span class="rating" title="рейтинг пользователя">155,8</span>
+				</div>
+
+
+
+
+				<div class="share">
+					<div class="twitter">
+						<a href="#" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+					</div>
+					<div class="vkontakte">
+						<a href="#" title="Опубликовать ссылку во ВКонтакте"></a>
+					</div>
+					<div class="facebook">
+						<a href="#" title="Опубликовать ссылку в Facebook"></a>
+					</div>
+					<div class="googleplus">
+						<a href="#" title="Опубликовать ссылку в Google Plus"></a>
+					</div>
+				</div>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+
+
+
+
+
+
+	</div>
+
+
+	<div class="comments_list " id="comments">
+
+		<h2 class="title ">комментарии (<span class="comments_count">0</span>)
+	        <span class="subscribe_comments">
+				отслеживать новые:
+				<label><input type="checkbox" id="subscribe_comments"> в почте</label>
+				<label><input type="checkbox" id="tracker_comments"> в трекере</label>
+			</span>
+
+		</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="comment_item hidden">
+
+			<span class="parent_id" data-parent_id="0"></span>
+			<div class="comment_body">
+				<div class="info">
+					<div class="folding-dot-holder"><div class="folding-dot"></div></div>
+					<div class="voting   ">
+						<a href="#" class="minus" title="Не нравится"></a>
+						<a href="#" class="plus" title="Нравится"></a>
+					</div>
+					<a href="#" class="avatar"><img src="" alt=""></a>
+					<a href="#" class="username">username</a><span class="comma">,</span>
+					<time>12 октября 2013 в 22:35</time>
+
+					<a href="#" class="link_to_comment">#</a>
+					<a href="#" class="favorite add" title="В избранное"></a>
+					<span class="to_chidren"></span>
+					<div class="clear"></div>
+				</div>
+				<div class="message html_format ">
+					Добавили новый профильный хаб на Хабр — <a href="#">habrahabr.ru/hub/i2p/</a>
+				</div>
+				<div class="reply_form_placeholder"></div>
+				<div class="reply">
+
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+	<form action="http://habrahabr.ru/post/197290/#" method="post" id="comments_form">
+		<input type="hidden" name="ts" value="1381636041">
+		<input type="hidden" name="tt" value="2">
+		<input type="hidden" name="ti" value="197290">
+		<input type="hidden" name="comment_id" value="0">
+		<input type="hidden" name="parent_id" value="0">
+
+	</form>
+</div>
+
+
+</div>
+<div class="sidebar_right">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="block daily_best_posts" style="width: auto; opacity: 1;">
+	<div class="title">Лучшее <sup>за 24 часа</sup></div>
+	<div class="posts_list">
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">Веб 3.0 Децентрализация. Тренд на 5+ лет</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">Файл, который нужно закоммитить перед уходом с работы</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">Очередная программная закладка в роутерах D-Link</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">В космосе обнаружили странную одинокую планету без звезды</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">Как запретить использование личных данных в рекламе Google</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">Видеодемонстрация работы Steam Controller</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">IStruct — эволюция продолжается</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">Never Gonna Give Your Terminal</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">Несколько интересностей и полезностей для веб-разработчика (выпуск 5)</a>
+		</div>
+		<div class="post_item">
+
+
+
+
+
+
+
+			<a href="#" class="post_name">Google и NASA объединились для создания квантового компьютера</a>
+		</div>
+	</div>
+	<div class="all"><a href="#">все лучшие</a></div>
+</div>
+
+
+
+
+
+<div class="block similar_posts">
+
+	<div class="title">Похожие посты</div>
+	<div class="posts_list">
+		<div class="post_item">
+			<a class="post_name" href="#">I2P: Прозрачный доступ из любого браузера</a>
+			<span class="when">10.10.2013</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">Со счетов Bitcoin-обменника Mt. Gox правительство США изъяло еще 2,1 миллион долларов</a>
+			<span class="when">25.08.2013</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">Третий акт: Альтруизм, организация, децентрализация. Гражданское общество и правовое государство</a>
+			<span class="when">22.07.2013</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">Крупнейшая Bitcoin-сделка: онлайн-казино SatoshiDice продали за эквивалент 11,5 млн долларов</a>
+			<span class="when">19.07.2013</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">Bitcoin: Заказ и получение Little Jalapeno от Butterfly Labs</a>
+			<span class="when">02.07.2013</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">bitcoin / litecoin платежная система (платежный шлюз)</a>
+			<span class="when">15.04.2013</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">Bitcoin покоряет телеэкраны</a>
+			<span class="when">04.04.2013</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">Bitcoin: теперь по 100$ штука (не 1-е апреля), и Avalon</a>
+			<span class="when">01.04.2013</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">Bitcoin Foundation проводит конкурс проектов по стандартизации, защите и продвижению Биткоин</a>
+			<span class="when">27.12.2012</span>
+		</div>
+		<div class="post_item">
+			<a class="post_name" href="#">Bitcoin: Уполовинивание награды за майнинг — в четверг утром</a>
+			<span class="when">24.11.2012</span>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<div class="block live_broadcast">
+	<div class="title">Прямой эфир &nbsp;<sup><span class="dotted tab open" data-type="live_broadcast_activity">посты</span>
+		&nbsp;<span class="dotted tab " data-type="qa_activity">q&amp;a</span></sup></div>
+
+	<div class="live_broadcast_activity ">
+		<div class="posts_list">
+			<div class="post_item">
+				<a href="#" class="user_name">egorc</a> →
+				<a href="#" class="post_name">Веб 3.0 Децентрализация. Тренд на 5+ лет</a>&nbsp;<span class="count">97</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">waphyld</a> →
+				<a href="#" class="post_name">IStruct — эволюция продолжается</a>&nbsp;<span class="count">49</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">Juster</a> →
+				<a href="#" class="post_name">Шесть загадок по С++</a>&nbsp;<span class="count">78</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">MindMinimal</a> →
+				<a href="#" class="post_name">Несколько интересностей и полезностей для веб-разработчика (выпуск 5)</a>&nbsp;<span class="count">13</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">SergioBarbery</a> →
+				<a href="#" class="post_name">Как запретить использование личных данных в рекламе Google</a>&nbsp;<span class="count">40</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">AstonMartin</a> →
+				<a href="#" class="post_name">До свидания офис. Азия и фриланс, мой кисло-сладкий соус</a>&nbsp;<span class="count">255</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">fenrirgray</a> →
+				<a href="#" class="post_name">В космосе обнаружили странную одинокую планету без звезды</a>&nbsp;<span class="count">80</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">EvilX</a> →
+				<a href="#" class="post_name">Кнопка «прочитать позже»</a>&nbsp;<span class="count">12</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">AstonMartin</a> →
+				<a href="#" class="post_name">Очередная программная закладка в роутерах D-Link</a>&nbsp;<span class="count">26</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">ForNeVeR</a> →
+				<a href="#" class="post_name">Получение списка файлов в удалённом репозитории</a>&nbsp;<span class="count">2</span>
+			</div>
+		</div>
+		<div class="all"><a href="#">все посты</a></div>
+	</div>
+
+	<div class="qa_activity hidden">
+
+
+
+		<div class="posts_list">
+			<div class="post_item">
+				<a href="#" class="user_name">MTonly</a> →
+				<a href="#" class="post_name">Не работает ни один браузер на WebKit</a>&nbsp;<span class="count">4</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">ValdikSS</a> →
+				<a href="#" class="post_name">i2p — успокойте меня</a>&nbsp;<span class="count">5</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">sam002</a> →
+				<a href="#" class="post_name">Расширяю знания по JS. Какие фреймворки изучать?</a>&nbsp;<span class="count">1</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">sigod</a> →
+				<a href="#" class="post_name">вызов функции java класса из javascript кода</a>&nbsp;<span class="count">3</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">kacang</a> →
+				<a href="#" class="post_name">Имеется 1000 jpeg-ов, надо в уголок каждого автоматически впечатать растром его имя файла. Как?</a>&nbsp;<span class="count">9</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">stalkersoft</a> →
+				<a href="#" class="post_name">SIP and RTP</a>&nbsp;<span class="count">4</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">xaker1</a> →
+				<a href="#" class="post_name">Посоветуйте заграничного регистратора доменов</a>&nbsp;<span class="count">3</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">pavelsh</a> →
+				<a href="#" class="post_name">Wifi точка доступа на 1000 клиентов</a>&nbsp;<span class="count">5</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">nerudo</a> →
+				<a href="#" class="post_name">Обучение Matlab Simulink</a>&nbsp;<span class="count">2</span>
+			</div>
+			<div class="post_item">
+				<a href="#" class="user_name">Haikson</a> →
+				<a href="#" class="post_name">Помогите решить проблему с установкой MODx</a>&nbsp;<span class="count">3</span>
+			</div>
+		</div>
+		<div class="all"><a href="#">все вопросы</a></div>
+	</div>
+</div>
+
+
+
+
+
+
+<div class="block new_vacanies">
+	<a href="#" class="title">Хантим</a>
+	<div class="vacancies">
+		<div class="job_item marked">
+			<a href="#">Инженер по внедрению и технической поддержке</a>&nbsp;→ <a href="#" class="company_name">Юнилид Нетворк</a>
+		</div>
+		<div class="job_item ">
+			<a href="#">Системный администратор (Linux)</a>&nbsp;→ <a href="#" class="company_name">Селектел</a>
+		</div>
+		<div class="job_item marked">
+			<a href="#">Системный администратор UNIX</a>
+		</div>
+		<div class="job_item marked">
+			<a href="#">Руководитель направления (Хранилище данных)</a>&nbsp;→ <a href="#" class="company_name">Альфа-Банк</a>
+		</div>
+		<div class="job_item ">
+			<a href="#">Серверный PHP-программист </a>
+		</div>
+		<div class="job_item ">
+			<a href="#">devops / разработчик</a>
+		</div>
+		<div class="job_item ">
+			<a href="#">Специалист технической поддержки пользователей</a>&nbsp;→ <a href="#" class="company_name">Mail.Ru Group</a>
+		</div>
+		<div class="job_item ">
+			<a href="#">Системный администратор </a>&nbsp;→ <a href="#" class="company_name">Mail.Ru Group</a>
+		</div>
+		<div class="job_item marked">
+			<a href="#">DevOps / Системный администратор Linux</a>&nbsp;→ <a href="#" class="company_name">Digital October Group</a>
+		</div>
+		<div class="job_item ">
+			<a href="#">Системный администратор UNIX</a>&nbsp;→ <a href="#" class="company_name">.masterhost</a>
+		</div>
+	</div>
+	<div class="all"><a href="#">все вакансии</a></div>
+</div>
+
+
+<div class="block freelansim">
+	<a href="#" class="title"></a>
+	<div class="tasks">
+		<div class="task ">
+			<a href="#">Поменять существующий логотип или разработать новый.</a>
+		</div>
+		<div class="task ">
+			<a href="#">Бильярдный ХАБ</a>
+		</div>
+		<div class="task ">
+			<a href="#">1С Сайт изменения</a>
+		</div>
+		<div class="task ">
+			<a href="#">Маркетолог/аналитик для продвижения стартапа</a>
+		</div>
+		<div class="task ">
+			<a href="#">Развитие CRM на базе Symfony2</a>
+		</div>
+		<div class="task ">
+			<a href="#">3d коробки для электронных продуктов (семинары, тренинги)</a>
+		</div>
+		<div class="task ">
+			<a href="#">Дизайнер (банеры, элементы, полиграфия)</a>
+		</div>
+		<div class="task ">
+			<a href="#">Parser на C++ Boost::Spirit</a>
+		</div>
+		<div class="task ">
+			<a href="#">Верстка одностраничника</a>
+		</div>
+		<div class="task ">
+			<a href="#">Дизайн квартиры 48 м</a>
+		</div>
+
+	</div>
+	<div class="all"><a href="#">все заказы</a></div>
+</div>
+
+
+
+
+
+<div class="block similar_events">
+	<div class="title">Ближайшие события</div>
+	<div class="events_items">
+		<div class="event_item">
+			<div class="date">
+				<div class="dayname dayname_1"></div>
+				<div class="day">14</div>
+				<div class="month">окт</div>
+			</div>
+			<div class="title">
+				<a href="#">Certified Scrum Master Class от Jeff McKenna в Киеве</a>
+			</div>
+		</div>
+		<div class="event_item">
+			<div class="date">
+				<div class="dayname dayname_1"></div>
+				<div class="day">14</div>
+				<div class="month">окт</div>
+			</div>
+			<div class="title">
+				<a href="#">Chief ConfeT&amp;QA, онлайн-конференция для тест-менеджеров и тест-лидов</a>
+			</div>
+		</div>
+		<div class="event_item">
+			<div class="date">
+				<div class="dayname dayname_2"></div>
+				<div class="day">15</div>
+				<div class="month">окт</div>
+			</div>
+			<div class="title">
+				<a href="#">Конференция jQuery Russia</a>
+			</div>
+		</div>
+		<div class="event_item">
+			<div class="date">
+				<div class="dayname dayname_2"></div>
+				<div class="day">15</div>
+				<div class="month">окт</div>
+			</div>
+			<div class="title">
+				<a href="#">Семинар «Sentinel HASP: защита и лицензирование»</a>
+			</div>
+		</div>
+		<div class="event_item">
+			<div class="date">
+				<div class="dayname dayname_2"></div>
+				<div class="day">15</div>
+				<div class="month">окт</div>
+			</div>
+			<div class="title">
+				<a href="#">Архитектура Veeam Backup and Replication v7</a>
+			</div>
+		</div>
+	</div>
+	<div class="all"><a href="#">все события</a></div>
+</div>
+
+
+</div>
+<div class="clear"></div>
+
+
+
+<div class="rotated_posts">
+	<div class="rotated_post ">
+		<a href="#" class="grey">Отечественный телефон с двумя экранами: история разработки</a>
+	</div>
+	<div class="rotated_post ">
+		<a href="#" class="grey">Начался реверс-инжиниринг процессора PlayStation 1: безумству храбрых поём мы песню!</a>
+	</div>
+	<div class="rotated_post last">
+		<a href="#" class="grey">Бета-тестирование Brainstorage</a>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="footer">
+	<dl class="user">
+		<dt><a href="#">username</a></dt>
+		<dd><a href="#">Трекер</a></dd>
+		<dd><a href="#">Написать</a></dd>
+		<dd><a href="#">Настройки</a></dd>
+	</dl>
+	<dl>
+		<dt>Разделы</dt>
+
+		<dd><a href="#">Q&amp;A</a></dd>
+		<dd><a href="#">Хабы</a></dd>
+		<dd><a href="#">События</a></dd>
+		<dd><a href="#">Компании</a></dd>
+		<dd><a href="#">Пользователи</a></dd>
+	</dl>
+	<dl>
+		<dt>Посты</dt>
+		<dd><a href="#">Лента</a></dd>
+		<dd><a href="#">Лучшие</a></dd>
+		<dd><a href="#">Тематические</a></dd>
+		<dd><a href="#">Корпоративные</a></dd>
+		<dd><a href="#">Песочница</a></dd>
+	</dl>
+	<dl>
+		<dt>Инфо</dt>
+		<dd><a href="#">О сайте</a></dd>
+		<dd><a href="#">Правила</a></dd>
+		<dd><a href="#">Помощь</a></dd>
+		<dd><a href="#">Соглашение</a></dd>
+		<dd><a href="#">Статистика</a></dd>
+	</dl>
+	<dl>
+		<dt>Услуги</dt>
+		<dd><a href="#">Реклама</a></dd>
+		<dd><a href="#">Корпоративные тарифы</a></dd>
+		<dd><a href="#">Семинары</a></dd>
+		<dd><a href="#">Спецпроекты</a></dd>
+	</dl>
+	<div class="copyright">
+
+		<div class="about">
+			<a class="footer_logo" href="#">Тематические Медиа</a>
+			© 2006–2013
+			<br><br>
+			<a href="#">Служба поддержки</a><br><br>
+			<a href="#">Мобильная версия</a><br><br>
+
+
+			<div class="social_accounts">
+				<a href="#" class="tw"></a>
+				<a href="#" class="fb"></a>
+				<a href="#" class="vk"></a>
+				<!-- <a href="#" class="gp"></a> //-->
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<div class="footer_logos">
+
+	<div class="project brainstorage">
+		<a href="#" class="icon "></a>
+		<div class="text">Все мозги в одном месте</div>
+	</div>
+
+	<div class="project freelansim">
+		<a href="#" class="icon "></a>
+		<div class="text">Заказы для фрилансеров</div>
+	</div>
+
+
+	<div class="project hantim">
+		<a href="#" class="icon "></a>
+		<div class="text">Вакансии для айтишников</div>
+	</div>
+
+	<div class="project autokadabra">
+		<a href="#" class="icon "></a>
+		<div class="text ">Уютная и дружелюбная</div>
+	</div>
+
+</div>
+<div class="overlay layer">
+	<div id="dialog">
+		<div class="ajax-loader loader">
+			Подождите, идет генерация статьи...
+		</div>
+	</div>
+</div>
+
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/libs.js"></script>
+<script src="assets/js/dict.js"></script>
+<script src="assets/js/generator.js"></script>
+<script src="assets/js/app.js"></script>
+<script type="text/javascript">
+	/* Пока некорректно реагирует на resize */
+	/* Можно вынести в отдельный файл */
+	$(document).ready(function(){
+		window.currentApp = new App();
+
+		var hantim = $('.hantim.planet'),
+				freelansim = $('.freelansim.planet'),
+				brainstorage = $('.brainstorage.planet');
+
+		var brainstorage_start = 1500,
+				hantim_start = 0,
+				freelansim_start = 2000;
+
+		setInterval(function(){
+			++hantim_start;
+			var hantim_css = {
+				'-moz-transform': "translateX(" + Math.sin(hantim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(hantim_start * 0.0025) * 165 + "px)",
+				'-ms-transform': "translateX(" + Math.sin(hantim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(hantim_start * 0.0025) * 165 + "px)",
+				'-o-transform': "translateX(" + Math.sin(hantim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(hantim_start * 0.0025) * 165 + "px)",
+				'-webkit-transform': "translateX(" + Math.sin(hantim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(hantim_start * 0.0025) * 165 + "px)",
+				'transform': "translateX(" + Math.sin(hantim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(hantim_start * 0.0025) * 165 + "px)"
+			};
+			hantim.css(hantim_css);
+
+			++freelansim_start;
+			var freelansim_css = {
+				'-moz-transform': "translateX(" + Math.sin(freelansim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(freelansim_start * 0.0025) * 165 + "px)",
+				'-ms-transform': "translateX(" + Math.sin(freelansim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(freelansim_start * 0.0025) * 165 + "px)",
+				'-o-transform': "translateX(" + Math.sin(freelansim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(freelansim_start * 0.0025) * 165 + "px)",
+				'-webkit-transform': "translateX(" + Math.sin(freelansim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(freelansim_start * 0.0025) * 165 + "px)",
+				'transform': "translateX(" + Math.sin(freelansim_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(freelansim_start * 0.0025) * 165 + "px)"
+			};
+			freelansim.css(freelansim_css);
+
+			++brainstorage_start;
+			var brainstorage_css = {
+				'-moz-transform': "translateX(" + Math.sin(brainstorage_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(brainstorage_start * 0.0025) * 165 + "px)",
+				'-ms-transform': "translateX(" + Math.sin(brainstorage_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(brainstorage_start * 0.0025) * 165 + "px)",
+				'-o-transform': "translateX(" + Math.sin(brainstorage_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(brainstorage_start * 0.0025) * 165 + "px)",
+				'-webkit-transform': "translateX(" + Math.sin(brainstorage_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(brainstorage_start * 0.0025) * 165 + "px)",
+				'transform': "translateX(" + Math.sin(brainstorage_start * 0.0025) * 165 + 'px) translateY('+ Math.cos(brainstorage_start * 0.0025) * 165 + "px)"
+			};
+			brainstorage.css(brainstorage_css);
+		}, 1);
+	})
+</script>
+
+</body>
+</html>

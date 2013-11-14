@@ -1,0 +1,712 @@
+/**
+ * Стили для элементов форм Базовые стили. Большие формы (width: 100%)
+ */ 
+input, select, textarea{font-family:'arial', sans-serif;font-size:12px;}
+ 
+form{}
+
+
+form .item{margin-bottom:25px;position: relative;}
+form .item .count{position: absolute;right:0;top:0px;font-size:11px;color:#999;text-align: right;}
+form .item:last-child{margin-bottom:0px;}
+form .item label{font-size:13px;line-height:13px;display:block;color:#424242;margin-bottom:7px;font-weight:bold;font-family:'arial', sans-serif;}
+form .item label .required_field{color:#ff7058;}
+
+/* Текстовый инпут и инпут пароля */
+form .item input[type="password"],
+form .item input[type="text"]{
+	font-size:14px;
+	display:block;
+	margin:0px;
+	width:100%;
+	box-sizing:border-box;
+	border:1px solid #d9d9d9;
+	padding:0px;
+	color:#3b3b3b;
+	line-height:27px;
+	height: 27px;
+	text-indent: 5px;
+}
+/* Многострочное текстовое поле */
+form .item textarea{height:200px;width:99%;}
+form .item select{line-height: 27px;}
+form .item select option{line-height: 27px;}
+/* Задизебленые поля */
+form .item input[type="password"]:disabled,
+form .item input[type="text"]:disabled,
+form .item textarea:disabled{border:1px solid #d9d9d9;background:#eee;color:#bbb;}
+
+form .item .error{font-size:11px;line-height:13px;margin-top:5px;color:#ff7058;display:block;}
+
+form .item .description{font-size:11px;line-height:13px;color:#999999;margin-top:5px;}
+
+form .item .checkbox_list{overflow: hidden;margin-top:10px;}
+form .item .checkbox_list label{float:left;width:50%;display:block;font-weight: normal;}   
+form .item .checkbox_list label input{}
+form .item.one_column .checkbox_list{}
+form .item.one_column .checkbox_list label{float: none;width: auto;margin-bottom:10px;}
+
+form .item .radio_list{margin-top:10px;}
+form .item .radio_list label{font-weight: normal;}
+
+form .item .radio_list.custom{color:#3f3f3f;}
+form .item .radio_list.custom label:first-child{margin-left:5px;}
+form .item .radio_list.custom label{color: #3a7ca2;border-bottom: 1px dashed;display: inline-block;margin: 5px 10px;cursor: pointer;}
+form .item .radio_list.custom label.checked{color:#53513f;border-bottom:0;background: #eeecd8;padding: 5px 5px;margin:0 5px;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;}
+form .item .radio_list.custom label.checked:first-child{margin-left:0;}
+form .item .radio_list.custom label input{display: none;}
+
+form .item .checkbox_single{overflow: hidden;margin-bottom:10px;}
+form .item .checkbox_single label{float:left;display:block;margin:0;font-weight: normal;}
+form .item .checkbox_single label input{}
+form .item .checkbox_in_label{}
+form .item .checkbox_in_label label{display: inline;font-weight: normal;}
+form .item .checkbox_in_label .label{font-weight: bold;}
+form .item .iframe_uploader{border:0;overflow: hidden}
+form .item .iframe_uploader_preview{overflow:hidden;}
+form .item .iframe_uploader_preview .image{float: left;position:relative;margin-bottom: 10px;min-width:48px;min-height:48px;max-width:70%;}
+form .item .iframe_uploader_preview .image .delete{display:none;position: absolute;right:2px;top:2px;float:right;text-transform:uppercase;font-size:10px;line-height:10px;padding:5px 5px;background:#666;color:#fff;cursor:pointer;opacity:0.9;}
+form .item .iframe_uploader_preview .image .delete:hover{background:darkred;}
+form .item .iframe_uploader_preview .image:hover .delete{display:block;}
+form .item .iframe_uploader_preview .image img{max-width: 100%;min-width:30px;display: block;margin: 0;padding: 0;}
+
+form .item.habracaptcha{overflow:hidden;}
+form .item.habracaptcha .captcha_image{margin-bottom:20px;font-size: 11px;}
+form .item.habracaptcha img{vertical-align:middle;margin-right:10px;width:166px;height:75px;}
+form .item.habracaptcha a{font-size:14px;text-decoration:none;}
+form .item.habracaptcha a span{border-bottom:1px dashed;font-size: 11px;}
+
+
+
+
+
+
+
+
+/**
+ * Формы среднего размера (Width: 60%)
+ */
+.form-field-medium{} 
+.form-field-medium .item{width:60%;}
+
+/** 
+ * Формы маленького размера (width: 30%)
+ */
+.form-field-small{}
+.form-field-small .item{width:30%;}
+
+/* textarea + wysiwyg */
+.editor{position: relative;}
+.editor .panel{background:#eee;overflow:hidden;padding:2px 5px;}
+.editor .panel > a{display:block;float:left;}
+.editor .panel .can_use_html{float:right;font-size:10px;margin-top:4px;margin-right:5px;color:#666;}
+.editor .panel .can_use_html a{border-bottom:1px dashed;text-decoration:none;}
+.editor .panel .help_holder{padding:10px;}
+.editor .panel .help_holder h4:first-child{margin-top:0;clear:both;padding-top:10px;font-size:16px;}
+.editor .panel .help_holder h4{font-weight:bold;font-size:12px;margin-bottom:10px;margin-top:20px;color:#666;}
+.editor .panel .help_holder dl{font-size:11px;margin-bottom:10px;}
+.editor .panel .help_holder dl dt{color:#000;font-weight:bold;}
+.editor .panel .help_holder dl dd{color:#666;}
+.editor .panel .wysiwyg_wrapper .with-title{display:block;float:left;margin:0;padding:0;margin-top:1px;margin-right:15px;}
+.editor .panel .wysiwyg_wrapper > a{display:block;float:left;}
+.editor .text-holder{border:1px solid #dcdcdc;padding:2px;background: #fff;}
+.editor .text-holder textarea{width:99%;border:0;margin:0;font-size:12px;outline:none;}
+.editor .panel .help_holder .close_html{font-size:10px;text-align: right;}
+.editor .panel .help_holder .close_html a{border-bottom:1px dashed;text-decoration:none;}
+
+/* image uploader */
+.img_uploader{border:1px solid #efefef;width:300px;height:60px;text-align:center;overflow:hidden;padding:5px;}
+.img_uploader img{display:block;margin-bottom:5px;margin:0 auto;}
+.img_uploader a.upload_again{text-decoration:none;border-bottom:1px dashed;line-height:20px;font-size:10px;}
+
+.upload_form{background:#fff;width:278px;height:40px;border:0px solid red;text-align:left;padding:10px;}
+.upload_form .progress{height:5px;border:1px solid #eee;margin-top:5px;}
+.upload_form .progress .bar{height:5px;width:0%;background:#aaa;background: url(../images/form/loader_button.gif) repeat-x 0 0;}
+.upload_form .state{font-size:9px;color:#666;}
+
+/* предпросмотр */
+.preview_placeholder{margin-bottom:20px;font-size:12px;padding:10px;border:4px solid #eee;}
+
+
+/**
+ * Кнопки
+ */
+.buttons{}
+.buttons .description{font-size:11px;color:#999999;clear:both;padding-top:10px;}
+.buttons .text{font-size:12px;display: inline-block;margin-left:10px;vertical-align: middle;padding-top:1px;}
+
+.blue_buttons_panel{
+	background: #e0edf8;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	padding:20px;	
+	margin-bottom:15px;
+}
+.blue_buttons_panel input{margin-right:15px;}
+.blue_buttons_panel input.big{margin-right:30px;}
+
+
+
+/** 
+ * Стандартная кнопка
+ */
+.buttons button,
+.buttons button:disabled:active,
+.buttons a.button,
+.buttons input:disabled:active,
+.buttons input {
+		font-size: 12px;
+    padding: 0px 10px;
+    background-color: #eeeeee !important;
+  	*background-color: #e1e1e1 !important;
+    color: #282828 !important;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+	  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1); /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1); /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1); /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  background-image: -ms-linear-gradient(top, #eeeeee, #e1e1e1);
+	  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#e1e1e1));
+	  background-image: -webkit-linear-gradient(top, #eeeeee, #e1e1e1);
+	  background-image: -o-linear-gradient(top, #eeeeee, #e1e1e1);
+	  background-image: linear-gradient(top, #eeeeee, #e1e1e1);
+	  background-image: -moz-linear-gradient(top, #eeeeee, #e1e1e1);
+	  background-repeat: repeat-x;
+	  border: 1px solid #d9d8d8;
+	  *border: 0;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  border-color: #d9d8d8 #cccbcb #aeaeae;
+	  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#eeeeee', endColorstr='#e1e1e1', GradientType=0);
+	  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    cursor: pointer;
+    font-family:  arial, sans-serif;
+    font-weight: normal;
+    text-decoration: none;
+    height:26px;
+    line-height: 26px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+/**
+ * Стандартная кнопка при наведении
+ */
+.buttons button:hover,
+.buttons a.button:hover,
+.buttons input:hover {
+   background-color: #fcfcfc !important;
+   *background-color: #e8e8e8 !important;
+   background-image: -ms-linear-gradient(top, #fcfcfc, #e8e8e8);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fcfcfc), to(#e8e8e8));
+  background-image: -webkit-linear-gradient(top, #fcfcfc, #e8e8e8);
+  background-image: -o-linear-gradient(top, #fcfcfc, #e8e8e8);
+  background-image: linear-gradient(top, #fcfcfc, #e8e8e8);
+  background-image: -moz-linear-gradient(top, #fcfcfc, #e8e8e8);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#e8e8e8', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  text-decoration: none;
+}
+
+/**
+ * Стандартная активная кнопка
+ */
+.buttons button:active,
+.buttons a.button:active,
+.buttons input:active {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: #e1e1e1 !important;
+    border: 1px solid #a4a7ac;
+	  *border: 0;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  border-color: #a4a7ac #d2d3d4 #e1e1e1;
+	  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/**
+ * Кнопка с одной только иконкой
+ */	
+.buttons button.single-icon,
+.buttons a.button.single-icon,
+.buttons input.single-icon,
+.buttons input.single-icon:hover,
+.buttons input.single-icon:active,
+.buttons button.single-icon:disabled:active,
+.buttons button.single-icon:disabled,
+.buttons a.button.single-icon:disabled:active,
+.buttons a.button.single-icon:disabled,
+.buttons input.single-icon:disabled:active,
+.buttons input.single-icon:disabled{
+	text-indent: 1px;
+	padding: 0 5px;
+} 
+
+/**
+ * Иконка в кнопке
+ */	
+.buttons button i,
+.buttons a.button i,
+.buttons input i{
+	vertical-align: bottom;
+} 
+
+/**
+ * Большая кнопка
+ */	
+.buttons button.big,
+.buttons a.button.big,
+.buttons input.big,
+.buttons input:hover.big,
+.buttons input:active.big,
+.buttons button.big:disabled:active,
+.buttons button.big:disabled,
+.buttons a.button.big:disabled:active,
+.buttons a.button.big:disabled,
+.buttons input.big:disabled:active,
+.buttons input.big:disabled{font-size:20px;height:35px;line-height: 35px;} 
+
+/**
+ * Большая Кнопка с одной только иконкой
+ */	
+.buttons button.big.single-icon i,
+.buttons a.button.big.single-icon ,
+.buttons input.big.single-icon i{
+	vertical-align: 5%;
+	text-indent: 4px;
+} 
+
+/**
+ * Маленькая кнопка
+ */	
+.buttons button.mini,
+.buttons a.button.mini,
+.buttons input.mini,
+.buttons input:hover.mini,
+.buttons input:active.mini,
+.buttons button.mini:disabled:active,
+.buttons button.mini:disabled,
+.buttons a.button.mini:disabled:active,
+.buttons a.button.mini:disabled,
+.buttons input.mini:disabled:active,
+.buttons input.mini:disabled{
+	font-size:11px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	line-height: 18px;
+	height: 20px
+} 
+
+
+/**
+ * Маленькая Кнопка с одной только иконкой
+ */	
+.buttons button.mini.single-icon,
+.buttons a.button.mini.single-icon,
+.buttons input.mini.single-icon,
+.buttons input.mini.single-icon:hover,
+.buttons input.mini.single-icon:active,
+.buttons button.mini.single-icon:disabled:active,
+.buttons button.mini.single-icon:disabled,
+.buttons a.button.mini.single-icon:disabled:active,
+.buttons a.button.mini.single-icon:disabled,
+.buttons input.mini.single-icon:disabled:active,
+.buttons input.mini.single-icon:disabled{
+	text-indent: 1px;
+
+} 
+
+/**
+ * стандартная выключенная кнопка
+ */
+.buttons button:disabled:active,
+.buttons button:disabled,
+.buttons a.button:disabled:active,
+.buttons a.button:disabled,
+.buttons input:disabled:active,
+.buttons input:disabled{
+	background: #fAfCfA !important;
+  color: #aaa !important;
+  border: solid 1px #eee !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+  cursor: default;
+  box-shadow: none;
+}
+
+
+/**
+ * Стандартная кнопка с эффектом loading
+ */
+.buttons button.loading,
+.buttons button.loading:active,
+.buttons button.loading:hover,
+.buttons a.button.loading,
+.buttons a.button.loading:active,
+.buttons a.button.loading:hover,
+.buttons input.loading,
+.buttons input.loading:active,
+.buttons input.loading:hover,
+input.loading{
+	background: #fAfCfA url(../images/form/loader_button.gif) repeat !important;
+  color: #aaa !important;
+  border: solid 1px #eee !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+  cursor: default;
+  box-shadow: none;
+}
+
+
+
+
+
+
+/**
+ * Голубая кнопка
+ */
+.buttons button.blue,
+.buttons button.blue:disabled:active,
+.buttons a.button.blue,
+.buttons input.blue:disabled:active,
+.buttons input.blue {
+    background-color: #bbcee1 !important;
+  	*background-color: #9fbcd5 !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	  -webkit-box-shadow: inset 0 1px 0 #dde7f0; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  -moz-box-shadow: inset 0 1px 0 #dde7f0; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  box-shadow: inset 0 1px 0 #dde7f0; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  background-image: -ms-linear-gradient(top, #bbcee1, #9fbcd5);
+	  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bbcee1), to(#9fbcd5));
+	  background-image: -webkit-linear-gradient(top, #bbcee1, #9fbcd5);
+	  background-image: -o-linear-gradient(top, #bbcee1, #9fbcd5);
+	  background-image: linear-gradient(top, #bbcee1, #9fbcd5);
+	  background-image: -moz-linear-gradient(top, #bbcee1, #9fbcd5);
+	  border: 1px solid #bbcfe1;
+	  *border: 0;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  border-color: #bbcfe1 #a7bed3 #92adc5;
+	  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#bbcee1', endColorstr='#9fbcd5', GradientType=0);
+	  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+/**
+ * Голубая кнопка при наведении
+ */
+.buttons button.blue:hover,
+.buttons a.button.blue:hover,
+.buttons input.blue:hover {
+  background-color: #d0deea !important;
+  *background-color: #9bb9d3 !important;
+  -webkit-box-shadow: inset 0 1px 0 #e8eff5; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+  -moz-box-shadow: inset 0 1px 0 #e8eff5; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+  box-shadow: inset 0 1px 0 #e8eff5; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */   
+  background-image: -ms-linear-gradient(top, #d0deea, #9bb9d3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d0deea), to(#9bb9d3));
+  background-image: -webkit-linear-gradient(top, #d0deea, #9bb9d3);
+  background-image: -o-linear-gradient(top, #d0deea, #9bb9d3);
+  background-image: linear-gradient(top, #d0deea, #9bb9d3);
+  background-image: -moz-linear-gradient(top, #d0deea, #9bb9d3);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#d0deea', endColorstr='#9bb9d3', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  text-decoration: none;
+}
+
+/**
+ * Голубая активная кнопка
+ */
+.buttons button.blue:active,
+.buttons a.button.blue:active,
+.buttons input.blue:active {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: #9bb6ce !important;
+    border: 1px solid #8d9faf;
+	  *border: 0;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  border-color: #8d9faf #97b0c6 #9bb6ce;
+	  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+
+/**
+ * Голубая выключенная кнопка
+ */
+.buttons button.blue:disabled:active,
+.buttons button.blue:disabled,
+.buttons a.button.blue:disabled:active,
+.buttons a.button.blue:disabled,
+.buttons input.blue:disabled:active,
+.buttons input.blue:disabled{
+	background: #fAfCfA !important;
+  color: #aaa !important;
+  border: solid 1px #eee !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+
+/**
+ * Голубая кнопка с эффектом loading
+ */
+.buttons button.loading.blue,
+.buttons button.loading.blue:active,
+.buttons button.loading.blue:hover,
+.buttons a.button.loading.blue,
+.buttons a.button.loading.blue:active,
+.buttons a.button.loading.blue:hover,
+.buttons input.loading.blue,
+.buttons input.loading.blue:active,
+.buttons input.loading.blue:hover,
+input.loading{
+	background: #fAfCfA url(../images/form/loader_button.gif) repeat !important;
+  color: #aaa !important;
+  border: solid 1px #eee !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+
+
+
+
+/**
+ * Зеленая кнопка
+ */
+.buttons button.green,
+.buttons button.green:disabled:active,
+.buttons a.button.green,
+.buttons input.green:disabled:active,
+.buttons input.green {
+    background-color: #bbdc12 !important;
+  	*background-color: #89c40c !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	  -webkit-box-shadow: inset 0 1px 0 #ffff1c; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  -moz-box-shadow: inset 0 1px 0 #ffff1c; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  box-shadow: inset 0 1px 0 #ffff1c; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  background-image: -ms-linear-gradient(top, #bbdc12, #89c40c);
+	  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bbdc12), to(#89c40c));
+	  background-image: -webkit-linear-gradient(top, #bbdc12, #89c40c);
+	  background-image: -o-linear-gradient(top, #bbdc12, #89c40c);
+	  background-image: linear-gradient(top, #bbdc12, #89c40c);
+	  background-image: -moz-linear-gradient(top, #bbdc12, #89c40c);
+	  border: 1px solid #b3d50c;
+	  *border: 0;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  border-color: #b3d50c #97c108 #7aad03;
+	  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#bbdc12', endColorstr='#89c40c', GradientType=0);
+	  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+/**
+ * Зеленая кнопка при наведении
+ */
+.buttons button.green:hover,
+.buttons a.button.green:hover,
+.buttons input.green:hover {
+  background-color: #d3e70f !important;
+  *background-color: #79b708 !important;
+  -webkit-box-shadow: inset 0 1px 0 #ffff1c; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+  -moz-box-shadow: inset 0 1px 0 #ffff1c; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+  box-shadow: inset 0 1px 0 #ffff1c; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */   
+  background-image: -ms-linear-gradient(top, #d3e70f, #79b708);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d3e70f), to(#79b708));
+  background-image: -webkit-linear-gradient(top, #d3e70f, #79b708);
+  background-image: -o-linear-gradient(top, #d3e70f, #79b708);
+  background-image: linear-gradient(top, #d3e70f, #79b708);
+  background-image: -moz-linear-gradient(top, #d3e70f, #79b708);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#d3e70f', endColorstr='#79b708', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  text-decoration: none;
+}
+  
+/**
+ * Зеленая активная кнопка
+ */
+.buttons button.green:active,
+.buttons a.button.green:active,
+.buttons input.green:active {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: #7fb305 !important;
+    border: 1px solid #6a8a1e;
+	  *border: 0;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  border-color: #6a8a1e #7aa90b #7fb305;
+	  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+
+/**
+ * Зеленая выключенная кнопка
+ */
+.buttons button.green:disabled:active,
+.buttons button.green:disabled,
+.buttons a.button.green:disabled:active,
+.buttons a.button.green:disabled,
+.buttons input.green:disabled:active,
+.buttons input.green:disabled{
+	background: #fAfCfA !important;
+  color: #aaa !important;
+  border: solid 1px #eee !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+
+/**
+ * Зеленая кнопка с эффектом loading
+ */
+.buttons button.loading.green,
+.buttons button.loading.green:active,
+.buttons button.loading.green:hover,
+.buttons a.button.loading.green,
+.buttons a.button.loading.green:active,
+.buttons a.button.loading.green:hover,
+.buttons input.loading.green,
+.buttons input.loading.green:active,
+.buttons input.loading.green:hover,
+input.loading{
+	background: #fAfCfA url(../images/form/loader_button.gif) repeat !important;
+  color: #aaa !important;
+  border: solid 1px #eee !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+
+
+
+
+/**
+ * Оранжевая кнопка
+ */
+.buttons button.orange,
+.buttons button.orange:disabled:active,
+.buttons a.button.orange,
+.buttons input.orange:disabled:active,
+.buttons input.orange {
+    background-color: #f47850 !important;
+  	*background-color: #ec5136 !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	  -webkit-box-shadow: inset 0 1px 0 #fab377; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  -moz-box-shadow: inset 0 1px 0 #fab377; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  box-shadow: inset 0 1px 0 #fab377; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+	  background-image: -ms-linear-gradient(top, #f47850, #ec5136);
+	  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f47850), to(#ec5136));
+	  background-image: -webkit-linear-gradient(top, #f47850, #ec5136);
+	  background-image: -o-linear-gradient(top, #f47850, #ec5136);
+	  background-image: linear-gradient(top, #f47850, #ec5136);
+	  background-image: -moz-linear-gradient(top, #f47850, #ec5136);
+	  border: 1px solid #fb7860;
+	  *border: 0;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  border-color: #fb7860 #f4664d #ed5539;
+	  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f47850', endColorstr='#ec5136', GradientType=0);
+	  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+/**
+ * Оранжевая кнопка при наведении
+ */
+.buttons button.orange:hover,
+.buttons a.button.orange:hover,
+.buttons input.orange:hover {
+  background-color: #f99060 !important;
+  *background-color: #eb4d33 !important;
+  -webkit-box-shadow: inset 0 1px 0 #fcc78f; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+  -moz-box-shadow: inset 0 1px 0 #fcc78f; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */
+  box-shadow: inset 0 1px 0 #fcc78f; /* , 0 1px 1px rgba(0, 0, 0, 0.2); */   
+  background-image: -ms-linear-gradient(top, #f99060, #eb4d33);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f99060), to(#eb4d33));
+  background-image: -webkit-linear-gradient(top, #f99060, #eb4d33);
+  background-image: -o-linear-gradient(top, #f99060, #eb4d33);
+  background-image: linear-gradient(top, #f99060, #eb4d33);
+  background-image: -moz-linear-gradient(top, #f99060, #eb4d33);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f99060', endColorstr='#eb4d33', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  text-decoration: none;
+}
+  
+/**
+ * Оранжевая активная кнопка
+ */
+.buttons button.orange:active,
+.buttons a.button.orange:active,
+.buttons input.orange:active {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    background: #de563c !important;
+    border: 1px solid #de563c;
+	  *border: 0;
+	  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	  border-color: #d10e05 #d42012 #db442e;
+	  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+
+/**
+ * Оранжевая выключенная кнопка
+ */
+.buttons button.orange:disabled:active,
+.buttons button.orange:disabled,
+.buttons a.button.orange:disabled:active,
+.buttons a.button.orange:disabled,
+.buttons input.orange:disabled:active,
+.buttons input.orange:disabled{
+	background: #fAfCfA !important;
+  color: #aaa !important;
+  border: solid 1px #eee !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+
+/**
+ * Оранжевая кнопка с эффектом loading
+ */
+.buttons button.loading.orange,
+.buttons button.loading.orange:active,
+.buttons button.loading.orange:hover,
+.buttons a.button.loading.orange,
+.buttons a.button.loading.orange:active,
+.buttons a.button.loading.orange:hover,
+.buttons input.loading.orange,
+.buttons input.loading.orange:active,
+.buttons input.loading.orange:hover,
+input.loading{
+	background: #fAfCfA url(../images/form/loader_button.gif) repeat !important;
+  color: #aaa !important;
+  border: solid 1px #eee !important;
+  text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+
+
+
+.buttons button.hidden,
+.buttons a.button.hidden,
+.buttons input.hidden{display:none;}
+
+
+
+
+

@@ -1,0 +1,5 @@
+.sidebar_right{display: none;}
+#layout{width:900px !important; }
+#header,
+#footer{display:none;}
+.content_left{width: 100%;float:none;}
