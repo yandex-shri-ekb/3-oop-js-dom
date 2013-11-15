@@ -1,3 +1,109 @@
+.settings
+{
+    width:100%;
+    min-width: 980px;
+    height: 100px;
+}
+.fifth
+{
+    width:20%;
+    margin:0;
+    float:left;
+    overflow:hidden;
+}
+
+a
+{
+    color: #6DA3BD;
+}
+a:hover
+{
+    color: #4d7285;
+}
+article p a:visited
+{
+    color: #909;
+}
+
+#header
+{
+    position: relative;
+    padding-bottom: 24px;
+    padding-top: 10px;
+}
+    #header .userpanel
+    {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 350px;
+    }
+        #header .userpanel a
+        {
+            margin-right: 10px;
+            font-size: 12px;
+            font-family: arial;
+        }
+        .silver a
+        {
+            color: #999;
+        }
+    #header .logo
+    {
+        margin: 0px auto;
+        background: url("http://habrahabr.ru/images/bg-multilogo.png") -76px -127px;
+        display: block;
+        height: 140px;
+        width: 111px;
+    }
+    #header .search {
+        position: absolute;
+        right: 0;
+        top: 32px;
+        width: 30%;
+    }
+        #header .search form {
+            width: 280px;
+            float: right;
+        }
+        #header .search form input[type="submit"] {
+            border: 0;
+            background: url("http://habrahabr.ru/images/bg-button-enter.png") no-repeat 0 0;
+            width: 21px;
+            height: 21px;
+            display: block;
+            float: right;
+            margin-left: 5px;
+        }
+        #header .search form input[type="text"] {
+            font-size: 12px;
+            font-family: arial;
+            border: 1px solid #D1D1D1;
+            background: #fff;
+            color: #333;
+            padding: 2px 4px;
+            height: 15px;
+            width: 226px;
+            float: right;
+            display: block;
+        }
+    #header .main_menu {
+        text-align: left;
+        font-size: 30px;
+        font-family: Verdana,sans-serif;
+        text-transform: lowercase;
+        padding-top: 15px;
+        overflow: hidden;
+    }
+        #header .main_menu a {
+            margin-right: 24px;
+            display: block;
+            float: left;
+        }
+        #header .main_menu a.active {
+            text-decoration: none;
+            color: #000;
+        }
 .container
 {
     width: 100%;
@@ -9,6 +115,7 @@
 
     article
     {
+        display:none;
         font-size: 13px;
         margin: 0 20px 10px 0;
         line-height: 160%;
@@ -17,20 +124,98 @@
         overflow: hidden;
         width: 880px;
     }
-        article > a, .message > a
-        {
-            color: #6DA3BD;
-        }
+    .published {
+        color: #7e7e7e;
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
 
-            article > a:hover, .message > a:hover
+    h1 {
+        color: #333333;
+        font: 30px/118% normal Verdana, Tahoma, sans-serif;
+        letter-spacing: -1px;
+        margin:0 0 8px;
+    }
+
+    .hubs {
+        background: url(http://habrahabr.ru/images/posts/hub.icon.png) no-repeat 0px 0px;
+        padding-left: 25px;
+        font-size: 11px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        color: #999;
+        margin-bottom: 15px;
+    }
+
+    .hubs a {
+        color: #999;
+    }
+
+
+    article.new_text {
+        display: block;
+    }
+            article > p > h2,
+            article > p > h3,
+            article > p > h4,
+            article > p > h5,
+            article > p > h6
+            {
+                color: #999999;
+                font-family: Verdana,sans-serif;
+                font-weight: normal;
+            }
+            article > p > h2
+            {
+                font-size: 140%;/**/
+            }
+            article > p > h3
+            {
+                font-size: 130%;/**/
+            }
+            article > p > h4
+            {
+                font-size: 120%;
+            }
+            article > p > h5
+            {
+                font-size: 110%;
+            }
+            article > p > h6
+            {
+                font-size: 105%; /**/
+            }
+
+                
+
+            article > p > a:hover, .message > a:hover
             {
                 color: #4d7285;
             }
 
-            article > a:visited, .message > a:visited
+            article > p > a:visited, .message > a:visited
             {
                 color: #909;
             }
+
+        ul.tags {
+            margin-bottom: 15px;
+            font-family: Verdana, sans-serif;
+            background: url(http://habrahabr.ru/images/bg-tags2.gif) no-repeat scroll 0 50%;
+            font-size: 10px;
+            padding: 2px 0;
+            padding-left: 20px;
+            list-style: none;
+        }
+
+            ul.tags li {
+                display: inline;
+                color: #999999;
+            }
+
+                ul.tags li a {
+                    color: #666666;
+                }
 
         .comments
         {
@@ -63,6 +248,12 @@
                     -moz-border-radius: 3px;
                     border-radius: 3px;
                 }
+                    a.avatar > img
+                    {
+                        display: block;
+                        width: 24px;
+                        height: 24px;
+                    }
 
                 .username
                 {
@@ -77,6 +268,36 @@
                 .username:hover
                 {
                     color: #333;
+                }
+
+                .comma
+                {
+                    float: left;
+                    margin-top: 3px;
+                    margin-right: 10px;
+                    display: block;
+                    color: #666;
+                    font-weight: bold;
+                }
+
+                time
+                {
+                    display: block;
+                    margin-top: 3px;
+                    font-size: 10px;
+                    color: #666666;
+                    float: left;
+                    margin-right: 10px;
+                }
+                .link_to_comment
+                {
+                    text-decoration: none;
+                    display: block;
+                    margin-top: 3px;
+                    font-size: 11px;
+                    float: left;
+                    margin-right: 10px;
+                    color: #6DA3BD;
                 }
 
                 .message
@@ -96,7 +317,6 @@
             {
                 font-size: 12px;
                 background: #f8f8f8;
-                display: block;
                 white-space: pre-wrap;
                 font-family: Menlo, Monaco, "Courier New", monospace;
                 padding: 1px 4px;
@@ -106,6 +326,10 @@
                 -webkit-border-radius: 3px;
                 -moz-border-radius: 3px;
                 border-radius: 3px;
+            }
+            pre code
+            {
+                display: block;
             }
     .sidebar_right
     {
