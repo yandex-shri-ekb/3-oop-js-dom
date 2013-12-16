@@ -1,0 +1,339 @@
+body
+{
+	margin: 10px 0 0;
+}
+
+.content
+{
+	position: relative;
+	margin: 0 auto;
+	width: 60%;
+	min-width: 950px;
+	max-width: 1200px;
+	padding: 0 35px;
+}
+
+.header
+{
+	padding: 0 0 24px 0;
+	height: 190px;
+}
+
+.header>a
+{
+	color: #999;
+	font: normal 12px Arial;
+	margin: 0 10px 0 0;
+}
+
+.header img
+{
+	display: block;
+	margin: 10px auto;
+}
+
+.search
+{
+	position: absolute;
+	top: 20px;
+	right: 40px;
+}
+
+.search input
+{
+	border: 1px solid #d1d1d1;
+	vertical-align: middle;
+	width: 21px;
+}
+
+.search input[type="text"]
+{
+	width: 226px;
+	background: url('img/search.png') top right no-repeat;
+}
+
+.search input[type="submit"]
+{
+	border-radius: 3px;
+	background: #f2f2f2 url('img/str.png') center no-repeat;
+}
+
+h1
+{
+	font: normal 30px Verdana, Tahoma sans-serif;
+	color: #333;
+	letter-spacing: -1px;
+	margin: 0 0 23px 0;
+}
+
+.date
+{
+	margin: 0 0 2px;
+	font: normal 11px Verdana, sans-serif;
+	height: 13px;
+	color: #7e7e7e;
+}
+
+.menu a
+{
+	font: normal 26px Verdana, sans-serif;
+	margin: 0 15px 0 0;
+	color: #6da3bd;
+
+}
+
+.menu a:first-child
+{
+	color: #000;
+	text-decoration: none;
+}
+
+.article
+{
+	float: left;
+	width: 65%;
+	min-width: 630px;
+	max-width: 880px;
+	font: normal 13px Verdana, sans-serif;
+	overflow: hidden;
+}
+
+#createButton
+{
+	width: 100px;
+	height: 40px;
+	float: right;
+	margin: 180px 0 0;
+}
+
+#resetButton
+{
+	width: 100px;
+	height: 40px;
+	margin: 5px 0 20px;
+}
+
+#options
+{
+	width: 100%;
+	float: left;
+}
+
+.dictionary
+{
+	display: none;
+}
+
+label
+{
+	display: inline-block;
+	width: 250px;
+	line-height: 20px;
+}
+
+input[type="number"]
+{
+	width: 60px;
+	line-height: 20px;
+}
+
+.right
+{
+	float: right;
+}
+
+.best,
+.similar
+{
+	border-radius: 5px;
+	background: #f0f0e7;
+	font: normal 12px Tahoma, Arial;
+	color: #a3a3a3;
+	width: 260px;
+	padding: 15px 20px;
+	margin: 0 0 20px 20px;
+}
+
+.best
+{
+	height: 503px;
+}
+
+.best a
+{
+	display: inline-block;
+}
+
+.item
+{
+	margin: 0 0 10px;
+}
+
+.best a,
+.similar a
+{
+	font: normal 12px Tahoma, Arial;
+	margin: 0 0 10px;
+	line-height: 18px;
+	color: #666;
+}
+
+.best a:hover,
+.similar a:hover
+{
+	color: #A3A3A3;
+}
+
+.best a:last-child
+{
+	color: #999;
+	font: normal 11px Tahoma, Arial;
+}
+
+.title
+{
+	display: inline-block;
+	margin: 0 0 20px;
+	color: #999;
+	font: normal 24px Verdana, sans-serif;
+	letter-spacing: -1px;
+	height: 29px;
+}
+
+sup
+{
+	font: normal 15px Verdana, sans-serif;
+	letter-spacing: -1px;
+}
+
+.empty
+{
+	clear: both;
+	height: 30px;
+}
+
+.rotated_post
+{
+	padding: 15px 0;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	height: 45px;
+}
+
+.rotated_post a
+{
+	display: block;
+	float: left;
+	width: 33.33%;
+	color: #666;
+	font: normal 16px Verdana, sans-serif;
+	text-align: center;
+}
+
+.rotated_post a:hover
+{
+	color: #a3a3a3;
+}
+
+.col
+{
+	float: left;
+	width: 16.66%;
+	padding: 30px 0;
+}
+
+.col span,
+.col a
+{
+	display: block;
+	font: normal 13px Tahoma, Arial sans-serif;
+	line-height: 16px;
+	margin: 0 0 5px 0;
+}
+
+.col span
+{
+	color: #949494;
+}
+
+.col a
+{
+	color: #6da3bd;
+}
+
+.col a:hover,
+.menu a:hover
+{
+	color: #4d7285;
+}
+
+.footer
+{
+	background-color: #f7f7f7;
+	width: auto;
+	height: 84px;
+	padding: 2px 20px;
+	box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.footer img
+{
+	display: block;
+	margin: 2px auto;
+} 
+
+#resetButton,
+#article
+{
+	display: none;
+}
+
+.secondButton
+{
+	width: 100%;
+	text-align: center;
+}
+
+.message
+{
+	font: normal 13px Arial, sans-serif;
+	padding: 10px 0 5px;
+}
+
+.username
+{
+	padding: 20px 0 0;
+	background: url('img/user.png') left bottom no-repeat;
+	text-indent: 27px;
+}
+
+.username a
+{	
+	text-decoration: underline;
+	font: bold 12px/25px Tahoma, sans-serif;
+	color: #666;
+	padding: 0 0 0 10px;
+}
+
+#comments
+{
+	display: none;
+}
+
+#commentsCount
+{
+	padding: 30px 0 0;
+	display: none;
+	background: url('img/comments.png') left 30px no-repeat;
+	text-indent: 160px;
+	font: normal 18px/20px Verdana, sans-serif;
+	color: #afa56a;
+	vertical-align: top;
+}
+
+#loading
+{
+	width: 256px;
+	margin: 140px auto 0;
+	display: none;
+}
